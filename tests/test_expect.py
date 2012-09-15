@@ -39,11 +39,18 @@ class TestExpectation(unittest.TestCase):
         expect(1).to.be(1)
 
         try:
-            first  = {0: 1}
-            second = {0: 1}
-
-            expect(first).to.be(second)
+            expect({0: 1}).to.be({0: 1})
         except BadExpectation as error:
             expect(error.message).to.equal('Expected "{0: 1}" to be "{0: 1}"')
         else:
             raise BadExpectation('test should not equal foo')
+
+    def test_not_be(self):
+        expect({0: 1}).to.not_be({0: 1})
+
+        try:
+            expect(1).to.not_be(1)
+        except BadExpectation as error:
+            expect(error.message).to.equal('Expected "1" to not be "1"')
+        else:
+            raise BadExpectation('1 should be 1')

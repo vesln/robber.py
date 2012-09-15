@@ -27,6 +27,12 @@ class Expectation:
 
         self.__assert(assertion, message)
 
+    def not_be(self, other):
+        assertion = self.object is not other
+        message = 'Expected "%s" to not be "%s"' % (self.object, other)
+
+        self.__assert(assertion, message)
+
     def __setup_chaining(self):
         self.to = self
 
