@@ -1,5 +1,5 @@
 import unittest
-from robber import expect, BadExpectation
+from robber import expect
 from robber.matchers.equal import Equal, NotEqual
 
 class TestEqual:

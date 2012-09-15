@@ -5,6 +5,8 @@ from util import must_fail
 class TestIntegration(unittest.TestCase):
     def test_eq_success(self):
         expect(1).to.eq(1)
+        expect([1, 2]).to.eq([1, 2])
+        expect((1, 2)).to.eq((1, 2))
         expect(1).to == 1
         expect(1) == 1
 
@@ -52,3 +54,10 @@ class TestIntegration(unittest.TestCase):
     @must_fail
     def test_false_failure(self):
         expect(True).to.be.false()
+
+    def test_instancef(self):
+        expect(expect(None)).to.be.instanceof(expect)
+
+    @must_fail
+    def test_instancef(self):
+        expect(expect(None)).to.be.instanceof(unittest.TestCase)
