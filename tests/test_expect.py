@@ -1,21 +1,35 @@
 import unittest
 
 from robber.base import expect
-from robber.base import Expectation
 from robber.base import BadExpectation
 
-class TestExpect(unittest.TestCase):
-    def test_expect_returns_a_new_expectation(self):
-        expected = isinstance(expect('test'), Expectation)
-        assert(expected)
+class TestMatcher:
+    def __init__(self, actual, expected):
+        expect(actual) == 'test'
+        expect(expected) == 'bar'
 
 class TestExpectation(unittest.TestCase):
+    def test_register_a_matcher(self):
+        expect.register('test_matcher', TestMatcher)
+        test_matcher = expect('test').test_matcher('bar')
+        assert(isinstance(test_matcher, TestMatcher))
+
+    def test_registered_a_matcher(self):
+        expect.register('test_matcher', TestMatcher)
+        expect(expect.registered('test_matcher')) == True
+        expect(expect.registered('not_registered')) == False
+
+    def test_unregisted_a_matcher(self):
+        expect.register('test_matcher', TestMatcher)
+        expect.unregister('test_matcher')
+        expect(expect.registered('test_matcher')) == False
+
     def test_to_returns_self(self):
-        expectation = Expectation(None)
+        expectation = expect(None)
         expect(expectation).to.equal(expectation.to)
 
     def test_be_returns_self(self):
-        expectation = Expectation(None)
+        expectation = expect(None)
         expect(expectation).to.equal(expectation.be)
 
     def test_eq(self):

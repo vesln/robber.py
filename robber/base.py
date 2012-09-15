@@ -1,13 +1,29 @@
-def expect(target):
-    return Expectation(target)
-
 class BadExpectation(Exception):
     pass
 
-class Expectation:
+class expect:
     def __init__(self, object):
         self.object = object
         self.__setup_chaining()
+
+    @classmethod
+    def register(self, name, klass):
+        method = lambda self, other=None: klass(self.object, other)
+        setattr(self, name, method)
+
+    @classmethod
+    def unregister(self, name):
+        delattr(self, name)
+        pass
+
+    @classmethod
+    def registered(self, name):
+        try:
+            getattr(self, name)
+        except AttributeError:
+            return False
+        else:
+            return True
 
     def eq(self, other):
         assertion = self.object == other
