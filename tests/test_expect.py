@@ -1,7 +1,7 @@
 import unittest
 
-from robber.base import expect
-from robber.base import BadExpectation
+from robber.expect import expect
+from robber.bad_expectation import BadExpectation
 
 class TestMatcher:
     def __init__(self, actual, expected):

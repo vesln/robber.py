@@ -1,5 +1,4 @@
-class BadExpectation(Exception):
-    pass
+from bad_expectation import BadExpectation
 
 class expect:
     def __init__(self, object):
@@ -67,7 +66,3 @@ class expect:
     def __assert(self, expected, message):
         if not expected:
             raise BadExpectation(message)
-
-# TODO:
-# - move messages to a class
-# - alias decorator

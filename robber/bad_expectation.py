@@ -1,0 +1,3 @@
+class BadExpectation(Exception):
+    pass
+
