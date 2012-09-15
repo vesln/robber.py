@@ -32,3 +32,5 @@ class expect:
     def __setup_chaining(self):
         self.to = self
         self.be = self
+        self.a  = self
+        self.an = self

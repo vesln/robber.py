@@ -33,6 +33,14 @@ class TestExpectation(unittest.TestCase):
         expectation = expect(None)
         expect(expectation).to.equal(expectation.to)
 
+    def test_a_returns_self(self):
+        expectation = expect(None)
+        expect(expectation).to.equal(expectation.a)
+
+    def test_an_returns_self(self):
+        expectation = expect(None)
+        expect(expectation).to.equal(expectation.an)
+
     def test_be_returns_self(self):
         expectation = expect(None)
         expect(expectation).to.equal(expectation.be)
