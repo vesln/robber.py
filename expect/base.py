@@ -10,16 +10,27 @@ class Expectation:
         self.__setup_chaining()
 
     def equal(self, other):
-        if self.object != other:
-            raise BadExpectation(
-                'Expected "%s" to equal "%s"' % (self.object, other)
-            )
+        assertion = self.object == other
+        message = 'Expected "%s" to equal "%s"' % (self.object, other)
+
+        self.__assert(assertion, message)
+
+    def not_equal(self, other):
+        assertion = self.object != other
+        message = 'Expected "%s" to not equal "%s"' % (self.object, other)
+
+        self.__assert(assertion, message)
 
     def be(self, other):
-        if self.object is not other:
-            raise BadExpectation(
-                'Expected "%s" to be "%s"' % (self.object, other)
-            )
+        assertion = self.object is other
+        message = 'Expected "%s" to be "%s"' % (self.object, other)
+
+        self.__assert(assertion, message)
 
     def __setup_chaining(self):
         self.to = self
+
+    def __assert(self, expected, message):
+        if not expected:
+            raise BadExpectation(message)
+

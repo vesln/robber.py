@@ -25,6 +25,16 @@ class TestExpectation(unittest.TestCase):
         else:
             raise BadExpectation('test should not equal foo')
 
+    def test_not_equal(self):
+        expect('test').to.not_equal('spec')
+
+        try:
+            expect('test').to.not_equal('test')
+        except BadExpectation as error:
+            assert(error.message == 'Expected "test" to not equal "test"')
+        else:
+            raise BadExpectation('test should equal test')
+
     def test_be(self):
         expect(1).to.be(1)
 
