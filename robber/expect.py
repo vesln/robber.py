@@ -34,3 +34,13 @@ class expect:
         self.be = self
         self.a  = self
         self.an = self
+
+"""
+TODO:
+
+- respond to
+- truthy/falsy
+- None, string, int etc
+- empty, length
+- above/below/within, close to
+"""
