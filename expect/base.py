@@ -9,29 +9,40 @@ class Expectation:
         self.object = object
         self.__setup_chaining()
 
-    def equal(self, other):
+    def eq(self, other):
         assertion = self.object == other
         message = 'Expected "%s" to equal "%s"' % (self.object, other)
 
         self.__assert(assertion, message)
 
-    def not_equal(self, other):
+    def not_eq(self, other):
         assertion = self.object != other
         message = 'Expected "%s" to not equal "%s"' % (self.object, other)
 
         self.__assert(assertion, message)
 
-    def be(self, other):
+    def ne(self, other):
+        self.not_eq(other)
+
+    def equal(self, other):
         assertion = self.object is other
         message = 'Expected "%s" to be "%s"' % (self.object, other)
 
         self.__assert(assertion, message)
 
-    def not_be(self, other):
+    def not_equal(self, other):
         assertion = self.object is not other
         message = 'Expected "%s" to not be "%s"' % (self.object, other)
 
         self.__assert(assertion, message)
+
+    def __eq__(self, other):
+        self.eq(other)
+        return True
+
+    def __ne__(self, other):
+        self.not_eq(other)
+        return True
 
     def __setup_chaining(self):
         self.to = self
@@ -40,3 +51,4 @@ class Expectation:
         if not expected:
             raise BadExpectation(message)
 
+# TODO: alias decorator
