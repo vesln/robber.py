@@ -13,7 +13,7 @@ class NotIdentical(Base):
         return self.actual is not self.expected
 
     def failure_message(self):
-        return 'Expected "%s" to not be "%s"' % (self.actual, self.expected)
+        return 'Expected "%s" not to be "%s"' % (self.actual, self.expected)
 
 expect.register('equal', Identical)
 expect.register('not_equal', NotIdentical)

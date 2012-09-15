@@ -1,14 +1,19 @@
-from bad_expectation import BadExpectation
-
 class expect:
+    matchers = {}
+
     def __init__(self, object):
         self.object = object
         self.__setup_chaining()
 
     @classmethod
     def register(self, name, klass):
+        self.matchers[name] = klass
         method = lambda self, other=None: klass(self.object, other).match()
         setattr(self, name, method)
+
+    @classmethod
+    def matcher(self, name):
+        return self.matchers[name]
 
     @classmethod
     def unregister(self, name):

@@ -16,8 +16,8 @@ class NotEqual(Base):
         return 'Expected "%s" to not equal "%s"' % (self.actual, self.expected)
 
 expect.register('eq', Equal)
+expect.register('__eq__', Equal)
 
 expect.register('ne', NotEqual)
-expect.register('__eq__', Equal)
 expect.register('__ne__', NotEqual)
 expect.register('not_eq', NotEqual)
