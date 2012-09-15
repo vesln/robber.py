@@ -1,8 +1,8 @@
 import unittest
 
-from expect.base import expect
-from expect.base import Expectation
-from expect.base import BadExpectation
+from robber.base import expect
+from robber.base import Expectation
+from robber.base import BadExpectation
 
 class TestExpect(unittest.TestCase):
     def test_expect_returns_a_new_expectation(self):
