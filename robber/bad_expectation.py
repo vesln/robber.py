@@ -1,3 +1,2 @@
 class BadExpectation(Exception):
     pass
-

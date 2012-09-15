@@ -8,11 +8,13 @@ class TestMatcher:
         expect(actual) == 'test'
         expect(expected) == 'bar'
 
+    def match(self):
+        return True
+
 class TestExpectation(unittest.TestCase):
     def test_register_a_matcher(self):
         expect.register('test_matcher', TestMatcher)
         test_matcher = expect('test').test_matcher('bar')
-        assert(isinstance(test_matcher, TestMatcher))
 
     def test_registered_a_matcher(self):
         expect.register('test_matcher', TestMatcher)
