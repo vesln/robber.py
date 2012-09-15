@@ -46,9 +46,12 @@ class Expectation:
 
     def __setup_chaining(self):
         self.to = self
+        self.be = self
 
     def __assert(self, expected, message):
         if not expected:
             raise BadExpectation(message)
 
-# TODO: alias decorator
+# TODO:
+# - move messages to a class
+# - alias decorator

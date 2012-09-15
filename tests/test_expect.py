@@ -12,7 +12,11 @@ class TestExpect(unittest.TestCase):
 class TestExpectation(unittest.TestCase):
     def test_to_returns_self(self):
         expectation = Expectation(None)
-        assert(expectation == expectation.to)
+        expect(expectation).to.equal(expectation.to)
+
+    def test_be_returns_self(self):
+        expectation = Expectation(None)
+        expect(expectation).to.equal(expectation.be)
 
     def test_eq(self):
         expect('test').to.eq('test')
