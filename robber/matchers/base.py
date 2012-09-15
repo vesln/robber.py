@@ -1,7 +1,7 @@
 from robber.bad_expectation import BadExpectation
 
 class Base:
-    def __init__(self, actual, expected):
+    def __init__(self, actual, expected = None):
         self.actual = actual
         self.expected = expected
 

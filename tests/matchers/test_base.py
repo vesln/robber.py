@@ -28,8 +28,7 @@ class TestBase(unittest.TestCase):
     def test_it_calls_matches(self):
         matcher = TestMatcher('actual', 'expected')
         matcher.match()
-        # TODO: expect().to.be.true();
-        expect(matcher.called).to.eq(True)
+        expect(matcher.called).to.be.true()
 
     def test_it_raises_an_execption_when_cant_match(self):
         matcher = TestNotMatcher('actual', 'expected')
