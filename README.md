@@ -1,8 +1,4 @@
-# robber.py
-
-## Description
-
-BDD / TDD assertion library for Python.
+# robber.py - BDD / TDD assertion library for Python.
 
 ## Synopsis
 
