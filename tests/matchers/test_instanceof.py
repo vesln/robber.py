@@ -19,5 +19,5 @@ class TestInstanceof:
         message = instanceof.failure_message()
         expect(message) == 'Expected "%s" to be an instance of "%s"' % (first, First)
 
-    def test_it_registers_itself(self):
+    def test_register(self):
         expect(expect.matcher('instanceof')) == Instanceof
