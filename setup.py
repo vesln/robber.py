@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='robber',
-    version='0.0.1',
+    version='0.0.2',
     description='Pluggable search for Django.',
     author='Veselin Todorov',
     author_email='hi@vesln.com',
@@ -13,7 +13,6 @@ setup(
         'robber',
         'robber.matchers',
     ],
-    test_requires=['Nose'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
