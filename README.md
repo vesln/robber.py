@@ -287,6 +287,7 @@ $ nosetests tests/
 
 - close_to matcher
 - use magic method to call the matchers
+- Python 3.2?
 
 ## License
 
