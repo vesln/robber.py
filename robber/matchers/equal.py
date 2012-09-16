@@ -1,5 +1,5 @@
-from robber.expect import expect
-from robber.matchers.base import Base
+from robber import expect
+from base import Base
 
 class Equal(Base):
     def matches(self):

@@ -1,4 +1,4 @@
-from robber.expect import expect
+from robber import expect
 from base import Base
 
 class Length(Base):

@@ -42,4 +42,6 @@ TODO:
 - None, string, int etc
 - above/below/within, close to
 - raise
+- support for custom erorr messages
+- inline docs
 """
