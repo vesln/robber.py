@@ -30,18 +30,16 @@ class expect:
             return True
 
     def __setup_chaining(self):
-        self.to = self
-        self.be = self
-        self.a  = self
-        self.an = self
+        self.to   = self
+        self.be   = self
+        self.a    = self
+        self.an   = self
         self.have = self
 
 """
 TODO:
 
-- truthy/falsy
 - None, string, int etc
-- empty, length
 - above/below/within, close to
-- unify tests
+- raise
 """
