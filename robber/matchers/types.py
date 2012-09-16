@@ -43,9 +43,17 @@ class Tuple(Base):
     def failure_message(self):
         return 'Expected "%s" to be a tuple' % self.actual
 
+class Non(Base):
+    def matches(self):
+        return self.actual == None
+
+    def failure_message(self):
+        return 'Expected "%s" to be None' % self.actual
+
 expect.register('string', String)
 expect.register('integer', Integer)
 expect.register('float', Float)
 expect.register('list', List)
 expect.register('dict', Dict)
 expect.register('tuple', Tuple)
+expect.register('none', Non)

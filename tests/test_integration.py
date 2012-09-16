@@ -152,3 +152,10 @@ class TestIntegration(unittest.TestCase):
     @must_fail
     def test_tuple_failure(self):
         expect([]).to.be.a.tuple()
+
+    def test_none_success(self):
+        expect(None).to.be.none()
+
+    @must_fail
+    def test_none_failure(self):
+        expect('str').to.be.none()

@@ -1,6 +1,6 @@
 import unittest
 from robber import expect
-from robber.matchers.types import String, Integer, Float, List, Dict, Tuple
+from robber.matchers.types import String, Integer, Float, List, Dict, Tuple, Non
 
 class TestString(unittest.TestCase):
     def test_matches(self):
@@ -73,3 +73,15 @@ class TestTuple(unittest.TestCase):
 
     def test_register(self):
         expect(expect.matcher('tuple')) == Tuple
+
+class TestNone(unittest.TestCase):
+    def test_matches(self):
+        expect(Non(None).matches()) == True
+        expect(Non(1).matches()) == False
+
+    def test_failure_message(self):
+        none = Non(1)
+        expect(none.failure_message()) == 'Expected "1" to be None'
+
+    def test_register(self):
+        expect(expect.matcher('none')) == Non
