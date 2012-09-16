@@ -4,8 +4,8 @@ from distutils.core import setup
 
 setup(
     name='robber',
-    version='0.0.2',
-    description='Pluggable search for Django.',
+    version='0.0.3',
+    description='BDD / TDD assertion library for Python',
     author='Veselin Todorov',
     author_email='hi@vesln.com',
     url='https://github.com/vesln/robber.py',
