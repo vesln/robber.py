@@ -1,3 +1,20 @@
+"""
+The main entry point of the library. Most of the time
+you don't have to use anything but this class.
+
+If you want to register custom matchers, you have to registed
+them to `expect`:
+
+```
+expect.register(name, klass_that_inherits_from_matchers_base)
+```
+
+In order to make the tests more readable, there are a few chains:
+
+```
+to, be, a, an, have
+```
+"""
 class expect:
     matchers = {}
     message = None
@@ -48,9 +65,3 @@ class expect:
         self.a    = self
         self.an   = self
         self.have = self
-
-"""
-TODO:
-
-- inline docs
-"""

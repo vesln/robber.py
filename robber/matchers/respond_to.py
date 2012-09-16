@@ -1,6 +1,9 @@
 from robber import expect
 from base import Base
 
+"""
+expect(obj).to.respond_to('method')
+"""
 class RespondTo(Base):
     def matches(self):
         return hasattr(self.actual, self.expected) \
