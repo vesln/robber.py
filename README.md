@@ -117,7 +117,7 @@ expect(['test']).to.be.truthy()
 Asserts that the target is falsy:
 
 ```python
-expect([]).to.be.truthy()
+expect([]).to.be.falsy()
 ```
 
 #### length
