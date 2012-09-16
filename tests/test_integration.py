@@ -159,3 +159,24 @@ class TestIntegration(unittest.TestCase):
     @must_fail
     def test_none_failure(self):
         expect('str').to.be.none()
+
+    def test_above_success(self):
+        expect(2).to.be.above(1)
+
+    @must_fail
+    def test_above_success(self):
+        expect(1).to.be.above(2)
+
+    def test_below_success(self):
+        expect(1).to.be.below(2)
+
+    @must_fail
+    def test_below_failure(self):
+        expect(2).to.be.below(1)
+
+    def test_within_success(self):
+        expect(2).to.be.within(0, 2)
+
+    @must_fail
+    def test_within_failure(self):
+        expect(2).to.be.within(3, 4)

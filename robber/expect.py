@@ -8,7 +8,7 @@ class expect:
     @classmethod
     def register(self, name, klass):
         self.matchers[name] = klass
-        method = lambda self, other=None: klass(self.object, other).match()
+        method = lambda self, other=None, *args: klass(self.object, other, *args).match()
         setattr(self, name, method)
 
     @classmethod
@@ -39,9 +39,7 @@ class expect:
 """
 TODO:
 
-- None, string, int etc
-- above/below/within, close to
 - raise
-- support for custom erorr messages
+- support for custom error messages
 - inline docs
 """

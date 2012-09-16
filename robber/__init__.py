@@ -10,5 +10,6 @@ import matchers.respond_to
 import matchers.truthy
 import matchers.length
 import matchers.types
+import matchers.numbers
 
 from bad_expectation import BadExpectation
