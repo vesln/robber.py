@@ -1,12 +1,7 @@
 import unittest
 from robber import expect
+from tests.fixtures import First, Second
 from robber.matchers.instanceof import Instanceof
-
-class First:
-    pass
-
-class Second:
-    pass
 
 class TestInstanceof:
     def test_matches(self):

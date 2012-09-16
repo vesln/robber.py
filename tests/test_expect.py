@@ -1,19 +1,9 @@
 import unittest
 from robber import expect, BadExpectation
+from fixtures import TestMatcher
 import matcher
 
 # TODO: move to fixtures
-class TestMatcher:
-    def __init__(self, actual, expected):
-        expect(actual) == 'test'
-        expect(expected) == 'bar'
-
-    def match(self):
-        return True
-
-    def fail_with(self, message):
-        return self
-
 class TestExpectation(unittest.TestCase):
     def test_register_a_matcher(self):
         expect.register('test_matcher', TestMatcher)

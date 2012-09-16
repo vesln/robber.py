@@ -1,25 +1,7 @@
 import unittest
 from robber import expect, BadExpectation
 from robber.matchers.base import Base
-
-# TODO: use stubs
-
-class TestMatcher(Base):
-    called = False
-    message = None
-
-    def matches(self):
-        self.called = True
-        return True
-
-class TestNotMatcher(Base):
-    message = None
-
-    def matches(self):
-        return False
-
-    def failure_message(self):
-        return 'Failure message'
+from tests.fixtures import TestWillMatch, TestWontMatch
 
 class TestBase(unittest.TestCase):
     def test_it_stores_actual_and_expected(self):
@@ -29,12 +11,12 @@ class TestBase(unittest.TestCase):
         expect(base.expected) == 'expected'
 
     def test_it_calls_matches(self):
-        matcher = TestMatcher('actual', 'expected')
+        matcher = TestWillMatch('actual', 'expected')
         matcher.match()
         expect(matcher.called).to.be.true()
 
     def test_it_raises_an_execption_when_cant_match(self):
-        matcher = TestNotMatcher('actual', 'expected')
+        matcher = TestWontMatch('actual', 'expected')
 
         try:
             matcher.match()
