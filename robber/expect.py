@@ -34,6 +34,7 @@ class expect:
         self.be = self
         self.a  = self
         self.an = self
+        self.have = self
 
 """
 TODO:

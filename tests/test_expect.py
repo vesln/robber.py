@@ -1,6 +1,8 @@
 import unittest
 from robber import expect, BadExpectation
+import matcher
 
+# TODO: move to fixtures
 class TestMatcher:
     def __init__(self, actual, expected):
         expect(actual) == 'test'
@@ -29,18 +31,17 @@ class TestExpectation(unittest.TestCase):
         matcher = expect.matcher('test_matcher')
         expect(matcher) == TestMatcher
 
-    def test_to_returns_self(self):
-        expectation = expect(None)
-        expect(expectation).to.equal(expectation.to)
+    def test_to(self):
+        expect(expect).to.have.chain('be')
 
-    def test_a_returns_self(self):
-        expectation = expect(None)
-        expect(expectation).to.equal(expectation.a)
+    def test_a(self):
+        expect(expect).to.have.chain('a')
 
-    def test_an_returns_self(self):
-        expectation = expect(None)
-        expect(expectation).to.equal(expectation.an)
+    def test_an(self):
+        expect(expect).to.have.chain('an')
 
-    def test_be_returns_self(self):
-        expectation = expect(None)
-        expect(expectation).to.equal(expectation.be)
+    def test_be(self):
+        expect(expect).to.have.chain('be')
+
+    def test_have(self):
+        expect(expect).to.have.chain('have')
