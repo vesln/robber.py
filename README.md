@@ -20,7 +20,7 @@ $ pip install robber
 
 ## Requirements
 
-- Python 2.5+
+- Python 2.6+
 - pip
 
 ## Tests
