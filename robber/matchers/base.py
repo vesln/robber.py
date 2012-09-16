@@ -11,6 +11,11 @@ class Base:
         self.expected = expected
         self.args = args
 
+    def fail_with(self, message):
+        self.message = message
+        return self
+
     def match(self):
         if not self.matches():
-            raise BadExpectation, self.failure_message()
+            message = self.message or self.failure_message()
+            raise BadExpectation, message

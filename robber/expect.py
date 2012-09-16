@@ -1,14 +1,27 @@
 class expect:
     matchers = {}
+    message = None
 
     def __init__(self, object):
         self.object = object
         self.__setup_chaining()
 
     @classmethod
+    def fail_with(self, message):
+        self.message = message
+
+    @classmethod
+    def remove_custom_message(self):
+        self.message = None
+
+    @classmethod
     def register(self, name, klass):
         self.matchers[name] = klass
-        method = lambda self, other=None, *args: klass(self.object, other, *args).match()
+        method = lambda self, other=None, *args: \
+                klass(self.object, other, *args) \
+                    .fail_with(self.message) \
+                    .match()
+
         setattr(self, name, method)
 
     @classmethod
@@ -39,7 +52,5 @@ class expect:
 """
 TODO:
 
-- raise
-- support for custom error messages
 - inline docs
 """

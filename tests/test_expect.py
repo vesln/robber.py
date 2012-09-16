@@ -11,6 +11,9 @@ class TestMatcher:
     def match(self):
         return True
 
+    def fail_with(self, message):
+        return self
+
 class TestExpectation(unittest.TestCase):
     def test_register_a_matcher(self):
         expect.register('test_matcher', TestMatcher)

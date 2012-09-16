@@ -6,12 +6,15 @@ from robber.matchers.base import Base
 
 class TestMatcher(Base):
     called = False
+    message = None
 
     def matches(self):
         self.called = True
         return True
 
 class TestNotMatcher(Base):
+    message = None
+
     def matches(self):
         return False
 

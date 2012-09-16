@@ -1,5 +1,6 @@
 # TODO: fix me
 from expect import expect
+from failure_message import failure_message
 
 import matchers.equal
 import matchers.identical

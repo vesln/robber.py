@@ -1,5 +1,5 @@
 import unittest
-from robber import expect
+from robber import expect, BadExpectation, failure_message
 from util import must_fail
 
 class TestIntegration(unittest.TestCase):
@@ -180,3 +180,12 @@ class TestIntegration(unittest.TestCase):
     @must_fail
     def test_within_failure(self):
         expect(2).to.be.within(3, 4)
+
+    def test_custom_error_message(self):
+        try:
+            with failure_message('Something went wrong'):
+                expect(1).to.eq(2)
+        except BadExpectation as e:
+            expect(e.message) == 'Something went wrong'
+        else:
+            raise BadExpectation, 'must fail with custom message'
