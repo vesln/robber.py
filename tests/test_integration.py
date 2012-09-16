@@ -75,3 +75,10 @@ class TestIntegration(unittest.TestCase):
     @must_fail
     def test_not_match_failure(self):
         expect('foo').to.not_match(r'foo')
+
+    def test_respond_to_success(self):
+        expect(expect).to.respond_to('register')
+
+    @must_fail
+    def test_respond_to_failure(self):
+        expect(expect).to.respond_to('undefined_method')

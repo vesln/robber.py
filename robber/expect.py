@@ -38,9 +38,9 @@ class expect:
 """
 TODO:
 
-- respond to
 - truthy/falsy
 - None, string, int etc
 - empty, length
 - above/below/within, close to
+- unify tests
 """
