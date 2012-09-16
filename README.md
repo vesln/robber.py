@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/vesln/robber.py.png)](http://travis-ci.org/vesln/robber.py)
+
 # robber.py - BDD / TDD assertion library for Python.
 
 ## Synopsis
