@@ -1,20 +1,22 @@
 from robber import expect
 from base import Base
 
-"""
-expect(true).to.be.true()
-"""
 class TrueMatcher(Base):
+    """
+    expect(true).to.be.true()
+    """
+
     def matches(self):
         return self.actual == True
 
     def failure_message(self):
         return 'Expected %s to be True' % self.actual
 
-"""
-expect(false).to.be.false()
-"""
 class FalseMatcher(Base):
+    """
+    expect(false).to.be.false()
+    """
+
     def matches(self):
         return self.actual != True
 

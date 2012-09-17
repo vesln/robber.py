@@ -1,10 +1,11 @@
 from robber import expect
 from base import Base
 
-"""
-expect(obj).to.be.an.instanceof(Klass)
-"""
 class Instanceof(Base):
+    """
+    expect(obj).to.be.an.instanceof(Klass)
+    """
+
     def matches(self):
         return isinstance(self.actual, self.expected)
 

@@ -1,10 +1,10 @@
 from robber import expect
 
-"""
-with failure_message('Custom failure message'):
-    # some assertions
-"""
 class failure_message():
+    """
+    with failure_message('Custom failure message'):
+        # some assertions
+    """
     def __init__(self, message):
         self.message = message
 
