@@ -5,12 +5,10 @@ from robber.matchers.contain import Contain
 class TestAbove(unittest.TestCase):
     def test_matches(self):
         expect(Contain({'key': 'value'}, 'key').matches()) == True
-        expect(Contain({1, 2, 3}, 1).matches()) == True
         expect(Contain([1, 2, 3], 2).matches()) == True
         expect(Contain((1, 2, 3), 3).matches()) == True
 
         expect(Contain({'key': 'value'}, 'other').matches()) == False
-        expect(Contain({1, 2, 3}, 4).matches()) == False
         expect(Contain([1, 2, 3], 4).matches()) == False
         expect(Contain((1, 2, 3), 4).matches()) == False
 
