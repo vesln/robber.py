@@ -14,7 +14,7 @@ class TestAbove(unittest.TestCase):
 
     def test_failure_message(self):
         contain = Contain([1, 2, 3], 4)
-        expect(contain.failure_message()) == 'Expected {} to contain 4'.format([1, 2, 3])
+        expect(contain.failure_message()) == 'Expected {0} to contain 4'.format([1, 2, 3])
 
     def test_register(self):
         expect(expect.matcher('contain')) == Contain
