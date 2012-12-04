@@ -10,6 +10,6 @@ class Contain(Base):
         return self.expected in self.actual
 
     def failure_message(self):
-        return 'Expected {} to contain {}'.format(self.actual, self.expected)
+        return 'Expected {0} to contain {1}'.format(self.actual, self.expected)
 
 expect.register('contain', Contain)
