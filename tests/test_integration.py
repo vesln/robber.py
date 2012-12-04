@@ -181,6 +181,13 @@ class TestIntegration(unittest.TestCase):
     def test_within_failure(self):
         expect(2).to.be.within(3, 4)
 
+    def test_contain_success(self):
+        expect([1, 2, 3]).to.contain(2)
+
+    @must_fail
+    def test_contain_failure(self):
+        expect([1, 2, 3]).to.contain(4)
+
     def test_custom_error_message(self):
         try:
             with failure_message('Something went wrong'):
