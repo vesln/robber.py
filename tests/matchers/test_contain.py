@@ -2,7 +2,7 @@ import unittest
 from robber import expect
 from robber.matchers.contain import Contain
 
-class TestAbove(unittest.TestCase):
+class TestContain(unittest.TestCase):
     def test_matches(self):
         expect(Contain({'key': 'value'}, 'key').matches()) == True
         expect(Contain([1, 2, 3], 2).matches()) == True
