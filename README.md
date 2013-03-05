@@ -218,6 +218,22 @@ Asserts that the target is within expected:
 expect(2).to.be.within(0, 2)
 ```
 
+#### contain
+
+Asserts that the target contains an element, or a key:
+```python
+expect([1,2,3]).to.contain(2)
+expect({'foo': 'bar'}).to.contain('foo')
+```
+
+#### not_contain/exclude
+
+Asserts that the target does not contain an element, or a key:
+```python
+expect([1,2,3]).to.not_contain(2)
+expect({'foo': 'bar'}).to.exclude('foo')
+```
+
 ### Language chains
 
 In order to write more readable assertions, there are a few
