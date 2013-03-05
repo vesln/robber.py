@@ -138,6 +138,15 @@ expect([]).to.be.empty()
 expect('').to.be.empty()
 ```
 
+#### not_empty
+
+Asserts that the target is nonempty:
+
+```python
+expect([1, 2, 3]).to.be.not_empty()
+expect('foo').to.be.not_empty()
+```
+
 #### string
 
 Asserts that the target is a string:
