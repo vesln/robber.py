@@ -138,6 +138,15 @@ expect([]).to.be.empty()
 expect('').to.be.empty()
 ```
 
+#### not_empty
+
+Asserts that the target is nonempty:
+
+```python
+expect([1, 2, 3]).to.be.not_empty()
+expect('foo').to.be.not_empty()
+```
+
 #### string
 
 Asserts that the target is a string:
@@ -216,6 +225,22 @@ Asserts that the target is within expected:
 
 ```python
 expect(2).to.be.within(0, 2)
+```
+
+#### contain
+
+Asserts that the target contains an element, or a key:
+```python
+expect([1,2,3]).to.contain(2)
+expect({'foo': 'bar'}).to.contain('foo')
+```
+
+#### not_contain/exclude
+
+Asserts that the target does not contain an element, or a key:
+```python
+expect([1,2,3]).to.not_contain(4)
+expect({'foo': 'bar'}).to.exclude('baz')
 ```
 
 ### Language chains

@@ -1,6 +1,6 @@
 import unittest
 from robber import expect
-from robber.matchers.length import Length, Empty
+from robber.matchers.length import Length, Empty, NotEmpty
 
 class TestLength(unittest.TestCase):
     def test_matches(self):
@@ -33,3 +33,18 @@ class TestEmpty(unittest.TestCase):
 
     def test_register(self):
         expect(expect.matcher('empty')) == Empty
+
+class TestNotEmpty(unittest.TestCase):
+    def test_matches(self):
+        expect(NotEmpty('').matches()) == False
+        expect(NotEmpty([]).matches()) == False
+
+        expect(NotEmpty('foo').matches()) == True
+        expect(NotEmpty([1, 2]).matches()) == True
+
+    def test_failure_message(self):
+        not_empty = NotEmpty('foo')
+        expect(not_empty.failure_message()) == 'Expected "foo" to be nonempty'
+
+    def test_register(self):
+        expect(expect.matcher('not_empty')) == NotEmpty
