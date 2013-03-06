@@ -239,8 +239,8 @@ expect({'foo': 'bar'}).to.contain('foo')
 
 Asserts that the target does not contain an element, or a key:
 ```python
-expect([1,2,3]).to.not_contain(2)
-expect({'foo': 'bar'}).to.exclude('foo')
+expect([1,2,3]).to.not_contain(4)
+expect({'foo': 'bar'}).to.exclude('baz')
 ```
 
 ### Language chains
