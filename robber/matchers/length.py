@@ -23,5 +23,17 @@ class Empty(Base):
     def failure_message(self):
         return 'Expected "%s" to be empty' % self.actual
 
+class NotEmpty(Base):
+    """
+    expect('foo').to.be.not_empty()
+    expect([1, 2, 3]).to.be.not_empty()
+    """
+    def matches(self):
+        return len(self.actual) > 0
+
+    def failure_message(self):
+        return 'Expected "%s" to be nonempty' % self.actual
+
 expect.register('length', Length)
 expect.register('empty', Empty)
+expect.register('not_empty', NotEmpty)
