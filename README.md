@@ -310,9 +310,11 @@ $ nosetests tests/
 
 ## TODO
 
+- expectation chaining (e.g., expect(0.1).to.be.a.float().to.be.within(0, 1))
+- better BadExpectation print-outs for floats (currently "BadExpectation: Expected 0 to be within 0 and 1")
+- Python 3
 - close_to matcher
 - use magic method to call the matchers
-- Python 3.2?
 
 ## License
 
