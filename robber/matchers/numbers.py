@@ -9,7 +9,7 @@ class Above(Base):
         return self.actual > self.expected
 
     def failure_message(self):
-        return 'Expected %d to be above %d' % (self.actual, self.expected)
+        return 'Expected %g to be above %g' % (self.actual, self.expected)
 
 class Below(Base):
     """
@@ -19,7 +19,7 @@ class Below(Base):
         return self.actual < self.expected
 
     def failure_message(self):
-        return 'Expected %d to be below %d' % (self.actual, self.expected)
+        return 'Expected %g to be below %g' % (self.actual, self.expected)
 
 class Within(Base):
     """
@@ -29,7 +29,7 @@ class Within(Base):
         return self.expected <= self.actual <= self.args[0]
 
     def failure_message(self):
-        return 'Expected %d to be within %d and %d' % (self.actual, self.expected, self.args[0])
+        return 'Expected %g to be within %g and %g' % (self.actual, self.expected, self.args[0])
 
 expect.register('above', Above)
 expect.register('below', Below)
