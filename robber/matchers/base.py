@@ -7,8 +7,9 @@ class Base:
     idea to extend it, as well.
     """
 
-    def __init__(self, actual, expected = None, *args):
-        self.actual = actual
+    def __init__(self, expect, expected = None, *args):
+        self.expect = expect
+        self.actual = expect.object
         self.expected = expected
         self.args = args
 
@@ -20,3 +21,5 @@ class Base:
         if not self.matches():
             message = self.message or self.failure_message()
             raise BadExpectation, message
+
+        return self.expect
