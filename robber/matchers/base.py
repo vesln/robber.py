@@ -1,4 +1,5 @@
 from robber.bad_expectation import BadExpectation
+from robber.expect import expect
 
 class Base:
     """
@@ -7,9 +8,8 @@ class Base:
     idea to extend it, as well.
     """
 
-    def __init__(self, expect, expected = None, *args):
-        self.expect = expect
-        self.actual = expect.object
+    def __init__(self, actual, expected = None, *args):
+        self.actual = actual
         self.expected = expected
         self.args = args
 
@@ -22,4 +22,4 @@ class Base:
             message = self.message or self.failure_message()
             raise BadExpectation, message
 
-        return self.expect
+        return expect(self.actual)

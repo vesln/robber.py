@@ -35,7 +35,7 @@ class expect:
     def register(cls, name, klass):
         cls.matchers[name] = klass
         method = lambda self, other=None, *args: \
-                klass(self, other, *args) \
+                klass(self.object, other, *args) \
                     .fail_with(self.message) \
                     .match()
 
