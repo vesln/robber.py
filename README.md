@@ -254,6 +254,29 @@ built-in language chains that you can use:
 - an
 - have
 
+For example, the following two lines are functionally equivalent:
+
+```
+expect(1.0).to.be.a.float()
+
+expect(1.0).float()
+```
+
+### Expectation chaining
+
+In the spirit of more readable assertions, and to eliminate redundant
+evaluations of the same expression, you can chain multiple expectations.
+
+For example, the following two lines are functionally equivalent.
+The first example evaluates the expression '1 + 1' only once:
+
+```
+expect(1 + 1).to.be.an.integer().to.be.within(1, 3)
+
+expect(1 + 1).to.be.an.integer()
+expect(1 + 1).to.be within(1, 3)
+```
+
 ### Custom assertions
 
 Writing custom assertion is as easy as extending a base
@@ -310,8 +333,6 @@ $ nosetests tests/
 
 ## TODO
 
-- expectation chaining (e.g., expect(0.1).to.be.a.float().to.be.within(0, 1))
-- better BadExpectation print-outs for floats (currently "BadExpectation: Expected 0 to be within 0 and 1")
 - Python 3
 - close_to matcher
 - use magic method to call the matchers

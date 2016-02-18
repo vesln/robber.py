@@ -1,4 +1,5 @@
 from robber.bad_expectation import BadExpectation
+from robber.expect import expect
 
 class Base:
     """
@@ -20,3 +21,5 @@ class Base:
         if not self.matches():
             message = self.message or self.failure_message()
             raise BadExpectation, message
+
+        return expect(self.actual)

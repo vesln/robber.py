@@ -24,7 +24,7 @@ class TestExpectation(unittest.TestCase):
         expect(matcher) == TestMatcher
 
     def test_to(self):
-        expect(expect).to.have.chain('be')
+        expect(expect).to.have.chain('to')
 
     def test_a(self):
         expect(expect).to.have.chain('a')
@@ -37,3 +37,8 @@ class TestExpectation(unittest.TestCase):
 
     def test_have(self):
         expect(expect).to.have.chain('have')
+
+    def test_chaining(self):
+        expect(expect)\
+            .to.have.chain('to')\
+            .to.have.chain('be')
