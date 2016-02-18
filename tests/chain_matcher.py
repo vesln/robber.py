@@ -1,6 +1,7 @@
 from robber.expect import expect
 from robber.matchers.base import Base
 
+
 class Chain(Base):
     def matches(self):
         expectation = self.actual(None)

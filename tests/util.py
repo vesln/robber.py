@@ -7,7 +7,7 @@ def must_fail(fn, *args, **kwargs):
         except BadExpectation:
             pass
         else:
-            raise BadExpectation, 'it must fail'
+            raise BadExpectation('it must fail')
 
     return test_decorated
 

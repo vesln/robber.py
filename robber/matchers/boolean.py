@@ -1,5 +1,6 @@
 from robber import expect
-from base import Base
+from robber.matchers.base import Base
+
 
 class TrueMatcher(Base):
     """

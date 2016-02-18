@@ -1,6 +1,7 @@
 from robber import expect
 from robber.matchers.base import Base
 
+
 class TestMatcher:
     def __init__(self, actual, expected):
         expect(actual) == 'test'

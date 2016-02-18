@@ -1,6 +1,6 @@
 import unittest
 from robber import expect, BadExpectation, failure_message
-from util import must_fail
+from tests import must_fail
 
 class TestIntegration(unittest.TestCase):
     def test_eq_success(self):
@@ -195,4 +195,4 @@ class TestIntegration(unittest.TestCase):
         except BadExpectation as e:
             expect(e.message) == 'Something went wrong'
         else:
-            raise BadExpectation, 'must fail with custom message'
+            raise BadExpectation('must fail with custom message')
