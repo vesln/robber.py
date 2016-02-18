@@ -1,7 +1,8 @@
 import unittest
 from robber import expect, BadExpectation
-from fixtures import TestMatcher
-import chain_matcher
+from tests import TestMatcher
+from tests import chain_matcher
+
 
 class TestExpectation(unittest.TestCase):
     def test_register_a_matcher(self):

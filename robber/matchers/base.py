@@ -20,6 +20,6 @@ class Base:
     def match(self):
         if not self.matches():
             message = self.message or self.failure_message()
-            raise BadExpectation, message
+            raise BadExpectation(message)
 
         return expect(self.actual)

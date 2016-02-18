@@ -40,6 +40,7 @@ class expect:
                     .match()
 
         setattr(cls, name, method)
+        # cls.name = method
 
     @classmethod
     def matcher(cls, name):

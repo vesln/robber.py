@@ -23,4 +23,4 @@ class TestBase(unittest.TestCase):
         except BadExpectation as failure:
             expect(failure.message).to.eq('Failure message')
         else:
-            raise BadExpectation, 'it should raise an exception'
+            raise BadExpectation('it should raise an exception')
