@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from distutils.core import setup
-import pypandoc
-
-long_description = pypandoc.convert('README.md', 'rst')
 
 setup(
     name='robber',
-    version='1.0.0',
+    version='1.0.1',
     description='BDD / TDD assertion library for Python',
-    long_description=long_description,
     author='Tao Liang',
     author_email='tao@synapse-ai.com',
     url='https://github.com/vesln/robber.py',
