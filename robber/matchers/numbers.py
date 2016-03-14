@@ -12,6 +12,7 @@ class Above(Base):
     def failure_message(self):
         return 'Expected %g to be above %g' % (self.actual, self.expected)
 
+
 class Below(Base):
     """
     expect(1).to.be.below(2)
@@ -21,6 +22,7 @@ class Below(Base):
 
     def failure_message(self):
         return 'Expected %g to be below %g' % (self.actual, self.expected)
+
 
 class Within(Base):
     """
@@ -34,4 +36,8 @@ class Within(Base):
 
 expect.register('above', Above)
 expect.register('below', Below)
+expect.register('more_than', Above)
+expect.register('less_than', Below)
+expect.register('greater_than', Above)
+expect.register('smaller_than', Below)
 expect.register('within', Within)
