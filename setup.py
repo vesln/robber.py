@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='robber',
-    version='0.2.0',
+    version='1.0.0',
     description='BDD / TDD assertion library for Python',
     author='Tao Liang',
     author_email='tao@synapse-ai.com',
@@ -16,7 +16,7 @@ setup(
     classifiers=[
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
