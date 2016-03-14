@@ -1,4 +1,6 @@
-[![Build Status](https://secure.travis-ci.org/vesln/robber.py.png)](http://travis-ci.org/vesln/robber.py)
+[![Build Status](https://secure.travis-ci.org/taoenator/robber.py.png)](http://travis-ci.org/taoenator/robber.py)
+[![Coverage Status](https://coveralls.io/repos/github/taoenator/robber.py/badge.svg?branch=master)](https://coveralls.io/github/taoenator/robber.py?branch=master)
+
 
 # robber.py - BDD / TDD assertion library for Python.
 

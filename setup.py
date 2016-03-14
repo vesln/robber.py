@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='robber',
-    version='0.1.0',
+    version='0.2.0',
     description='BDD / TDD assertion library for Python',
     author='Veselin Todorov',
     author_email='hi@vesln.com',
