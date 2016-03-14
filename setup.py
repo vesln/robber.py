@@ -6,8 +6,8 @@ setup(
     name='robber',
     version='0.2.0',
     description='BDD / TDD assertion library for Python',
-    author='Veselin Todorov',
-    author_email='hi@vesln.com',
+    author='Tao Liang',
+    author_email='tao@synapse-ai.com',
     url='https://github.com/vesln/robber.py',
     packages=[
         'robber',
