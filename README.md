@@ -324,7 +324,7 @@ $ pip install robber
 
 ## Requirements
 
-- Python 2.6, 2.7 or 3.2
+- Python 2.6, 2.7 or 3.5
 - pip
 - nose (for testing)
 
