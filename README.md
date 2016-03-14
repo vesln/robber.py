@@ -324,20 +324,15 @@ $ pip install robber
 
 ## Requirements
 
-- Python 2.6, 2.7 (3.2 not tested yet)
+- Python 2.6, 2.7 or 3.5
 - pip
+- nose (for testing)
 
 ## Tests
 
 ```
 $ nosetests tests/
 ```
-
-## TODO
-
-- Python 3
-- close_to matcher
-- use magic method to call the matchers
 
 ## License
 
