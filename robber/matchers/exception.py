@@ -29,4 +29,4 @@ class ExceptionMatcher(Base):
 
         return 'Expected %s, got %s' % (self.expected.__name__, got)
 
-expect.register('raise', ExceptionMatcher)
+expect.register('throw', ExceptionMatcher)

@@ -245,13 +245,14 @@ expect([1,2,3]).to.not_contain(4)
 expect({'foo': 'bar'}).to.exclude('baz')
 ```
 
-### throw/raise
+### throw
 
 Asserts that the target throw an exception
 
 ``` python
-expect(lambda: raise_exception(...)).to.raise(Exception)
+expect(lambda: raise_exception(...)).to.throw(Exception)
 ```
+
 
 ### Language chains
 
