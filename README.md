@@ -247,7 +247,7 @@ expect({'foo': 'bar'}).to.exclude('baz')
 
 ### throw
 
-Asserts that the target throw an exception
+Asserts that the target throws an exception
 
 ``` python
 expect(lambda: raise_exception(...)).to.throw(Exception)
