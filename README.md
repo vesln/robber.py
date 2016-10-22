@@ -254,7 +254,6 @@ expect(lambda: raise_exception(...)).to.throw(Exception)
 expect(any_callable).to.throw(Exception)
 ```
 
-
 ### Language chains
 
 In order to write more readable assertions, there are a few
