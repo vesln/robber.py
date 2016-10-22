@@ -251,7 +251,6 @@ Asserts that the target throws an exception
 
 ``` python
 expect(lambda: raise_exception(...)).to.throw(Exception)
-expect(lambda: raise_exception(...)).throws(Exception)
 expect(any_callable).to.throw(Exception)
 ```
 
