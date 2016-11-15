@@ -19,8 +19,9 @@ class expect:
     matchers = {}
     message = None
 
-    def __init__(self, object):
-        self.object = object
+    def __init__(self, obj):
+        self.obj = obj
+        self.is_negated = False
         self.__setup_chaining()
 
     @classmethod
@@ -35,12 +36,11 @@ class expect:
     def register(cls, name, klass):
         cls.matchers[name] = klass
         method = lambda self, other=None, *args: \
-                klass(self.object, other, *args) \
-                    .fail_with(self.message) \
-                    .match()
+                                            klass(self.obj, other, self.is_negated, *args) \
+                                            .fail_with(self.message) \
+                                            .match()
 
         setattr(cls, name, method)
-        # cls.name = method
 
     @classmethod
     def matcher(cls, name):
@@ -60,9 +60,14 @@ class expect:
         else:
             return True
 
+    @property
+    def not_to(self):
+        self.is_negated = True
+        return self
+
     def __setup_chaining(self):
-        self.to   = self
-        self.be   = self
-        self.a    = self
-        self.an   = self
+        self.to = self
+        self.be = self
+        self.a = self
+        self.an = self
         self.have = self
