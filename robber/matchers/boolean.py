@@ -11,7 +11,9 @@ class TrueMatcher(Base):
         return self.actual == True
 
     def failure_message(self):
-        return 'Expected %s to be True' % self.actual
+        negated_message = ' not' if self.is_negated else ''
+        return 'Expected %s%s to be True' % (self.actual, negated_message)
+
 
 class FalseMatcher(Base):
     """
@@ -22,7 +24,8 @@ class FalseMatcher(Base):
         return self.actual != True
 
     def failure_message(self):
-        return 'Expected %s to be False' % self.actual
+        negated_message = ' not' if self.is_negated else ''
+        return 'Expected %s%s to be False' % (self.actual, negated_message)
 
 expect.register('true', TrueMatcher)
 expect.register('false', FalseMatcher)

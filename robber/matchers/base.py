@@ -20,7 +20,7 @@ class Base:
         return self
 
     def match(self):
-        if not self.matches() and not self.is_negated:
+        if not (self.matches() or self.is_negated):
             message = self.message or self.failure_message()
             raise BadExpectation(message)
 
