@@ -346,10 +346,10 @@ $ nosetests tests/
 #### Run test in multiple python versions with tox
 
 - Prerequisite
-You must have [pyenv](https://github.com/yyuu/pyenv), [virtualenv](https://github.com/yyuu/pyenv-virtualenv) installed. Install needed python versions:
+You must have [pyenv](https://github.com/yyuu/pyenv), [virtualenv](https://github.com/yyuu/pyenv-virtualenv) installed. Install needed python versions (on `.python-version`):
 
 ```
-pyenv install 2.6.9 2.7.11 3.4.2 3.5.2
+pyenv install <PYTHON_VERSION>
 ```
 - Install `tox`
 ```
