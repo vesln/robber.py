@@ -343,6 +343,23 @@ $ pip install robber
 $ nosetests tests/
 ```
 
+#### Run test in multiple python versions with tox
+
+- Prerequisite
+You must have [pyenv](https://github.com/yyuu/pyenv), [virtualenv](https://github.com/yyuu/pyenv-virtualenv) installed. Install needed python versions:
+
+```
+pyenv install 2.6.9 2.7.11 3.4.2 3.5.2
+```
+- Install `tox`
+```
+pip install tox
+```
+- Run test:
+```
+tox
+```
+
 ## License
 
 MIT License
