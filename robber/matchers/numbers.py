@@ -49,13 +49,13 @@ class Change(Base):
         changed = self.callable(self.obj) - self.obj
 
         if changed != amount:
-            message = self.message or self.failure_message(self.obj, amount, changed)
+            message = self.message or self.failure_message(self.callable.__name__, self.obj, amount, changed)
             raise BadExpectation(message)
 
         return expect(self.obj)
 
-    def failure_message(self, obj, changed, got):
-        return 'Expected %g to be changed by %g, but was changed by %g' % (obj, changed, got)
+    def failure_message(self, callable_name, obj, changed, got):
+        return 'Expect function %s to change %g by %g, but was changed by %g' % (callable_name, obj, changed, got)
 
 
 expect.register('above', Above)

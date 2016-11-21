@@ -43,4 +43,9 @@ class TestChange(unittest.TestCase):
         expect(Change(lambda x: x + 2, 1).by(2)) == True
 
     def test_change_by_raise_exception(self):
-        self.assertRaises(BadExpectation, Change(lambda x: x + 2, 1).by, 1)
+        def increase_by_2(x):
+            return x + 2
+
+        with self.assertRaises(BadExpectation) as cm:
+            Change(increase_by_2, 1).by(1)
+        self.assertEqual(cm.exception.message, 'Expect function increase_by_2 to change 1 by 1, but was changed by 2')
