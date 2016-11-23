@@ -1,6 +1,6 @@
 import unittest
-from robber import expect
-from robber.matchers.numbers import Above, Below, Within
+from robber import expect, BadExpectation
+from robber.matchers.numbers import Above, Below, Within, Change
 
 class TestAbove(unittest.TestCase):
     def test_matches(self):
@@ -37,3 +37,15 @@ class TestWithin(unittest.TestCase):
 
     def test_register(self):
         expect(expect.matcher('within')) == Within
+
+class TestChange(unittest.TestCase):
+    def test_change_by_success(self):
+        expect(Change(lambda x: x + 2, 1).by(2)) == True
+
+    def test_change_by_raise_exception(self):
+        def increase_by_2(x):
+            return x + 2
+        try:
+            Change(increase_by_2, 1).by(1)
+        except BadExpectation as exception:
+            self.assertEqual(exception.message, 'Expect function increase_by_2 to change 1 by 1, but was changed by 2')

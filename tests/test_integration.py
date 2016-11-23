@@ -196,3 +196,10 @@ class TestIntegration(unittest.TestCase):
             expect(e.message) == 'Something went wrong'
         else:
             raise BadExpectation('must fail with custom message')
+
+    def test_change_by_success(self):
+        expect(lambda x: x + 1).to.change(0).by(1)
+
+    @must_fail
+    def test_change_by_failure(self):
+        expect(lambda x: x + 1).to.change(0).by(2)
