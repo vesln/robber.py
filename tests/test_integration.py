@@ -2,6 +2,7 @@ import unittest
 from robber import expect, BadExpectation, failure_message
 from tests import must_fail
 
+
 class TestIntegration(unittest.TestCase):
     def test_eq_success(self):
         expect(1).to.eq(1)
@@ -203,3 +204,10 @@ class TestIntegration(unittest.TestCase):
     @must_fail
     def test_change_by_failure(self):
         expect(lambda x: x + 1).to.change(0).by(2)
+
+    def test_exception_success(self):
+        expect(lambda: 1 / 0).to.throw(ZeroDivisionError)
+
+    @must_fail
+    def test_exception_success(self):
+        expect(lambda: None).to.throw(Exception)
