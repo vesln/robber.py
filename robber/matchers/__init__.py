@@ -15,3 +15,4 @@ from robber.matchers.length import *
 from robber.matchers.types import *
 from robber.matchers.numbers import *
 from robber.matchers.contain import *
+from robber.matchers.exception import *
