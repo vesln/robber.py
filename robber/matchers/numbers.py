@@ -1,6 +1,6 @@
+from robber import BadExpectation
 from robber import expect
 from robber.matchers.base import Base
-
 
 class Above(Base):
     """
@@ -34,6 +34,30 @@ class Within(Base):
     def failure_message(self):
         return 'Expected %g to be within %g and %g' % (self.actual, self.expected, self.args[0])
 
+
+class Change(Base):
+    def __init__(self, callable, obj=None, *args):
+        self.callable = callable
+        self.obj = obj
+        self.args = args
+        self.message = None
+
+    def match(self):
+        return self
+
+    def by(self, amount=0):
+        changed = self.callable(self.obj) - self.obj
+
+        if changed != amount:
+            message = self.message or self.failure_message(self.callable.__name__, self.obj, amount, changed)
+            raise BadExpectation(message)
+
+        return expect(self.obj)
+
+    def failure_message(self, callable_name, obj, changed, got):
+        return 'Expect function %s to change %g by %g, but was changed by %g' % (callable_name, obj, changed, got)
+
+
 expect.register('above', Above)
 expect.register('below', Below)
 expect.register('more_than', Above)
@@ -41,3 +65,4 @@ expect.register('less_than', Below)
 expect.register('greater_than', Above)
 expect.register('smaller_than', Below)
 expect.register('within', Within)
+expect.register('change', Change)

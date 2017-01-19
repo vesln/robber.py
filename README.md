@@ -245,6 +245,15 @@ expect([1,2,3]).to.not_contain(4)
 expect({'foo': 'bar'}).to.exclude('baz')
 ```
 
+#### throw
+
+Asserts that the target throws an exception
+
+``` python
+expect(lambda: raise_exception(...)).to.throw(Exception)
+expect(any_callable).to.throw(Exception)
+```
+
 ### Language chains
 
 In order to write more readable assertions, there are a few
