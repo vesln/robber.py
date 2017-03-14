@@ -23,7 +23,5 @@ class TestCalled(TestCase):
         expect(expect.matcher('__called__')) == Called
 
     def test_not_a_mock(self):
-        with self.assertRaises(TypeError):
-            expect(Called("a").matches()) == True
-        with self.assertRaises(TypeError):
-            expect(Called(1).matches()) == True
+        self.assertRaises(TypeError, Called("a").matches)
+        self.assertRaises(TypeError, Called(1).matches)

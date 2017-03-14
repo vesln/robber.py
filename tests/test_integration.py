@@ -226,7 +226,5 @@ class TestIntegration(unittest.TestCase):
         expect(mock).to.be.called()
 
     def test_not_a_mock(self):
-        with self.assertRaises(TypeError):
-            expect('a').to.be.called()
-        with self.assertRaises(TypeError):
-            expect(1).to.be.called()
+        self.assertRaises(TypeError, expect('a').to.be.called)
+        self.assertRaises(TypeError, expect(1).to.be.called)
