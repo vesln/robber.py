@@ -8,9 +8,9 @@ class TestEqual:
         expect(Equal(1, 2).matches()) == False
 
     def test_failure_message(self):
-        equal = Equal('actual', 'expected')
+        equal = Equal('123', 123)
         message = equal.failure_message()
-        expect(message) == 'Expected "actual" to equal "expected"'
+        expect(message) == 'Expected str("123") to equal int("123")'
 
     def test_register(self):
         expect(expect.matcher('eq')) == Equal
