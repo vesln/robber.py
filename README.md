@@ -254,6 +254,14 @@ expect(lambda: raise_exception(...)).to.throw(Exception)
 expect(any_callable).to.throw(Exception)
 ```
 
+#### called 
+
+Asserts that a mock has been called 
+
+``` python
+expect(mock).to.be.called()
+```
+
 ### Language chains
 
 In order to write more readable assertions, there are a few
