@@ -254,6 +254,14 @@ expect(lambda: raise_exception(...)).to.throw(Exception)
 expect(any_callable).to.throw(Exception)
 ```
 
+#### callable
+
+Asserts that a object is callable 
+
+``` python
+expect(object).to.be.callable
+```
+
 ### Language chains
 
 In order to write more readable assertions, there are a few
