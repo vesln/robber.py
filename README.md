@@ -262,6 +262,14 @@ Asserts that a mock has been called
 expect(mock).to.be.called()
 ```
 
+#### called_once
+
+Asserts that a mock has been called exactly one time
+
+``` python
+expect(mock).to.be.called_once()
+```
+
 ### Language chains
 
 In order to write more readable assertions, there are a few

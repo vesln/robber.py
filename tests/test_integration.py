@@ -215,6 +215,7 @@ class TestIntegration(unittest.TestCase):
     def test_exception_success(self):
         expect(lambda: None).to.throw(Exception)
 
+    # Called
     def test_called_success(self):
         mock = Mock()
         mock()
@@ -225,6 +226,28 @@ class TestIntegration(unittest.TestCase):
         mock = Mock()
         expect(mock).to.be.called()
 
-    def test_not_a_mock(self):
+    def test_called_not_a_mock(self):
         self.assertRaises(TypeError, expect('a').to.be.called)
         self.assertRaises(TypeError, expect(1).to.be.called)
+
+    # Called once
+    def test_called_once_success(self):
+        mock = Mock()
+        mock()
+        expect(mock).to.be.called_once()
+
+    @must_fail
+    def test_called_once_failure_with_not_called(self):
+        mock = Mock()
+        expect(mock).to.be.called_once()
+
+    @must_fail
+    def test_called_once_failure_with_called_many_times(self):
+        mock = Mock()
+        mock()
+        mock()
+        expect(mock).to.be.called_once()
+
+    def test_called_once_not_a_mock(self):
+        self.assertRaises(TypeError, expect('a').to.be.called_once)
+        self.assertRaises(TypeError, expect(1).to.be.called_once)
