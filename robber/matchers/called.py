@@ -11,10 +11,10 @@ class Called(Base):
         try:
             return self.actual.called
         except AttributeError:
-            raise TypeError('{function} is not a mock'.format(function=self.actual))
+            raise TypeError('{actual} is not a mock'.format(actual=self.actual))
 
     def failure_message(self):
-        return 'Expected {function} to be called'.format(function=self.actual)
+        return 'Expected {actual} to be called'.format(actual=self.actual)
 
 
 expect.register('called', Called)
