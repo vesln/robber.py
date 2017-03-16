@@ -8,7 +8,7 @@ class Callable(Base):
     """
 
     def matches(self):
-        return hasattr(self.actual, '__call__')
+        return callable(self.actual)
 
     def failure_message(self):
         return 'Expected {actual} to be callable'.format(actual=self.actual)

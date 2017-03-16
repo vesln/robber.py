@@ -12,8 +12,8 @@ class TestCallable(TestCase):
         expect(Callable(a).matches()) == True
 
     def test_failure_message(self):
-        callable = Callable("a")
-        message = callable.failure_message()
+        assert_callable = Callable("a")
+        message = assert_callable.failure_message()
         expect(message) == 'Expected a to be callable'
 
     def test_register(self):
