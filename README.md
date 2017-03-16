@@ -3,6 +3,8 @@
 
 
 # robber.py - BDD / TDD assertion library for Python.
+## Supported python versions
+- `robber.py` now supports python 2.6, 2.7, 3.4, 3.5 and python 3.6
 
 ## Synopsis
 
