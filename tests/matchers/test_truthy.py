@@ -5,11 +5,11 @@ from robber.matchers.truthy import Truthy, Falsy
 
 class TestTruthy(unittest.TestCase):
     def test_matches(self):
-        expect(Truthy(expect).matches()) == True
-        expect(Truthy(['foo']).matches()) == True
+        expect(Truthy(expect).matches()) is True
+        expect(Truthy(['foo']).matches()) is True
 
-        expect(Truthy(None).matches()) == False
-        expect(Truthy([]).matches()) == False
+        expect(Truthy(None).matches()) is False
+        expect(Truthy([]).matches()) is False
 
     def test_failure_message(self):
         truthy = Truthy(False)
@@ -21,11 +21,11 @@ class TestTruthy(unittest.TestCase):
 
 class TestFalsy(unittest.TestCase):
     def test_matches(self):
-        expect(Falsy(None).matches()) == True
-        expect(Falsy([]).matches()) == True
+        expect(Falsy(None).matches()) is True
+        expect(Falsy([]).matches()) is True
 
-        expect(Falsy(expect).matches()) == False
-        expect(Falsy(['foo']).matches()) == False
+        expect(Falsy(expect).matches()) is False
+        expect(Falsy(['foo']).matches()) is False
 
     def test_failure_message(self):
         falsy = Falsy(True)

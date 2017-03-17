@@ -5,8 +5,8 @@ from robber.matchers.numbers import Above, Below, Within, Change
 
 class TestAbove(unittest.TestCase):
     def test_matches(self):
-        expect(Above(2, 1).matches()) == True
-        expect(Above(1, 2).matches()) == False
+        expect(Above(2, 1).matches()) is True
+        expect(Above(1, 2).matches()) is False
 
     def test_failure_message(self):
         above = Above(1, 2)
@@ -18,8 +18,8 @@ class TestAbove(unittest.TestCase):
 
 class TestBelow(unittest.TestCase):
     def test_matches(self):
-        expect(Below(1, 2).matches()) == True
-        expect(Below(2, 1).matches()) == False
+        expect(Below(1, 2).matches()) is True
+        expect(Below(2, 1).matches()) is False
 
     def test_failure_message(self):
         below = Below(1, 2)
@@ -31,8 +31,8 @@ class TestBelow(unittest.TestCase):
 
 class TestWithin(unittest.TestCase):
     def test_matches(self):
-        expect(Within(1, 0, 2).matches()) == True
-        expect(Within(2, 3, 4).matches()) == False
+        expect(Within(1, 0, 2).matches()) is True
+        expect(Within(2, 3, 4).matches()) is False
 
     def test_failure_message(self):
         within = Within(1, 2, 3)
@@ -44,7 +44,7 @@ class TestWithin(unittest.TestCase):
 
 class TestChange(unittest.TestCase):
     def test_change_by_success(self):
-        expect(Change(lambda x: x + 2, 1).by(2)) == True
+        expect(Change(lambda x: x + 2, 1).by(2)) is True
 
     def test_change_by_raise_exception(self):
         def increase_by_2(x):

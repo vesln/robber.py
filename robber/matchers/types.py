@@ -80,7 +80,7 @@ class Non(Base):
     """
 
     def matches(self):
-        return self.actual == None
+        return self.actual is None
 
     def failure_message(self):
         return 'Expected "%s" to be None' % self.actual

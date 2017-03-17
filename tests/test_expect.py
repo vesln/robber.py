@@ -11,13 +11,13 @@ class TestExpectation(unittest.TestCase):
 
     def test_registered_a_matcher(self):
         expect.register('test_matcher', TestMatcher)
-        expect(expect.registered('test_matcher')) == True
-        expect(expect.registered('not_registered')) == False
+        expect(expect.registered('test_matcher')) is True
+        expect(expect.registered('not_registered')) is False
 
     def test_unregisted_a_matcher(self):
         expect.register('test_matcher', TestMatcher)
         expect.unregister('test_matcher')
-        expect(expect.registered('test_matcher')) == False
+        expect(expect.registered('test_matcher')) is False
 
     def test_it_can_return_matcher(self):
         expect.register('test_matcher', TestMatcher)
