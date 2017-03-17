@@ -1,6 +1,6 @@
-import unittest
 from robber import expect
 from robber.matchers.boolean import TrueMatcher, FalseMatcher
+
 
 class TestTrueMatcher:
     def test_matches(self):
@@ -14,6 +14,7 @@ class TestTrueMatcher:
 
     def test_register(self):
         expect(expect.matcher('true')) == TrueMatcher
+
 
 class TestFalseMatcher:
     def test_matches(self):

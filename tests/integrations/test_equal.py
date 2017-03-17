@@ -40,5 +40,5 @@ class TestEqualIntegrations(TestCase):
         expect(1).to.not_equal(2)
 
     @must_fail
-    def test_equal_failure(self):
+    def test_not_equal_failure(self):
         expect(1).to.not_equal(1)

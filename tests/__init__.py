@@ -5,4 +5,3 @@ __all__ = [
 from tests.fixtures import *
 from tests.util import *
 from tests.chain_matcher import *
-

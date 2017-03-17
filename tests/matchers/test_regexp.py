@@ -1,6 +1,6 @@
-import unittest
 from robber import expect
 from robber.matchers.regexp import Match, NotMatch
+
 
 class TestMatch:
     def test_matches(self):
@@ -14,6 +14,7 @@ class TestMatch:
 
     def test_register(self):
         expect(expect.matcher('match')) == Match
+
 
 class TestNotMatch:
     def test_matches(self):

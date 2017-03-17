@@ -13,6 +13,7 @@ class TrueMatcher(Base):
     def failure_message(self):
         return 'Expected %s to be True' % self.actual
 
+
 class FalseMatcher(Base):
     """
     expect(false).to.be.false()
@@ -23,6 +24,7 @@ class FalseMatcher(Base):
 
     def failure_message(self):
         return 'Expected %s to be False' % self.actual
+
 
 expect.register('true', TrueMatcher)
 expect.register('false', FalseMatcher)

@@ -2,6 +2,7 @@ import unittest
 from robber import expect
 from robber.matchers.truthy import Truthy, Falsy
 
+
 class TestTruthy(unittest.TestCase):
     def test_matches(self):
         expect(Truthy(expect).matches()) == True
@@ -16,6 +17,7 @@ class TestTruthy(unittest.TestCase):
 
     def test_register(self):
         expect(expect.matcher('truthy')) == Truthy
+
 
 class TestFalsy(unittest.TestCase):
     def test_matches(self):

@@ -2,6 +2,7 @@ import unittest
 from robber import expect
 from robber.matchers.types import String, Integer, Float, List, Dict, Tuple, Non
 
+
 class TestString(unittest.TestCase):
     def test_matches(self):
         expect(String('str').matches()) == True
@@ -13,6 +14,7 @@ class TestString(unittest.TestCase):
 
     def test_register(self):
         expect(expect.matcher('string')) == String
+
 
 class TestInteger(unittest.TestCase):
     def test_matches(self):
@@ -26,6 +28,7 @@ class TestInteger(unittest.TestCase):
     def test_register(self):
         expect(expect.matcher('integer')) == Integer
 
+
 class TestFloat(unittest.TestCase):
     def test_matches(self):
         expect(Float(1.0).matches()) == True
@@ -37,6 +40,7 @@ class TestFloat(unittest.TestCase):
 
     def test_register(self):
         expect(expect.matcher('float')) == Float
+
 
 class TestArray(unittest.TestCase):
     def test_matches(self):
@@ -50,6 +54,7 @@ class TestArray(unittest.TestCase):
     def test_register(self):
         expect(expect.matcher('list')) == List
 
+
 class TestDict(unittest.TestCase):
     def test_matches(self):
         expect(Dict({}).matches()) == True
@@ -62,6 +67,7 @@ class TestDict(unittest.TestCase):
     def test_register(self):
         expect(expect.matcher('dict')) == Dict
 
+
 class TestTuple(unittest.TestCase):
     def test_matches(self):
         expect(Tuple((1, 2)).matches()) == True
@@ -73,6 +79,7 @@ class TestTuple(unittest.TestCase):
 
     def test_register(self):
         expect(expect.matcher('tuple')) == Tuple
+
 
 class TestNone(unittest.TestCase):
     def test_matches(self):

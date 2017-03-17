@@ -9,7 +9,7 @@ class TestNumbersIntegrations(TestCase):
         expect(2).to.be.above(1)
 
     @must_fail
-    def test_above_success(self):
+    def test_above_failure(self):
         expect(1).to.be.above(2)
 
     def test_below_success(self):

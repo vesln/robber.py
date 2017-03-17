@@ -9,7 +9,7 @@ class TestLengthIntegrations(TestCase):
         expect([1, 2]).to.have.length(2)
 
     @must_fail
-    def test_length_success(self):
+    def test_length_failure(self):
         expect([1, 2]).to.have.length(3)
 
     def test_empty_success(self):

@@ -2,6 +2,7 @@ import unittest
 from robber import expect
 from robber.matchers.respond_to import RespondTo
 
+
 class TestRespondTo(unittest.TestCase):
     def test_matches(self):
         expect(RespondTo(expect, 'register').matches()) == True

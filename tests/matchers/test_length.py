@@ -2,6 +2,7 @@ import unittest
 from robber import expect
 from robber.matchers.length import Length, Empty, NotEmpty
 
+
 class TestLength(unittest.TestCase):
     def test_matches(self):
         expect(Length('foo', 3).matches()) == True
@@ -19,6 +20,7 @@ class TestLength(unittest.TestCase):
     def test_register(self):
         expect(expect.matcher('length')) == Length
 
+
 class TestEmpty(unittest.TestCase):
     def test_matches(self):
         expect(Empty('').matches()) == True
@@ -33,6 +35,7 @@ class TestEmpty(unittest.TestCase):
 
     def test_register(self):
         expect(expect.matcher('empty')) == Empty
+
 
 class TestNotEmpty(unittest.TestCase):
     def test_matches(self):

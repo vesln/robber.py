@@ -1,6 +1,6 @@
-import unittest
 from robber import expect
 from robber.matchers.equal import Equal, NotEqual
+
 
 class TestEqual:
     def test_matches(self):
@@ -15,6 +15,7 @@ class TestEqual:
     def test_register(self):
         expect(expect.matcher('eq')) == Equal
         expect(expect.matcher('__eq__')) == Equal
+
 
 class TestNotEqual:
     def test_matches(self):

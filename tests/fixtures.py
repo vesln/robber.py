@@ -13,6 +13,7 @@ class TestMatcher:
     def fail_with(self, message):
         return self
 
+
 class TestWillMatch(Base):
     called = False
     message = None
@@ -20,6 +21,7 @@ class TestWillMatch(Base):
     def matches(self):
         self.called = True
         return True
+
 
 class TestWontMatch(Base):
     message = None
@@ -30,8 +32,10 @@ class TestWontMatch(Base):
     def failure_message(self):
         return 'Failure message'
 
+
 class First:
     pass
+
 
 class Second:
     pass

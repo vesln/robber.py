@@ -1,13 +1,13 @@
 import unittest
-from robber import expect, BadExpectation
+
+from robber import expect
 from tests import TestMatcher
-from tests import chain_matcher
 
 
 class TestExpectation(unittest.TestCase):
     def test_register_a_matcher(self):
         expect.register('test_matcher', TestMatcher)
-        test_matcher = expect('test').test_matcher('bar')
+        expect('test').test_matcher('bar')
 
     def test_registered_a_matcher(self):
         expect.register('test_matcher', TestMatcher)

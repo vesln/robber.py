@@ -1,7 +1,7 @@
-import unittest
 from robber import expect
-from tests.fixtures import First, Second
 from robber.matchers.instanceof import Instanceof
+from tests.fixtures import First, Second
+
 
 class TestInstanceof:
     def test_matches(self):

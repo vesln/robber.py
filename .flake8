@@ -1,0 +1,14 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    docs/source/conf.py,
+    build,
+    dist,
+    robber.egg-info
+max-line-length = 119
+
+# We haven't found out a good way to handle these cases
+# x == True, x == False, x == None, from x import *
+# So just uncomment the following line to have a shorter report if you want.
+# ignore = E712, F403, E711

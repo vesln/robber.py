@@ -9,5 +9,5 @@ class TestExceptionIntegrations(TestCase):
         expect(lambda: 1 / 0).to.throw(ZeroDivisionError)
 
     @must_fail
-    def test_exception_success(self):
+    def test_exception_failure(self):
         expect(lambda: None).to.throw(Exception)
