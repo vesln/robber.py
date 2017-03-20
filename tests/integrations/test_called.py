@@ -17,6 +17,6 @@ class TestCalledIntegrations(TestCase):
         mock = Mock()
         expect(mock).to.be.called()
 
-    def test_not_a_mock(self):
+    def test_called_not_a_mock(self):
         self.assertRaises(TypeError, expect('a').to.be.called)
         self.assertRaises(TypeError, expect(1).to.be.called)

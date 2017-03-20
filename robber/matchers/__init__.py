@@ -5,6 +5,7 @@ __all__ = [
 ]
 # from robber.matchers.base import *
 from robber.matchers.boolean import *  # noqa F403
+from robber.matchers.callable import *  # noqa F403
 from robber.matchers.called import *  # noqa F403
 from robber.matchers.contain import *  # noqa F403
 from robber.matchers.equal import *  # noqa F403
