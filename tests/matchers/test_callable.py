@@ -9,7 +9,7 @@ class TestCallable(TestCase):
         def a():
             pass
 
-        expect(Callable(a).matches()) == True
+        expect(Callable(a).matches()) is True
 
     def test_failure_message(self):
         assert_callable = Callable("a")

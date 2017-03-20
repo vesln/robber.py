@@ -1,12 +1,12 @@
-import unittest
 from robber import expect
-from tests.fixtures import First, Second
 from robber.matchers.instanceof import Instanceof
+from tests.fixtures import First, Second
+
 
 class TestInstanceof:
     def test_matches(self):
-        expect(Instanceof(First(), First).matches()) == True
-        expect(Instanceof(First(), Second).matches()) == False
+        expect(Instanceof(First(), First).matches()) is True
+        expect(Instanceof(First(), Second).matches()) is False
 
     def test_failure_message(self):
         first = First()

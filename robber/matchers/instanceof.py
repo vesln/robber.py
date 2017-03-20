@@ -13,4 +13,5 @@ class Instanceof(Base):
     def failure_message(self):
         return 'Expected "%s" to be an instance of "%s"' % (self.actual, self.expected)
 
+
 expect.register('instanceof', Instanceof)

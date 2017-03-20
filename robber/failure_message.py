@@ -1,10 +1,12 @@
 from robber import expect
 
+
 class failure_message():
     """
     with failure_message('Custom failure message'):
         # some assertions
     """
+
     def __init__(self, message):
         self.message = message
 
@@ -13,4 +15,3 @@ class failure_message():
 
     def __exit__(self, *args, **kwargs):
         expect.remove_custom_message()
-

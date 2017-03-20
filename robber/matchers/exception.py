@@ -6,6 +6,7 @@ class ExceptionMatcher(Base):
     """
     expect(lambda: call_something(with_some_params)).to.throw(any_exception)
     """
+
     @property
     def raised(self):
         try:
@@ -30,5 +31,6 @@ class ExceptionMatcher(Base):
             got = 'nothing'
 
         return 'Expected %s, got %s' % (self.expected.__name__, got)
+
 
 expect.register('throw', ExceptionMatcher)
