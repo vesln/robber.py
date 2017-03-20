@@ -6,6 +6,7 @@ __all__ = [
 # from robber.matchers.base import *
 from robber.matchers.boolean import *
 from robber.matchers.called import *
+from robber.matchers.callable import *
 from robber.matchers.contain import *
 from robber.matchers.equal import *
 from robber.matchers.exception import *

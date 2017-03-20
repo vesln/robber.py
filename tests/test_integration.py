@@ -228,3 +228,13 @@ class TestIntegration(unittest.TestCase):
     def test_not_a_mock(self):
         self.assertRaises(TypeError, expect('a').to.be.called)
         self.assertRaises(TypeError, expect(1).to.be.called)
+
+    def test_callable_success(self):
+        def a():
+            pass
+        expect(a).to.be.callable()
+
+    @must_fail
+    def test_callable_failure(self):
+        expect("a").to.be.callable()
+        expect(1).to.be.callable()
