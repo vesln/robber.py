@@ -15,6 +15,7 @@ class Equal(Base):
     def failure_message(self):
         return 'Expected "%s" to equal "%s"' % (self.actual, self.expected)
 
+
 class NotEqual(Base):
     """
     expect(1).to.ne(2)
@@ -28,6 +29,7 @@ class NotEqual(Base):
 
     def failure_message(self):
         return 'Expected "%s" to not equal "%s"' % (self.actual, self.expected)
+
 
 expect.register('eq', Equal)
 expect.register('__eq__', Equal)

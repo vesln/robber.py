@@ -34,10 +34,9 @@ class expect:
     @classmethod
     def register(cls, name, klass):
         cls.matchers[name] = klass
-        method = lambda self, other=None, *args: \
-                klass(self.object, other, *args) \
-                    .fail_with(self.message) \
-                    .match()
+
+        def method(self, other=None, *args):
+            return klass(self.object, other, *args).fail_with(self.message).match()
 
         setattr(cls, name, method)
         # cls.name = method
@@ -61,8 +60,8 @@ class expect:
             return True
 
     def __setup_chaining(self):
-        self.to   = self
-        self.be   = self
-        self.a    = self
-        self.an   = self
+        self.to = self
+        self.be = self
+        self.a = self
+        self.an = self
         self.have = self

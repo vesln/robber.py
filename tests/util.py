@@ -1,5 +1,6 @@
 from robber import BadExpectation
 
+
 def must_fail(fn, *args, **kwargs):
     def test_decorated(self, *args, **kwargs):
         try:
@@ -10,4 +11,3 @@ def must_fail(fn, *args, **kwargs):
             raise BadExpectation('it must fail')
 
     return test_decorated
-

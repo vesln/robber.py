@@ -4,16 +4,18 @@ __all__ = [
     'types', 'numbers', 'contain'
 ]
 # from robber.matchers.base import *
-from robber.matchers.boolean import *
-from robber.matchers.called import *
-from robber.matchers.contain import *
-from robber.matchers.equal import *
-from robber.matchers.exception import *
-from robber.matchers.identical import *
-from robber.matchers.instanceof import *
-from robber.matchers.length import *
-from robber.matchers.numbers import *
-from robber.matchers.regexp import *
-from robber.matchers.respond_to import *
-from robber.matchers.truthy import *
-from robber.matchers.types import *
+from robber.matchers.boolean import *  # noqa F403
+from robber.matchers.callable import *  # noqa F403
+from robber.matchers.called import *  # noqa F403
+from robber.matchers.called_once import *  # noqa F403
+from robber.matchers.contain import *  # noqa F403
+from robber.matchers.equal import *  # noqa F403
+from robber.matchers.exception import *  # noqa F403
+from robber.matchers.identical import *  # noqa F403
+from robber.matchers.instanceof import *  # noqa F403
+from robber.matchers.length import *  # noqa F403
+from robber.matchers.numbers import *  # noqa F403
+from robber.matchers.regexp import *  # noqa F403
+from robber.matchers.respond_to import *  # noqa F403
+from robber.matchers.truthy import *  # noqa F403
+from robber.matchers.types import *  # noqa F403

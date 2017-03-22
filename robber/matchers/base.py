@@ -1,6 +1,7 @@
 from robber.bad_expectation import BadExpectation
 from robber.expect import expect
 
+
 class Base:
     """
     Base matcher. All matchers inherit from it.

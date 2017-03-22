@@ -1,11 +1,11 @@
-import unittest
 from robber import expect
 from robber.matchers.regexp import Match, NotMatch
 
+
 class TestMatch:
     def test_matches(self):
-        expect(Match('1', r'1').matches()) == True
-        expect(Match('2', r'1').matches()) == False
+        expect(Match('1', r'1').matches()) is True
+        expect(Match('2', r'1').matches()) is False
 
     def test_failure_message(self):
         match = Match('actual', r'expected$')
@@ -15,10 +15,11 @@ class TestMatch:
     def test_register(self):
         expect(expect.matcher('match')) == Match
 
+
 class TestNotMatch:
     def test_matches(self):
-        expect(NotMatch('2', r'1').matches()) == True
-        expect(NotMatch('1', r'1').matches()) == False
+        expect(NotMatch('2', r'1').matches()) is True
+        expect(NotMatch('1', r'1').matches()) is False
 
     def test_failure_message(self):
         not_match = NotMatch('actual', r'expected$')
