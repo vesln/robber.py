@@ -3,6 +3,8 @@
 
 
 # robber.py - BDD / TDD assertion library for Python.
+## Supported python versions
+- `robber.py` now supports python 2.6, 2.7, 3.4, 3.5 and python 3.6
 
 ## Synopsis
 
@@ -252,6 +254,22 @@ Asserts that the target throws an exception
 ``` python
 expect(lambda: raise_exception(...)).to.throw(Exception)
 expect(any_callable).to.throw(Exception)
+```
+
+#### called
+
+Asserts that a mock has been called
+
+``` python
+expect(mock).to.be.called
+```
+
+#### callable
+
+Asserts that a object is callable 
+
+``` python
+expect(object).to.be.callable
 ```
 
 ### Language chains

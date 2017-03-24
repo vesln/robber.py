@@ -11,4 +11,5 @@ class Chain(Base):
     def failure_message(self):
         return 'Expected "%s" to have chain "%s"' % (self.actual, self.expected)
 
+
 expect.register('chain', Chain)

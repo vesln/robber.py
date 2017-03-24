@@ -14,6 +14,7 @@ class Base:
         self.expected = expected
         self.is_negated = is_negated
         self.args = args
+        self.message = None
 
     def fail_with(self, message):
         self.message = message

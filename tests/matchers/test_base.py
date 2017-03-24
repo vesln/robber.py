@@ -3,6 +3,7 @@ from robber import expect, BadExpectation
 from robber.matchers.base import Base
 from tests.fixtures import TestWillMatch, TestWontMatch
 
+
 class TestBase(unittest.TestCase):
     def test_it_stores_actual_and_expected(self):
         base = Base('actual', 'expected')

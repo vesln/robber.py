@@ -1,11 +1,11 @@
-import unittest
 from robber import expect
 from robber.matchers.equal import Equal, NotEqual
 
+
 class TestEqual:
     def test_matches(self):
-        expect(Equal(1, 1).matches()) == True
-        expect(Equal(1, 2).matches()) == False
+        expect(Equal(1, 1).matches()) is True
+        expect(Equal(1, 2).matches()) is False
 
     def test_failure_message(self):
         equal = Equal('actual', 'expected')
@@ -16,10 +16,11 @@ class TestEqual:
         expect(expect.matcher('eq')) == Equal
         expect(expect.matcher('__eq__')) == Equal
 
+
 class TestNotEqual:
     def test_matches(self):
-        expect(NotEqual(1, 2).matches()) == True
-        expect(NotEqual(1, 1).matches()) == False
+        expect(NotEqual(1, 2).matches()) is True
+        expect(NotEqual(1, 1).matches()) is False
 
     def test_failure_message(self):
         equal = NotEqual('actual', 'expected')

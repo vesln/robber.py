@@ -35,10 +35,9 @@ class expect:
     @classmethod
     def register(cls, name, klass):
         cls.matchers[name] = klass
-        method = lambda self, other=None, *args: \
-                                            klass(self.obj, other, self.is_negated, *args) \
-                                            .fail_with(self.message) \
-                                            .match()
+
+        def method(self, other=None, *args):
+            return klass(self.obj, other, self.is_negated, *args).fail_with(self.message).match()
 
         setattr(cls, name, method)
 

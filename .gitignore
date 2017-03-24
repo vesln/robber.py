@@ -34,5 +34,8 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
-.python-version
-.idea/
+
+# Other
+/.python-version
+/test.sh
+.idea
