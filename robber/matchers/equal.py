@@ -13,7 +13,9 @@ class Equal(Base):
         return self.actual == self.expected
 
     def failure_message(self):
-        return 'Expected "%s" to equal "%s"' % (self.actual, self.expected)
+        return 'Expected "{actual}"{negated_message} to equal "{expected}"'.format(
+            actual=self.actual, expected=self.expected, negated_message=self.negated_message
+        )
 
 
 class NotEqual(Base):
@@ -28,7 +30,9 @@ class NotEqual(Base):
         return self.actual != self.expected
 
     def failure_message(self):
-        return 'Expected "%s" to not equal "%s"' % (self.actual, self.expected)
+        return 'Expected "{actual}"{negated_message} not to equal "{expected}"'.format(
+            actual=self.actual, expected=self.expected, negated_message=self.negated_message
+        )
 
 
 expect.register('eq', Equal)

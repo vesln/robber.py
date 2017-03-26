@@ -18,3 +18,17 @@ class TestBooleanIntegrations(TestCase):
     @must_fail
     def test_false_failure(self):
         expect(True).to.be.false()
+
+    def test_not_true_success(self):
+        expect(False).not_to.be.true()
+
+    @must_fail
+    def test_not_true_success(self):
+        expect(True).not_to.be.true()
+
+    def test_not_false_success(self):
+        expect(True).not_to.be.false()
+
+    @must_fail
+    def test_not_false_success(self):
+        expect(False).not_to.be.false()

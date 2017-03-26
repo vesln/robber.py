@@ -25,7 +25,7 @@ class TestNotEqual:
     def test_failure_message(self):
         equal = NotEqual('actual', 'expected')
         message = equal.failure_message()
-        expect(message) == 'Expected "actual" to not equal "expected"'
+        expect(message) == 'Expected "actual" not to equal "expected"'
 
     def test_register(self):
         expect(expect.matcher('not_eq')) == NotEqual

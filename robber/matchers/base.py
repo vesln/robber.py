@@ -21,8 +21,14 @@ class Base:
         return self
 
     def match(self):
-        if not (self.matches() or self.is_negated):
-            message = self.message or self.failure_message()
-            raise BadExpectation(message)
+        if self.matches() == (not self.is_negated):
+            return expect(self.actual)
 
-        return expect(self.actual)
+        message = self.message or self.failure_message()
+        raise BadExpectation(message)
+
+    @property
+    def negated_message(self):
+        if self.is_negated:
+            return ' not'
+        return ''

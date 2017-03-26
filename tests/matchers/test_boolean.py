@@ -31,5 +31,10 @@ class TestFalseMatcher:
         message = false.failure_message()
         expect(message) == 'Expected True to be False'
 
+    def test_failure_message_with_not_to(self):
+        false = FalseMatcher(False, is_negated=True)
+        message = false.failure_message()
+        expect(message) == 'Expected False not to be False'
+
     def test_register(self):
         expect(expect.matcher('false')) == FalseMatcher
