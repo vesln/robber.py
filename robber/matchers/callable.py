@@ -11,7 +11,9 @@ class Callable(Base):
         return callable(self.actual)
 
     def failure_message(self):
-        return 'Expected {actual} to be callable'.format(actual=self.actual)
+        return 'Expected {actual}{negated_message} to be callable'.format(
+            actual=self.actual, negated_message=self.negated_message
+        )
 
 
 expect.register('callable', Callable)
