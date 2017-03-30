@@ -25,3 +25,10 @@ class TestBase(unittest.TestCase):
             expect(failure.message).to.eq('Failure message')
         else:
             raise BadExpectation('it should raise an exception')
+
+    def test_negated_message(self):
+        negated_base = Base(actual='actual', expected='expected', is_negated=True)
+        positive_base = Base(actual='actual', expected='expected', is_negated=False)
+
+        expect(negated_base.negated_message).to.eq(' not')
+        expect(positive_base.negated_message).to.eq('')
