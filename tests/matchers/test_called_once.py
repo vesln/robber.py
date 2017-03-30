@@ -1,10 +1,9 @@
 from unittest import TestCase
 
-from mock.mock import Mock
+from mock import Mock
 
 from robber import expect
-from robber.matchers import CalledOnce
-from tests.util import must_fail
+from robber.matchers.called_once import CalledOnce
 
 
 class TestCalledOnce(TestCase):
@@ -13,25 +12,16 @@ class TestCalledOnce(TestCase):
         mock()
         expect(CalledOnce(mock).matches()) is True
 
-    # Called once
-    def test_called_once_success(self):
+    def test_failure_message(self):
         mock = Mock()
-        mock()
-        expect(mock).to.be.called_once()
+        called_once = CalledOnce(mock)
+        message = called_once.failure_message()
+        expect(message) == 'Expected {mock} to be called once. Called 0 times'.format(mock=mock)
 
-    @must_fail
-    def test_called_once_failure_with_not_called(self):
-        mock = Mock()
-        expect(mock).to.be.called_once()
+    def test_register(self):
+        expect(expect.matcher('called_once')) == CalledOnce
+        expect(expect.matcher('__called_once__')) == CalledOnce
 
-    @must_fail
-    def test_called_once_failure_with_called_many_times(self):
-        mock = Mock()
-        mock()
-        mock()
-        expect(mock).to.be.called_once()
-
-    def test_called_once_not_a_mock(self):
-        self.assertRaises(TypeError, expect('a').to.be.called_once)
-        self.assertRaises(TypeError, expect(1).to.be.called_once)
-
+    def test_not_a_mock(self):
+        self.assertRaises(TypeError, CalledOnce("a").matches)
+        self.assertRaises(TypeError, CalledOnce(1).matches)

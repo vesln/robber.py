@@ -4,7 +4,6 @@ from mock import Mock
 
 from robber import expect
 from robber.matchers.called import Called
-from robber.matchers import CalledOnce
 
 
 class TestCalled(TestCase):
