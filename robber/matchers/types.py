@@ -11,7 +11,9 @@ class String(Base):
         return isinstance(self.actual, str)
 
     def failure_message(self):
-        return 'Expected "%s" to be a string' % self.actual
+        return 'Expected "{actual}"{negated_message} to be a string'.format(
+            actual=self.actual, negated_message=self.negated_message
+        )
 
 
 class Integer(Base):
@@ -23,7 +25,9 @@ class Integer(Base):
         return isinstance(self.actual, int)
 
     def failure_message(self):
-        return 'Expected "%s" to be an integer' % self.actual
+        return 'Expected "{actual}"{negated_message} to be an integer'.format(
+            actual=self.actual, negated_message=self.negated_message
+        )
 
 
 class Float(Base):
@@ -35,7 +39,9 @@ class Float(Base):
         return isinstance(self.actual, float)
 
     def failure_message(self):
-        return 'Expected "%s" to be a floating point number' % self.actual
+        return 'Expected "{actual}"{negated_message} to be a floating point number'.format(
+            actual=self.actual, negated_message=self.negated_message
+        )
 
 
 class List(Base):
@@ -47,7 +53,9 @@ class List(Base):
         return isinstance(self.actual, list)
 
     def failure_message(self):
-        return 'Expected "%s" to be an array' % self.actual
+        return 'Expected "{actual}"{negated_message} to be an array'.format(
+            actual=self.actual, negated_message=self.negated_message
+        )
 
 
 class Dict(Base):
@@ -59,7 +67,9 @@ class Dict(Base):
         return isinstance(self.actual, dict)
 
     def failure_message(self):
-        return 'Expected "%s" to be a dictionary' % self.actual
+        return 'Expected "{actual}"{negated_message} to be a dictionary'.format(
+            actual=self.actual, negated_message=self.negated_message
+        )
 
 
 class Tuple(Base):
@@ -71,7 +81,9 @@ class Tuple(Base):
         return isinstance(self.actual, tuple)
 
     def failure_message(self):
-        return 'Expected "%s" to be a tuple' % self.actual
+        return 'Expected "{actual}"{negated_message} to be a tuple'.format(
+            actual=self.actual, negated_message=self.negated_message
+        )
 
 
 class Non(Base):
@@ -83,7 +95,9 @@ class Non(Base):
         return self.actual is None
 
     def failure_message(self):
-        return 'Expected "%s" to be None' % self.actual
+        return 'Expected "{actual}"{negated_message} to be None'.format(
+            actual=self.actual, negated_message=self.negated_message
+        )
 
 
 expect.register('string', String)
