@@ -20,7 +20,6 @@ class TestCalled(TestCase):
 
     def test_register(self):
         expect(expect.matcher('called')) == Called
-        expect(expect.matcher('__called__')) == Called
 
     def test_not_a_mock(self):
         self.assertRaises(TypeError, Called("a").matches)

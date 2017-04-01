@@ -17,4 +17,3 @@ class Callable(Base):
 
 
 expect.register('callable', Callable)
-expect.register('__callable__', Callable)

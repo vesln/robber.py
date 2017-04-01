@@ -26,4 +26,3 @@ class TestCallable(TestCase):
 
     def test_register(self):
         expect(expect.matcher('callable')) == Callable
-        expect(expect.matcher('__callable__')) == Callable

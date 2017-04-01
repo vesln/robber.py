@@ -18,4 +18,3 @@ class Called(Base):
 
 
 expect.register('called', Called)
-expect.register('__called__', Called)
