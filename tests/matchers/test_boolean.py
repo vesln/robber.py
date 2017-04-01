@@ -17,6 +17,11 @@ class TestTrueMatcher:
         message = true.failure_message()
         expect(message) == 'Expected True not to be True'
 
+    def test_failure_message_with_not_to(self):
+        true = TrueMatcher(True, is_negated=True)
+        message = true.failure_message()
+        expect(message) == 'Expected True not to be True'
+
     def test_register(self):
         expect(expect.matcher('true')) == TrueMatcher
 
