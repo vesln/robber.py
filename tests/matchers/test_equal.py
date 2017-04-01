@@ -12,6 +12,11 @@ class TestEqual:
         message = equal.failure_message()
         expect(message) == 'Expected "actual" to equal "expected"'
 
+    def test_failure_message_with_not_to(self):
+        equal = Equal('actual', 'actual', is_negated=True)
+        message = equal.failure_message()
+        expect(message) == 'Expected "actual" not to equal "actual"'
+
     def test_register(self):
         expect(expect.matcher('eq')) == Equal
         expect(expect.matcher('__eq__')) == Equal
