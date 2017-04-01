@@ -20,7 +20,7 @@ class TestCallable(TestCase):
         def a():
             pass
 
-        assert_callable = Callable(a, is_negated=True)
+        assert_callable = Callable(a, is_negative=True)
         message = assert_callable.failure_message()
         expect(message) == 'Expected {a} not to be callable'.format(a=a)
 

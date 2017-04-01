@@ -3,7 +3,7 @@ from robber.matchers.base import Base
 
 
 class TestMatcher:
-    def __init__(self, actual, expected, is_negated=False):
+    def __init__(self, actual, expected, is_negative=False):
         expect(actual) == 'test'
         expect(expected) == 'bar'
 

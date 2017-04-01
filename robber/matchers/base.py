@@ -9,10 +9,10 @@ class Base:
     idea to extend it, as well.
     """
 
-    def __init__(self, actual, expected=None, is_negated=False, *args):
+    def __init__(self, actual, expected=None, is_negative=False, *args):
         self.actual = actual
         self.expected = expected
-        self.is_negated = is_negated
+        self.is_negative = is_negative
         self.args = args
         self.message = None
 
@@ -21,7 +21,7 @@ class Base:
         return self
 
     def match(self):
-        if self.matches() == (not self.is_negated):
+        if self.matches() == (not self.is_negative):
             return expect(self.actual)
 
         message = self.message or self.failure_message()
@@ -29,6 +29,6 @@ class Base:
 
     @property
     def negated_message(self):
-        if self.is_negated:
+        if self.is_negative:
             return ' not'
         return ''

@@ -21,7 +21,7 @@ class expect:
 
     def __init__(self, obj):
         self.obj = obj
-        self.is_negated = False
+        self.is_negative = False
         self.__setup_chaining()
 
     @classmethod
@@ -37,7 +37,7 @@ class expect:
         cls.matchers[name] = klass
 
         def method(self, other=None, *args):
-            return klass(self.obj, other, self.is_negated, *args).fail_with(self.message).match()
+            return klass(self.obj, other, self.is_negative, *args).fail_with(self.message).match()
 
         setattr(cls, name, method)
 
@@ -61,7 +61,7 @@ class expect:
 
     @property
     def not_to(self):
-        self.is_negated = True
+        self.is_negative = True
         return self
 
     def __setup_chaining(self):
