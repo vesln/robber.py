@@ -1,13 +1,26 @@
 __all__ = [
-    'equal', 'identical', 'boolean', 'instanceof',
-    'regexp', 'respond_to', 'truthy', 'length',
-    'types', 'numbers', 'contain'
+    'boolean',
+    'callable',
+    'called',
+    'called_once',
+    'called_with',
+    'contain',
+    'equal',
+    'identical',
+    'instanceof',
+    'length',
+    'numbers',
+    'regexp',
+    'respond_to',
+    'truthy',
+    'types',
 ]
 # from robber.matchers.base import *
 from robber.matchers.boolean import *  # noqa F403
 from robber.matchers.callable import *  # noqa F403
 from robber.matchers.called import *  # noqa F403
 from robber.matchers.called_once import *  # noqa F403
+from robber.matchers.called_with import *  # noqa F403
 from robber.matchers.contain import *  # noqa F403
 from robber.matchers.equal import *  # noqa F403
 from robber.matchers.exception import *  # noqa F403
