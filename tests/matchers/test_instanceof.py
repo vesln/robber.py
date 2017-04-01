@@ -5,8 +5,8 @@ from tests.fixtures import First, Second
 
 class TestInstanceof:
     def test_matches(self):
-        expect(Instanceof(First(), First).matches()) is True
-        expect(Instanceof(First(), Second).matches()) is False
+        expect(Instanceof(First(), First).matches()).to.eq(True)
+        expect(Instanceof(First(), Second).matches()).to.eq(False)
 
     def test_failure_message(self):
         first = First()

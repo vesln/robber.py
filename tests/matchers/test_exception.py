@@ -9,8 +9,8 @@ class TestExceptionMatcher(unittest.TestCase):
         raise ex
 
     def test_matches(self):
-        expect(ExceptionMatcher(lambda: 1 / 0, ZeroDivisionError).matches()) is True
-        expect(ExceptionMatcher(lambda: None, Exception).matches()) is False
+        expect(ExceptionMatcher(lambda: 1 / 0, ZeroDivisionError).matches()).to.eq(True)
+        expect(ExceptionMatcher(lambda: None, Exception).matches()).to.eq(False)
 
     def test_actual_is_not_callable(self):
         self.assertRaises(TypeError, ExceptionMatcher(None, Exception).matches)

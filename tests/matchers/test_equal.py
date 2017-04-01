@@ -4,8 +4,8 @@ from robber.matchers.equal import Equal, NotEqual
 
 class TestEqual:
     def test_matches(self):
-        expect(Equal(1, 1).matches()) is True
-        expect(Equal(1, 2).matches()) is False
+        expect(Equal(1, 1).matches()).to.eq(True)
+        expect(Equal(1, 2).matches()).to.eq(False)
 
     def test_failure_message(self):
         equal = Equal('actual', 'expected')
@@ -19,8 +19,8 @@ class TestEqual:
 
 class TestNotEqual:
     def test_matches(self):
-        expect(NotEqual(1, 2).matches()) is True
-        expect(NotEqual(1, 1).matches()) is False
+        expect(NotEqual(1, 2).matches()).to.eq(True)
+        expect(NotEqual(1, 1).matches()).to.eq(False)
 
     def test_failure_message(self):
         equal = NotEqual('actual', 'expected')

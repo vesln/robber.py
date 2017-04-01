@@ -4,8 +4,8 @@ from robber.matchers.identical import Identical, NotIdentical
 
 class TestIdentical:
     def test_matches(self):
-        expect(Identical(1, 1).matches()) is True
-        expect(Identical({0: 1}, {0: 1}).matches()) is False
+        expect(Identical(1, 1).matches()).to.eq(True)
+        expect(Identical({0: 1}, {0: 1}).matches()).to.eq(False)
 
     def test_failure_message(self):
         identical = Identical('actual', 'expected')
@@ -18,11 +18,11 @@ class TestIdentical:
 
 class TestNotIdentical:
     def test_matches(self):
-        expect(NotIdentical({0: 1}, {0: 1}).matches()) is True
-        expect(NotIdentical(1, 1).matches()) is False
+        expect(NotIdentical({0: 1}, {0: 1}).matches()).to.eq(True)
+        expect(NotIdentical(1, 1).matches()).to.eq(False)
 
-        expect(NotIdentical({0: 1}, {0: 1}).matches()) is True
-        expect(NotIdentical(1, 1).matches()) is False
+        expect(NotIdentical({0: 1}, {0: 1}).matches()).to.eq(True)
+        expect(NotIdentical(1, 1).matches()).to.eq(False)
 
     def test_failure_message(self):
         identical = NotIdentical('actual', 'expected')

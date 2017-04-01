@@ -5,8 +5,8 @@ from robber.matchers.types import String, Integer, Float, List, Dict, Tuple, Non
 
 class TestString(unittest.TestCase):
     def test_matches(self):
-        expect(String('str').matches()) is True
-        expect(String(1).matches()) is False
+        expect(String('str').matches()).to.eq(True)
+        expect(String(1).matches()).to.eq(False)
 
     def test_failure_message(self):
         string = String(1)
@@ -18,8 +18,8 @@ class TestString(unittest.TestCase):
 
 class TestInteger(unittest.TestCase):
     def test_matches(self):
-        expect(Integer(1).matches()) is True
-        expect(Integer('str').matches()) is False
+        expect(Integer(1).matches()).to.eq(True)
+        expect(Integer('str').matches()).to.eq(False)
 
     def test_failure_message(self):
         integer = Integer(1)
@@ -31,8 +31,8 @@ class TestInteger(unittest.TestCase):
 
 class TestFloat(unittest.TestCase):
     def test_matches(self):
-        expect(Float(1.0).matches()) is True
-        expect(Float(1).matches()) is False
+        expect(Float(1.0).matches()).to.eq(True)
+        expect(Float(1).matches()).to.eq(False)
 
     def test_failure_message(self):
         float = Float(1)
@@ -44,8 +44,8 @@ class TestFloat(unittest.TestCase):
 
 class TestArray(unittest.TestCase):
     def test_matches(self):
-        expect(List([]).matches()) is True
-        expect(List(1).matches()) is False
+        expect(List([]).matches()).to.eq(True)
+        expect(List(1).matches()).to.eq(False)
 
     def test_failure_message(self):
         array = List(1)
@@ -57,8 +57,8 @@ class TestArray(unittest.TestCase):
 
 class TestDict(unittest.TestCase):
     def test_matches(self):
-        expect(Dict({}).matches()) is True
-        expect(Dict(1).matches()) is False
+        expect(Dict({}).matches()).to.eq(True)
+        expect(Dict(1).matches()).to.eq(False)
 
     def test_failure_message(self):
         hash = Dict(1)
@@ -70,8 +70,8 @@ class TestDict(unittest.TestCase):
 
 class TestTuple(unittest.TestCase):
     def test_matches(self):
-        expect(Tuple((1, 2)).matches()) is True
-        expect(Tuple(1).matches()) is False
+        expect(Tuple((1, 2)).matches()).to.eq(True)
+        expect(Tuple(1).matches()).to.eq(False)
 
     def test_failure_message(self):
         tup = Tuple(1)
@@ -83,8 +83,8 @@ class TestTuple(unittest.TestCase):
 
 class TestNone(unittest.TestCase):
     def test_matches(self):
-        expect(Non(None).matches()) is True
-        expect(Non(1).matches()) is False
+        expect(Non(None).matches()).to.eq(True)
+        expect(Non(1).matches()).to.eq(False)
 
     def test_failure_message(self):
         none = Non(1)

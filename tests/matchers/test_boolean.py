@@ -4,8 +4,8 @@ from robber.matchers.boolean import TrueMatcher, FalseMatcher
 
 class TestTrueMatcher:
     def test_matches(self):
-        expect(TrueMatcher(True).matches()) is True
-        expect(TrueMatcher(False).matches()) is False
+        expect(TrueMatcher(True).matches()).to.eq(True)
+        expect(TrueMatcher(False).matches()).to.eq(False)
 
     def test_failure_message(self):
         true = TrueMatcher(False)
@@ -23,8 +23,8 @@ class TestTrueMatcher:
 
 class TestFalseMatcher:
     def test_matches(self):
-        expect(FalseMatcher(False).matches()) is True
-        expect(FalseMatcher(True).matches()) is False
+        expect(FalseMatcher(False).matches()).to.eq(True)
+        expect(FalseMatcher(True).matches()).to.eq(False)
 
     def test_failure_message(self):
         false = FalseMatcher(True)
