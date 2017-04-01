@@ -16,7 +16,16 @@ class TestCalled(TestCase):
         mock = Mock()
         called = Called(mock)
         message = called.failure_message()
-        expect(message) == 'Expected {function} to be called'.format(function=mock)
+        expect(message) == 'Expected {mock} to be called'.format(mock=mock)
+
+    def test_failure_message_with_not_to(self):
+        mock = Mock()
+        called = Called(mock)
+        message = called.failure_message()
+
+        mock()
+
+        expect(message) == 'Expected {mock} to be called'.format(mock=mock)
 
     def test_register(self):
         expect(expect.matcher('called')) == Called
