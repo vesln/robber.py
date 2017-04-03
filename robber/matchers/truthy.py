@@ -11,7 +11,9 @@ class Truthy(Base):
         return bool(self.actual)
 
     def failure_message(self):
-        return 'Expected "%s" to be truthy' % self.actual
+        return 'Expected "{actual}"{negated_message} to be truthy'.format(
+            actual=self.actual, negated_message=self.negated_message
+        )
 
 
 class Falsy(Base):
@@ -23,7 +25,9 @@ class Falsy(Base):
         return not bool(self.actual)
 
     def failure_message(self):
-        return 'Expected "%s" to be falsy' % self.actual
+        return 'Expected "{actual}"{negated_message} to be falsy'.format(
+            actual=self.actual, negated_message=self.negated_message
+        )
 
 
 expect.register('truthy', Truthy)
