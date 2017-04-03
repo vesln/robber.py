@@ -13,7 +13,12 @@ class Equal(Base):
         return self.actual == self.expected
 
     def failure_message(self):
-        return 'Expected "%s" to equal "%s"' % (self.actual, self.expected)
+        return 'Expected {actual_type}("{actual_value}") to equal {expected_type}("{expected_value}")'.format(
+            actual_type=type(self.actual).__name__,
+            actual_value=self.actual,
+            expected_type=type(self.expected).__name__,
+            expected_value=self.expected,
+        )
 
 
 class NotEqual(Base):
