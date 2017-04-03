@@ -12,5 +12,9 @@ class TestRespondTo(unittest.TestCase):
         respond = RespondTo('object', 'method')
         expect(respond.failure_message()) == 'Expected "object" to respond to "method"'
 
+    def test_failure_message_with_not_to(self):
+        respond = RespondTo('object', 'method', is_negative=True)
+        expect(respond.failure_message()) == 'Expected "object" not to respond to "method"'
+
     def test_register(self):
         expect(expect.matcher('respond_to')) == RespondTo
