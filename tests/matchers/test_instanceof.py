@@ -12,7 +12,17 @@ class TestInstanceof:
         first = First()
         instanceof = Instanceof(first, First)
         message = instanceof.failure_message()
-        expect(message) == 'Expected "%s" to be an instance of "%s"' % (first, First)
+        expect(message) == 'Expected "{actual}" to be an instance of "{expected}"'.format(
+            actual=first, expected=First
+        )
+
+    def test_negative_failure_message(self):
+        first = First()
+        instanceof = Instanceof(first, First, is_negative=True)
+        message = instanceof.failure_message()
+        expect(message) == 'Expected "{actual}" not to be an instance of "{expected}"'.format(
+            actual=first, expected=First
+        )
 
     def test_register(self):
         expect(expect.matcher('instanceof')) == Instanceof
