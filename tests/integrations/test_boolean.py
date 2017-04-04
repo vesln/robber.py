@@ -32,5 +32,5 @@ class TestFalseMatcherIntegrations(TestCase):
         expect(True).not_to.be.false()
 
     @must_fail
-    def test_not_false_success(self):
+    def test_not_false_failure(self):
         expect(False).not_to.be.false()

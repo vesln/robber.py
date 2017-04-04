@@ -12,6 +12,10 @@ class TestAbove(unittest.TestCase):
         above = Above(1, 2)
         expect(above.failure_message()) == 'Expected 1 to be above 2'
 
+    def test_failure_message_with_not_to(self):
+        above = Above(2, 1, is_negative=True)
+        expect(above.failure_message()) == 'Expected 2 not to be above 1'
+
     def test_register(self):
         expect(expect.matcher('above')) == Above
 
@@ -22,8 +26,12 @@ class TestBelow(unittest.TestCase):
         expect(Below(2, 1).matches()).to.eq(False)
 
     def test_failure_message(self):
-        below = Below(1, 2)
-        expect(below.failure_message()) == 'Expected 1 to be below 2'
+        below = Below(2, 1)
+        expect(below.failure_message()) == 'Expected 2 to be below 1'
+
+    def test_failure_message_with_not_to(self):
+        below = Below(1, 2, is_negative=True)
+        expect(below.failure_message()) == 'Expected 1 not to be below 2'
 
     def test_register(self):
         expect(expect.matcher('below')) == Below
@@ -37,6 +45,10 @@ class TestWithin(unittest.TestCase):
     def test_failure_message(self):
         within = Within(1, 2, False, 3)
         expect(within.failure_message()) == 'Expected 1 to be within 2 and 3'
+
+    def test_failure_message_with_not_to(self):
+        within = Within(1, 0, True, 2)
+        expect(within.failure_message()) == 'Expected 1 not to be within 0 and 2'
 
     def test_register(self):
         expect(expect.matcher('within')) == Within
@@ -53,4 +65,16 @@ class TestChange(unittest.TestCase):
         try:
             Change(increase_by_2, 1).by(1)
         except BadExpectation as exception:
-            self.assertEqual(exception.message, 'Expect function increase_by_2 to change 1 by 1, but was changed by 2')
+            expect(exception.message) == 'Expected function increase_by_2 to change 1 by 1, but was changed by 2'
+
+    def test_change_by_raise_exception_with_not_to(self):
+        def increase_by_2(x):
+            return x + 2
+
+        try:
+            Change(increase_by_2, 1, is_negative=True).by(2)
+        except BadExpectation as exception:
+            expect(exception.message) == 'Expected function increase_by_2 not to change 1 by 2, but was changed by 2'
+
+    def test_register(self):
+        expect(expect.matcher('change')) == Change

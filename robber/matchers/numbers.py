@@ -12,7 +12,9 @@ class Above(Base):
         return self.actual > self.expected
 
     def failure_message(self):
-        return 'Expected %g to be above %g' % (self.actual, self.expected)
+        return 'Expected {a}{negated_message} to be above {b}'.format(
+            a=self.actual, negated_message=self.negated_message, b=self.expected
+        )
 
 
 class Below(Base):
@@ -24,7 +26,9 @@ class Below(Base):
         return self.actual < self.expected
 
     def failure_message(self):
-        return 'Expected %g to be below %g' % (self.actual, self.expected)
+        return 'Expected {a}{negated_message} to be below {b}'.format(
+            a=self.actual, negated_message=self.negated_message, b=self.expected
+        )
 
 
 class Within(Base):
@@ -36,30 +40,38 @@ class Within(Base):
         return self.expected <= self.actual <= self.args[0]
 
     def failure_message(self):
-        return 'Expected %g to be within %g and %g' % (self.actual, self.expected, self.args[0])
+        return 'Expected {a}{negated_message} to be within {m} and {n}'.format(
+            a=self.actual, negated_message=self.negated_message, m=self.expected, n=self.args[0]
+        )
 
 
 class Change(Base):
-    def __init__(self, callable, obj=None, *args):
+    def __init__(self, callable, obj=None, is_negative=False, *args):
         self.callable = callable
         self.obj = obj
         self.args = args
         self.message = None
+        self.is_negative = is_negative
 
     def match(self):
         return self
 
     def by(self, amount=0):
         changed = self.callable(self.obj) - self.obj
+        message = self.message or self.failure_message(self.callable.__name__, self.obj, amount, changed)
 
-        if changed != amount:
-            message = self.message or self.failure_message(self.callable.__name__, self.obj, amount, changed)
-            raise BadExpectation(message)
+        if (changed == amount) == (not self.is_negative):
+            return expect(self.obj)
 
-        return expect(self.obj)
+        raise BadExpectation(message)
 
     def failure_message(self, callable_name, obj, changed, got):
-        return 'Expect function %s to change %g by %g, but was changed by %g' % (callable_name, obj, changed, got)
+        message = 'Expected function {function}{negative_message} to change {a} by {x}, but was changed by {y}'
+        return message.format(
+            function=callable_name,
+            negative_message=self.negated_message,
+            a=obj, x=changed, y=got
+        )
 
 
 expect.register('above', Above)
