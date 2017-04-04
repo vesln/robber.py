@@ -18,7 +18,7 @@ class TestLength(unittest.TestCase):
         length = Length('foo', 2)
         expect(length.failure_message()) == 'Expected "foo" to have a length of 2'
 
-    def test_failure_message_with_not_to(self):
+    def test_negative_failure_message(self):
         length = Length('foo', 3, is_negative=True)
         expect(length.failure_message()) == 'Expected "foo" not to have a length of 3'
 
@@ -38,7 +38,7 @@ class TestEmpty(unittest.TestCase):
         empty = Empty('foo')
         expect(empty.failure_message()) == 'Expected "foo" to be empty'
 
-    def test_failure_message_with_not_to(self):
+    def test_negative_failure_message(self):
         empty = Empty('', is_negative=True)
         expect(empty.failure_message()) == 'Expected "" not to be empty'
 

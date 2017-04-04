@@ -12,7 +12,7 @@ class TestAbove(unittest.TestCase):
         above = Above(1, 2)
         expect(above.failure_message()) == 'Expected 1 to be above 2'
 
-    def test_failure_message_with_not_to(self):
+    def test_negative_failure_message(self):
         above = Above(2, 1, is_negative=True)
         expect(above.failure_message()) == 'Expected 2 not to be above 1'
 
@@ -29,7 +29,7 @@ class TestBelow(unittest.TestCase):
         below = Below(2, 1)
         expect(below.failure_message()) == 'Expected 2 to be below 1'
 
-    def test_failure_message_with_not_to(self):
+    def test_negative_failure_message(self):
         below = Below(1, 2, is_negative=True)
         expect(below.failure_message()) == 'Expected 1 not to be below 2'
 
@@ -46,7 +46,7 @@ class TestWithin(unittest.TestCase):
         within = Within(1, 2, False, 3)
         expect(within.failure_message()) == 'Expected 1 to be within 2 and 3'
 
-    def test_failure_message_with_not_to(self):
+    def test_negative_failure_message(self):
         within = Within(1, 0, True, 2)
         expect(within.failure_message()) == 'Expected 1 not to be within 0 and 2'
 

@@ -12,7 +12,7 @@ class TestMatch:
         message = match.failure_message()
         expect(message) == 'Expected "actual" to match "expected$"'
 
-    def test_failure_message_with_not_to(self):
+    def test_negative_failure_message(self):
         match = Match('actual', r'actual$', is_negative=True)
         message = match.failure_message()
         expect(message) == 'Expected "actual" not to match "actual$"'

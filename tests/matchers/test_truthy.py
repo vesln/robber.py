@@ -15,7 +15,7 @@ class TestTruthy(unittest.TestCase):
         truthy = Truthy(False)
         expect(truthy.failure_message()) == 'Expected "False" to be truthy'
 
-    def test_failure_message_with_not_to(self):
+    def test_negative_failure_message(self):
         truthy = Truthy(True, is_negative=True)
         expect(truthy.failure_message()) == 'Expected "True" not to be truthy'
 
@@ -35,7 +35,7 @@ class TestFalsy(unittest.TestCase):
         falsy = Falsy(True)
         expect(falsy.failure_message()) == 'Expected "True" to be falsy'
 
-    def test_failure_message_with_not_to(self):
+    def test_negative_failure_message(self):
         falsy = Falsy(False, is_negative=True)
         expect(falsy.failure_message()) == 'Expected "False" not to be falsy'
 

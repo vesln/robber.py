@@ -16,7 +16,7 @@ class TestCallable(TestCase):
         message = assert_callable.failure_message()
         expect(message) == 'Expected a to be callable'
 
-    def test_failure_message_with_not_to(self):
+    def test_negative_failure_message(self):
         def a():
             pass
 
