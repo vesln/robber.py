@@ -33,6 +33,5 @@ class TestNotEqual:
         expect(message) == 'Expected "actual" not to equal "expected"'
 
     def test_register(self):
-        expect(expect.matcher('not_eq')) == NotEqual
         expect(expect.matcher('ne')) == NotEqual
         expect(expect.matcher('__ne__')) == NotEqual

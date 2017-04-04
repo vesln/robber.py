@@ -19,7 +19,6 @@ class TestEqualIntegrations(TestCase):
 
     def test_ne_success(self):
         expect(1).to.ne(2)
-        expect(1).to.not_eq(2)
         expect(1).to != 2
         expect(1) != 2
 

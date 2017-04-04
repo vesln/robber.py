@@ -40,4 +40,3 @@ expect.register('__eq__', Equal)
 
 expect.register('ne', NotEqual)
 expect.register('__ne__', NotEqual)
-expect.register('not_eq', NotEqual)
