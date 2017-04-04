@@ -11,8 +11,8 @@ class TrueMatcher(Base):
         return self.actual is True
 
     def failure_message(self):
-        return 'Expected {actual}{negated_message} to be True'.format(
-            actual=self.actual, negated_message=self.negated_message
+        return 'Expected {actual}{negative_message} to be True'.format(
+            actual=self.actual, negative_message=self.negative_message
         )
 
 
@@ -25,8 +25,8 @@ class FalseMatcher(Base):
         return self.actual is False
 
     def failure_message(self):
-        return 'Expected {actual}{negated_message} to be False'.format(
-            actual=self.actual, negated_message=self.negated_message
+        return 'Expected {actual}{negative_message} to be False'.format(
+            actual=self.actual, negative_message=self.negative_message
         )
 
 

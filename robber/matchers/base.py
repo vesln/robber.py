@@ -28,7 +28,7 @@ class Base:
         raise BadExpectation(message)
 
     @property
-    def negated_message(self):
+    def negative_message(self):
         if self.is_negative:
             return ' not'
         return ''

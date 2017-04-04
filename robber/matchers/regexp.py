@@ -13,8 +13,8 @@ class Match(Base):
         return bool(re.match(self.expected, self.actual))
 
     def failure_message(self):
-        return 'Expected "{actual}"{negated_message} to match "{expected}"'.format(
-            actual=self.actual, negated_message=self.negated_message, expected=self.expected
+        return 'Expected "{actual}"{negative_message} to match "{expected}"'.format(
+            actual=self.actual, negative_message=self.negative_message, expected=self.expected
         )
 
 

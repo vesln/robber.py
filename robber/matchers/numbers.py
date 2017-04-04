@@ -12,8 +12,8 @@ class Above(Base):
         return self.actual > self.expected
 
     def failure_message(self):
-        return 'Expected {a}{negated_message} to be above {b}'.format(
-            a=self.actual, negated_message=self.negated_message, b=self.expected
+        return 'Expected {a}{negative_message} to be above {b}'.format(
+            a=self.actual, negative_message=self.negative_message, b=self.expected
         )
 
 
@@ -26,8 +26,8 @@ class Below(Base):
         return self.actual < self.expected
 
     def failure_message(self):
-        return 'Expected {a}{negated_message} to be below {b}'.format(
-            a=self.actual, negated_message=self.negated_message, b=self.expected
+        return 'Expected {a}{negative_message} to be below {b}'.format(
+            a=self.actual, negative_message=self.negative_message, b=self.expected
         )
 
 
@@ -40,8 +40,8 @@ class Within(Base):
         return self.expected <= self.actual <= self.args[0]
 
     def failure_message(self):
-        return 'Expected {a}{negated_message} to be within {m} and {n}'.format(
-            a=self.actual, negated_message=self.negated_message, m=self.expected, n=self.args[0]
+        return 'Expected {a}{negative_message} to be within {m} and {n}'.format(
+            a=self.actual, negative_message=self.negative_message, m=self.expected, n=self.args[0]
         )
 
 
@@ -69,7 +69,7 @@ class Change(Base):
         message = 'Expected function {function}{negative_message} to change {a} by {x}, but was changed by {y}'
         return message.format(
             function=callable_name,
-            negative_message=self.negated_message,
+            negative_message=self.negative_message,
             a=obj, x=changed, y=got
         )
 

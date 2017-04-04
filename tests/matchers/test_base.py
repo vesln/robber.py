@@ -26,9 +26,9 @@ class TestBase(unittest.TestCase):
         else:
             raise BadExpectation('it should raise an exception')
 
-    def test_negated_message(self):
+    def test_negative_message(self):
         negated_base = Base(actual='actual', expected='expected', is_negative=True)
         positive_base = Base(actual='actual', expected='expected', is_negative=False)
 
-        expect(negated_base.negated_message).to.eq(' not')
-        expect(positive_base.negated_message).to.eq('')
+        expect(negated_base.negative_message).to.eq(' not')
+        expect(positive_base.negative_message).to.eq('')

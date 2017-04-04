@@ -11,8 +11,8 @@ class String(Base):
         return isinstance(self.actual, str)
 
     def failure_message(self):
-        return 'Expected "{actual}"{negated_message} to be a string'.format(
-            actual=self.actual, negated_message=self.negated_message
+        return 'Expected "{actual}"{negative_message} to be a string'.format(
+            actual=self.actual, negative_message=self.negative_message
         )
 
 
@@ -25,8 +25,8 @@ class Integer(Base):
         return isinstance(self.actual, int)
 
     def failure_message(self):
-        return 'Expected "{actual}"{negated_message} to be an integer'.format(
-            actual=self.actual, negated_message=self.negated_message
+        return 'Expected "{actual}"{negative_message} to be an integer'.format(
+            actual=self.actual, negative_message=self.negative_message
         )
 
 
@@ -39,8 +39,8 @@ class Float(Base):
         return isinstance(self.actual, float)
 
     def failure_message(self):
-        return 'Expected "{actual}"{negated_message} to be a floating point number'.format(
-            actual=self.actual, negated_message=self.negated_message
+        return 'Expected "{actual}"{negative_message} to be a floating point number'.format(
+            actual=self.actual, negative_message=self.negative_message
         )
 
 
@@ -53,8 +53,8 @@ class List(Base):
         return isinstance(self.actual, list)
 
     def failure_message(self):
-        return 'Expected "{actual}"{negated_message} to be an array'.format(
-            actual=self.actual, negated_message=self.negated_message
+        return 'Expected "{actual}"{negative_message} to be an array'.format(
+            actual=self.actual, negative_message=self.negative_message
         )
 
 
@@ -67,8 +67,8 @@ class Dict(Base):
         return isinstance(self.actual, dict)
 
     def failure_message(self):
-        return 'Expected "{actual}"{negated_message} to be a dictionary'.format(
-            actual=self.actual, negated_message=self.negated_message
+        return 'Expected "{actual}"{negative_message} to be a dictionary'.format(
+            actual=self.actual, negative_message=self.negative_message
         )
 
 
@@ -81,8 +81,8 @@ class Tuple(Base):
         return isinstance(self.actual, tuple)
 
     def failure_message(self):
-        return 'Expected "{actual}"{negated_message} to be a tuple'.format(
-            actual=self.actual, negated_message=self.negated_message
+        return 'Expected "{actual}"{negative_message} to be a tuple'.format(
+            actual=self.actual, negative_message=self.negative_message
         )
 
 
@@ -95,8 +95,8 @@ class Non(Base):
         return self.actual is None
 
     def failure_message(self):
-        return 'Expected "{actual}"{negated_message} to be None'.format(
-            actual=self.actual, negated_message=self.negated_message
+        return 'Expected "{actual}"{negative_message} to be None'.format(
+            actual=self.actual, negative_message=self.negative_message
         )
 
 
