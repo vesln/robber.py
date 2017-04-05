@@ -11,24 +11,15 @@ class Truthy(Base):
         return bool(self.actual)
 
     def failure_message(self):
-        return 'Expected "{actual}"{negative_message} to be truthy'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+        message = 'Expected "{actual}" to be {adj}'
 
+        if not self.is_negative:
+            adj = 'truthy'
+        else:
+            adj = 'falsy'
 
-class Falsy(Base):
-    """
-    expect('').to.be.falsy()
-    """
-
-    def matches(self):
-        return not bool(self.actual)
-
-    def failure_message(self):
-        return 'Expected "{actual}"{negative_message} to be falsy'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+        return message.format(actual=self.actual, adj=adj)
 
 
 expect.register('truthy', Truthy)
-expect.register('falsy', Falsy)
+expect.register('falsy', Truthy, is_negative=True)

@@ -11,24 +11,15 @@ class TrueMatcher(Base):
         return self.actual is True
 
     def failure_message(self):
-        return 'Expected {actual}{negative_message} to be True'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+        message = 'Expected {actual} to be {adj}'
 
+        if not self.is_negative:
+            adj = 'True'
+        else:
+            adj = 'False'
 
-class FalseMatcher(Base):
-    """
-    expect(false).to.be.false()
-    """
-
-    def matches(self):
-        return self.actual is False
-
-    def failure_message(self):
-        return 'Expected {actual}{negative_message} to be False'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+        return message.format(actual=self.actual, adj=adj)
 
 
 expect.register('true', TrueMatcher)
-expect.register('false', FalseMatcher)
+expect.register('false', TrueMatcher, is_negative=True)

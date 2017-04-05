@@ -33,11 +33,12 @@ class expect:
         cls.message = None
 
     @classmethod
-    def register(cls, name, klass):
+    def register(cls, name, klass, is_negative=False):
         cls.matchers[name] = klass
 
         def method(self, other=None, *args):
-            return klass(self.obj, other, self.is_negative, *args).fail_with(self.message).match()
+            fact = is_negative is not self.is_negative
+            return klass(self.obj, other, fact, *args).fail_with(self.message).match()
 
         setattr(cls, name, method)
 

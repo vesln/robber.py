@@ -21,7 +21,7 @@ class Base:
         return self
 
     def match(self):
-        if self.matches() == (not self.is_negative):
+        if self.matches() is not self.is_negative:
             return expect(self.actual)
 
         message = self.message or self.failure_message()

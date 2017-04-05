@@ -1,6 +1,7 @@
 import unittest
+
 from robber import expect
-from robber.matchers.truthy import Truthy, Falsy
+from robber.matchers.truthy import Truthy
 
 
 class TestTruthy(unittest.TestCase):
@@ -17,27 +18,8 @@ class TestTruthy(unittest.TestCase):
 
     def test_negative_failure_message(self):
         truthy = Truthy(True, is_negative=True)
-        expect(truthy.failure_message()) == 'Expected "True" not to be truthy'
+        expect(truthy.failure_message()) == 'Expected "True" to be falsy'
 
     def test_register(self):
         expect(expect.matcher('truthy')) == Truthy
-
-
-class TestFalsy(unittest.TestCase):
-    def test_matches(self):
-        expect(Falsy(None).matches()).to.eq(True)
-        expect(Falsy([]).matches()).to.eq(True)
-
-        expect(Falsy(expect).matches()).to.eq(False)
-        expect(Falsy(['foo']).matches()).to.eq(False)
-
-    def test_failure_message(self):
-        falsy = Falsy(True)
-        expect(falsy.failure_message()) == 'Expected "True" to be falsy'
-
-    def test_negative_failure_message(self):
-        falsy = Falsy(False, is_negative=True)
-        expect(falsy.failure_message()) == 'Expected "False" not to be falsy'
-
-    def test_register(self):
-        expect(expect.matcher('falsy')) == Falsy
+        expect(expect.matcher('falsy')) == Truthy

@@ -1,5 +1,5 @@
 from robber import expect
-from robber.matchers.boolean import TrueMatcher, FalseMatcher
+from robber.matchers.boolean import TrueMatcher
 
 
 class TestTrueMatcher:
@@ -15,26 +15,8 @@ class TestTrueMatcher:
     def test_negative_failure_message(self):
         true = TrueMatcher(True, is_negative=True)
         message = true.failure_message()
-        expect(message) == 'Expected True not to be True'
+        expect(message) == 'Expected True to be False'
 
     def test_register(self):
         expect(expect.matcher('true')) == TrueMatcher
-
-
-class TestFalseMatcher:
-    def test_matches(self):
-        expect(FalseMatcher(False).matches()).to.eq(True)
-        expect(FalseMatcher(True).matches()).to.eq(False)
-
-    def test_failure_message(self):
-        false = FalseMatcher(True)
-        message = false.failure_message()
-        expect(message) == 'Expected True to be False'
-
-    def test_negative_failure_message(self):
-        false = FalseMatcher(False, is_negative=True)
-        message = false.failure_message()
-        expect(message) == 'Expected False not to be False'
-
-    def test_register(self):
-        expect(expect.matcher('false')) == FalseMatcher
+        expect(expect.matcher('false')) == TrueMatcher
