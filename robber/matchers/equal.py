@@ -13,10 +13,16 @@ class Equal(Base):
         return self.actual == self.expected
 
     def failure_message(self):
-        return 'Expected "{actual}"{negative_message} to equal "{expected}"'.format(
-            actual=self.actual, expected=self.expected, negative_message=self.negative_message
-        )
+        message = 'Expected {actual_type}("{actual_value}"){negative_message} ' \
+                  'to equal {expected_type}("{expected_value}")'
 
+        return message.format(
+            actual_type=type(self.actual).__name__,
+            actual_value=self.actual,
+            negative_message=self.negative_message,
+            expected_type=type(self.expected).__name__,
+            expected_value=self.expected,
+        )
 
 expect.register('eq', Equal)
 expect.register('__eq__', Equal)

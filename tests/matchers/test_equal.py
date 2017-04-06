@@ -8,14 +8,14 @@ class TestEqual:
         expect(Equal(1, 2).matches()).to.eq(False)
 
     def test_failure_message(self):
-        equal = Equal('actual', 'expected')
+        equal = Equal('123', 123)
         message = equal.failure_message()
-        expect(message) == 'Expected "actual" to equal "expected"'
+        expect(message) == 'Expected str("123") to equal int("123")'
 
     def test_negative_failure_message(self):
         equal = Equal('actual', 'actual', is_negative=True)
         message = equal.failure_message()
-        expect(message) == 'Expected "actual" not to equal "actual"'
+        expect(message) == 'Expected str("actual") not to equal str("actual")'
 
     def test_register(self):
         expect(expect.matcher('eq')) == Equal
