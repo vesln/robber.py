@@ -12,7 +12,9 @@ class Length(Base):
         return len(self.actual) == self.expected
 
     def failure_message(self):
-        return 'Expected "%s" to have a length of %d' % (self.actual, self.expected)
+        return 'Expected "{actual}"{negative_message} to have a length of {expected}'.format(
+            actual=self.actual, negative_message=self.negative_message, expected=self.expected
+        )
 
 
 class Empty(Base):
@@ -25,22 +27,10 @@ class Empty(Base):
         return len(self.actual) == 0
 
     def failure_message(self):
-        return 'Expected "%s" to be empty' % self.actual
-
-
-class NotEmpty(Base):
-    """
-    expect('foo').to.be.not_empty()
-    expect([1, 2, 3]).to.be.not_empty()
-    """
-
-    def matches(self):
-        return len(self.actual) > 0
-
-    def failure_message(self):
-        return 'Expected "%s" to be nonempty' % self.actual
+        return 'Expected "{actual}"{negative_message} to be empty'.format(
+            actual=self.actual, negative_message=self.negative_message
+        )
 
 
 expect.register('length', Length)
 expect.register('empty', Empty)
-expect.register('not_empty', NotEmpty)

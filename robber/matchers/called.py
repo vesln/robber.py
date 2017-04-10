@@ -14,8 +14,9 @@ class Called(Base):
             raise TypeError('{actual} is not a mock'.format(actual=self.actual))
 
     def failure_message(self):
-        return 'Expected {actual} to be called'.format(actual=self.actual)
+        return 'Expected {actual}{negative_message} to be called'.format(
+            actual=self.actual, negative_message=self.negative_message
+        )
 
 
 expect.register('called', Called)
-expect.register('__called__', Called)

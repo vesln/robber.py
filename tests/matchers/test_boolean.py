@@ -1,30 +1,22 @@
 from robber import expect
-from robber.matchers.boolean import TrueMatcher, FalseMatcher
+from robber.matchers.boolean import Boolean
 
 
-class TestTrueMatcher:
+class TestBooleanMatcher:
     def test_matches(self):
-        expect(TrueMatcher(True).matches()) is True
-        expect(TrueMatcher(False).matches()) is False
+        expect(Boolean(True).matches()).to.eq(True)
+        expect(Boolean(False).matches()).to.eq(False)
 
     def test_failure_message(self):
-        true = TrueMatcher(False)
+        true = Boolean(False)
         message = true.failure_message()
         expect(message) == 'Expected False to be True'
 
-    def test_register(self):
-        expect(expect.matcher('true')) == TrueMatcher
-
-
-class TestFalseMatcher:
-    def test_matches(self):
-        expect(FalseMatcher(False).matches()) is True
-        expect(FalseMatcher(True).matches()) is False
-
-    def test_failure_message(self):
-        false = FalseMatcher(True)
-        message = false.failure_message()
+    def test_negative_failure_message(self):
+        true = Boolean(True, is_negative=True)
+        message = true.failure_message()
         expect(message) == 'Expected True to be False'
 
     def test_register(self):
-        expect(expect.matcher('false')) == FalseMatcher
+        expect(expect.matcher('true')) == Boolean
+        expect(expect.matcher('false')) == Boolean

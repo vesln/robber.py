@@ -11,3 +11,10 @@ class TestResponseTo(TestCase):
     @must_fail
     def test_respond_to_failure(self):
         expect(expect).to.respond_to('undefined_method')
+
+    def test_not_respond_to_success(self):
+        expect(expect).not_to.respond_to('undefined_method')
+
+    @must_fail
+    def test_not_respond_to_failure(self):
+        expect(expect).not_to.respond_to('register')

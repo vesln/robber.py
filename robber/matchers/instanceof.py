@@ -11,7 +11,9 @@ class Instanceof(Base):
         return isinstance(self.actual, self.expected)
 
     def failure_message(self):
-        return 'Expected "%s" to be an instance of "%s"' % (self.actual, self.expected)
+        return 'Expected "{actual}"{negative_message} to be an instance of "{expected}"'.format(
+            actual=self.actual, negative_message=self.negative_message, expected=self.expected
+        )
 
 
 expect.register('instanceof', Instanceof)

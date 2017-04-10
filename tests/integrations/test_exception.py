@@ -11,3 +11,10 @@ class TestExceptionIntegrations(TestCase):
     @must_fail
     def test_exception_failure(self):
         expect(lambda: None).to.throw(Exception)
+
+    def test_not_exception_success(self):
+        expect(lambda: None).not_to.throw(Exception)
+
+    @must_fail
+    def test_not_exception_failure(self):
+        expect(lambda: 1 / 0).not_to.throw(ZeroDivisionError)
