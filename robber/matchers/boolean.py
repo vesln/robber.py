@@ -2,7 +2,7 @@ from robber import expect
 from robber.matchers.base import Base
 
 
-class TrueMatcher(Base):
+class Boolean(Base):
     """
     expect(true).to.be.true()
     """
@@ -21,5 +21,5 @@ class TrueMatcher(Base):
         return message.format(actual=self.actual, adj=adj)
 
 
-expect.register('true', TrueMatcher)
-expect.register('false', TrueMatcher, is_negative=True)
+expect.register('true', Boolean)
+expect.register('false', Boolean, is_negative=True)
