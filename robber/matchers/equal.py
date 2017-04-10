@@ -24,6 +24,7 @@ class Equal(Base):
             expected_value=self.expected,
         )
 
+
 expect.register('eq', Equal)
 expect.register('__eq__', Equal)
 

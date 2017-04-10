@@ -20,4 +20,3 @@ class CalledOnce(Base):
 
 
 expect.register('called_once', CalledOnce)
-expect.register('__called_once__', CalledOnce)
