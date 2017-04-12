@@ -242,7 +242,7 @@ expect(mock).to.be.called()
 
 Asserts that a mock has been called exactly one time
 
-``` python
+```python
 expect(mock).to.be.called_once()
 ```
 
@@ -251,7 +251,15 @@ expect(mock).to.be.called_once()
 Asserts that a object is callable 
 
 ```python
-expect(object).to.be.callable
+expect(object).to.be.callable()
+```
+
+#### called_with
+
+Asserts that a mock has been called with params 
+
+```python
+expect(mock).to.be.called_with(*args, **kwargs)
 ```
 
 ### Language chains

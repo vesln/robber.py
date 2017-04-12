@@ -16,7 +16,6 @@ __all__ = [
     'truthy',
     'types',
 ]
-# from robber.matchers.base import *
 from robber.matchers.boolean import *  # noqa F403
 from robber.matchers.callable import *  # noqa F403
 from robber.matchers.called import *  # noqa F403

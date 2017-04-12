@@ -36,12 +36,12 @@ class expect:
     def register(cls, name, klass, is_negative=False):
         cls.matchers[name] = klass
 
-        def method(self, other=None, *args):
+        def method(self, other=None, *args, **kwargs):
             if self.not_to_flag:
                 negative_fact = not is_negative
             else:
                 negative_fact = is_negative
-            return klass(self.obj, other, negative_fact, *args).fail_with(self.message).match()
+            return klass(self.obj, other, negative_fact, *args, **kwargs).fail_with(self.message).match()
 
         setattr(cls, name, method)
 

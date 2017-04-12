@@ -10,7 +10,7 @@ class TestCalledOnce(TestCase):
     def test_matches(self):
         mock = Mock()
         mock()
-        expect(CalledOnce(mock).matches()) is True
+        expect(CalledOnce(mock).matches()).to.eq(True)
 
     def test_failure_message(self):
         mock = Mock()
