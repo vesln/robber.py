@@ -47,7 +47,7 @@ class CalledWith(Base):
 
             if kwargs:
                 # Convert {'a':  1, 'b': 2} to 'a=1, b=2'
-                kwargs_str = ', '.join(['{}={!r}'.format(k, v) for k, v in kwargs.items()])
+                kwargs_str = ', '.join(['{0}={1!r}'.format(k, v) for k, v in kwargs.items()])
                 expected_params_str = ', '.join((expected_params_str, kwargs_str))
 
         return expected_params_str

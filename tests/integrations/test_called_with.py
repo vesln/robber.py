@@ -18,6 +18,11 @@ class TestCalledWithIntegrations(TestCase):
         expect(mock).to.be.called_with(1, 2, 3, a=4, b=5)
 
     @must_fail
+    def test_not_called(self):
+        mock = Mock()
+        expect(mock).to.be.called_with(1)
+
+    @must_fail
     def test_called_with_one_arg_failure(self):
         mock = Mock()
         mock(2)
