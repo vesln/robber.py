@@ -35,8 +35,8 @@ class TestCalledWithIntegrations(TestCase):
         expect(mock).to.be.called_with(1, 2, 3, a=4, b=5)
 
     def test_called_not_a_mock(self):
-        self.assertRaises(TypeError, expect('a').to.be.called)
-        self.assertRaises(TypeError, expect(1).to.be.called)
+        self.assertRaises(TypeError, expect('a').to.be.called_with, 1)
+        self.assertRaises(TypeError, expect(1).to.be.called_with, 1)
 
     def test_not_called_with_one_arg_success(self):
         mock = Mock()

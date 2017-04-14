@@ -16,6 +16,7 @@ class Base:
         self.args = args
         self.kwargs = kwargs
         self.message = None
+        self.fail_class = None
 
     def fail_with(self, message):
         self.message = message

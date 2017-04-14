@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from mock import Mock, call
+from mock import Mock
 
 from robber import expect
 from robber.matchers.called_with import CalledWith
@@ -46,22 +46,22 @@ class TestCalledWith(TestCase):
     def test_failure_message_with_multiple_args(self):
         mock = Mock()
 
-        mock(4, 5, 6, c=7, d=8)
-        called_with = CalledWith(mock, 1, False, 2, 3, a=4, b=5)
+        mock(4, 5, 6, c=7)
+        called_with = CalledWith(mock, 1, False, 2, 3, a=4)
         message = called_with.failure_message()
 
-        expect(message) == 'Expected {mock} to be called with 1, 2, 3, a=4, b=5. ' \
-                           'Actually called with 4, 5, 6, c=7, d=8.'.format(mock=mock)
+        expect(message) == 'Expected {mock} to be called with 1, 2, 3, a=4. ' \
+                           'Actually called with 4, 5, 6, c=7.'.format(mock=mock)
 
     def test_negative_failure_message_with_multiple_args(self):
         mock = Mock()
 
-        mock(1, 2, 3, a=4, b=5)
-        called_with = CalledWith(mock, 1, True, 2, 3, a=4, b=5)
+        mock(1, 2, 3, a=4)
+        called_with = CalledWith(mock, 1, True, 2, 3, a=4)
         message = called_with.failure_message()
 
-        expect(message) == 'Expected {mock} not to be called with 1, 2, 3, a=4, b=5. ' \
-                           'Actually called with 1, 2, 3, a=4, b=5.'.format(mock=mock)
+        expect(message) == 'Expected {mock} not to be called with 1, 2, 3, a=4. ' \
+                           'Actually called with 1, 2, 3, a=4.'.format(mock=mock)
 
     def test_register(self):
         expect(expect.matcher('called_with')) == CalledWith

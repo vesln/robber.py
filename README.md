@@ -262,6 +262,14 @@ Asserts that a mock has been called with params
 expect(mock).to.be.called_with(*args, **kwargs)
 ```
 
+#### called_once_with
+
+Asserts that a mock has been called once with params 
+
+```python
+expect(mock).to.be.called_once_with(*args, **kwargs)
+```
+
 ### Language chains
 
 In order to write more readable assertions, there are a few

@@ -3,6 +3,7 @@ __all__ = [
     'callable',
     'called',
     'called_once',
+    'called_once_with',
     'called_with',
     'contain'
     'equal',
@@ -20,6 +21,7 @@ from robber.matchers.boolean import *  # noqa F403
 from robber.matchers.callable import *  # noqa F403
 from robber.matchers.called import *  # noqa F403
 from robber.matchers.called_once import *  # noqa F403
+from robber.matchers.called_once_with import *  # noqa F403
 from robber.matchers.called_with import *  # noqa F403
 from robber.matchers.contain import *  # noqa F403
 from robber.matchers.equal import *  # noqa F403
