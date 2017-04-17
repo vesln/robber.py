@@ -270,6 +270,15 @@ Asserts that a mock has been called once with params
 expect(mock).to.be.called_once_with(*args, **kwargs)
 ```
 
+#### ever_called_with
+
+Asserts that a mock has ever been called with params. 
+The call is not necessary to be to latest one (the same as assert.any_call).
+
+```python
+expect(mock).to.have.ever.been.ever_called_with(*args, **kwargs)
+```
+
 ### Language chains
 
 In order to write more readable assertions, there are a few
@@ -278,6 +287,7 @@ built-in language chains that you can use:
 #### Positive chains
 - to
 - be
+- been
 - a
 - an
 - have
