@@ -7,10 +7,10 @@ from robber.matchers.called_once_with import CalledOnceWith
 
 
 class TestCalledOnceWith(TestCase):
-    def test_matches_with_multiple_args(self):
+    def test_matches(self):
         mock = Mock()
-        mock(1, 2, 3)
-        expect(CalledOnceWith(mock, 1, False, 2, 3).matches()).to.eq(True)
+        mock(1, 2, 3, a=4)
+        expect(CalledOnceWith(mock, 1, False, 2, 3, a=4).matches()).to.eq(True)
 
     def test_failure_message_with_not_called_mock(self):
         mock = Mock()

@@ -7,6 +7,7 @@ __all__ = [
     'called_with',
     'contain'
     'equal',
+    'ever_called'
     'exception',
     'identical',
     'instanceof',
@@ -25,6 +26,7 @@ from robber.matchers.called_once_with import *  # noqa F403
 from robber.matchers.called_with import *  # noqa F403
 from robber.matchers.contain import *  # noqa F403
 from robber.matchers.equal import *  # noqa F403
+from robber.matchers.ever_called_with import *  # noqa F403
 from robber.matchers.exception import *  # noqa F403
 from robber.matchers.identical import *  # noqa F403
 from robber.matchers.instanceof import *  # noqa F403

@@ -71,6 +71,7 @@ class expect:
     def __setup_chaining(self):
         self.to = self
         self.be = self
+        self.been = self
         self.a = self
         self.an = self
         self.have = self
