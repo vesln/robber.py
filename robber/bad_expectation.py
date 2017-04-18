@@ -4,6 +4,7 @@ class BadExpectation(Exception):
     """
 
     def __init__(self, message):
+        super(BadExpectation, self).__init__(message)
         self.message = message
 
     def __str__(self):
