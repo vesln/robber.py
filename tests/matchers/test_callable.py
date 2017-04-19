@@ -9,13 +9,20 @@ class TestCallable(TestCase):
         def a():
             pass
 
-        expect(Callable(a).matches()) is True
+        expect(Callable(a).matches()).to.eq(True)
 
     def test_failure_message(self):
         assert_callable = Callable("a")
         message = assert_callable.failure_message()
         expect(message) == 'Expected a to be callable'
 
+    def test_negative_failure_message(self):
+        def a():
+            pass
+
+        assert_callable = Callable(a, is_negative=True)
+        message = assert_callable.failure_message()
+        expect(message) == 'Expected {a} not to be callable'.format(a=a)
+
     def test_register(self):
         expect(expect.matcher('callable')) == Callable
-        expect(expect.matcher('__callable__')) == Callable

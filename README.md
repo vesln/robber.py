@@ -33,13 +33,12 @@ Also:
 expect(1) == 1
 ```
 
-#### ne/not_eq/!=
+#### ne/!=
 
 Asserts that actual is not equal (!=) to expected:
 
 ```python
 expect(1).to.ne(2)
-expect(1).to.not_eq(2)
 expect(1).to != 2
 expect(1) != 2
 ```
@@ -50,14 +49,6 @@ Asserts that the target is identical (is) to the expected:
 
 ```python
 expect(1).to.equal(1)
-```
-
-#### not_equal
-
-Asserts that the target is not identical (is) to the expected:
-
-```python
-expect({ 'test': 'robber' }).to.not_equal({ 'test': 'robber' })
 ```
 
 #### true
@@ -90,14 +81,6 @@ Asserts that the target can be matched by a regular expression:
 
 ```python
 expect('foo').to.match(r'foo')
-```
-
-#### not_match
-
-Asserts that the target can not be matched by a regular expression:
-
-```python
-expect('bar').to.not_match(r'foo')
 ```
 
 #### respond_to
@@ -140,15 +123,6 @@ Asserts that the target is empty:
 ```python
 expect([]).to.be.empty()
 expect('').to.be.empty()
-```
-
-#### not_empty
-
-Asserts that the target is nonempty:
-
-```python
-expect([1, 2, 3]).to.be.not_empty()
-expect('foo').to.be.not_empty()
 ```
 
 #### string
@@ -239,11 +213,11 @@ expect([1,2,3]).to.contain(2)
 expect({'foo': 'bar'}).to.contain('foo')
 ```
 
-#### not_contain/exclude
+#### exclude
 
 Asserts that the target does not contain an element, or a key:
+
 ```python
-expect([1,2,3]).to.not_contain(4)
 expect({'foo': 'bar'}).to.exclude('baz')
 ```
 
@@ -251,7 +225,7 @@ expect({'foo': 'bar'}).to.exclude('baz')
 
 Asserts that the target throws an exception
 
-``` python
+```python
 expect(lambda: raise_exception(...)).to.throw(Exception)
 expect(any_callable).to.throw(Exception)
 ```
@@ -260,7 +234,7 @@ expect(any_callable).to.throw(Exception)
 
 Asserts that a mock has been called
 
-``` python
+```python
 expect(mock).to.be.called
 ```
 
@@ -268,7 +242,7 @@ expect(mock).to.be.called
 
 Asserts that a object is callable 
 
-``` python
+```python
 expect(object).to.be.callable
 ```
 
@@ -277,17 +251,20 @@ expect(object).to.be.callable
 In order to write more readable assertions, there are a few
 built-in language chains that you can use:
 
+#### Positive chains
 - to
 - be
 - a
 - an
 - have
 
+#### Negative chains
+- not_to
+
 For example, the following two lines are functionally equivalent:
 
-```
+```python
 expect(1.0).to.be.a.float()
-
 expect(1.0).float()
 ```
 
@@ -299,7 +276,7 @@ evaluations of the same expression, you can chain multiple expectations.
 For example, the following two lines are functionally equivalent.
 The first example evaluates the expression '1 + 1' only once:
 
-```
+```python
 expect(1 + 1).to.be.an.integer().to.be.within(1, 3)
 
 expect(1 + 1).to.be.an.integer()
@@ -345,7 +322,7 @@ with failure_message('Something went wrong'):
 
 ## Installation
 
-```
+```bash
 $ pip install robber
 ```
 
@@ -357,7 +334,7 @@ $ pip install robber
 
 ## Tests
 
-```
+```bash
 $ nosetests tests/
 ```
 

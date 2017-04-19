@@ -19,8 +19,9 @@ class expect:
     matchers = {}
     message = None
 
-    def __init__(self, object):
-        self.object = object
+    def __init__(self, obj):
+        self.obj = obj
+        self.not_to_flag = False
         self.__setup_chaining()
 
     @classmethod
@@ -32,14 +33,17 @@ class expect:
         cls.message = None
 
     @classmethod
-    def register(cls, name, klass):
+    def register(cls, name, klass, is_negative=False):
         cls.matchers[name] = klass
 
         def method(self, other=None, *args):
-            return klass(self.object, other, *args).fail_with(self.message).match()
+            if self.not_to_flag:
+                negative_fact = not is_negative
+            else:
+                negative_fact = is_negative
+            return klass(self.obj, other, negative_fact, *args).fail_with(self.message).match()
 
         setattr(cls, name, method)
-        # cls.name = method
 
     @classmethod
     def matcher(cls, name):
@@ -58,6 +62,11 @@ class expect:
             return False
         else:
             return True
+
+    @property
+    def not_to(self):
+        self.not_to_flag = not self.not_to_flag
+        return self
 
     def __setup_chaining(self):
         self.to = self

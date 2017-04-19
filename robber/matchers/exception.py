@@ -30,7 +30,11 @@ class ExceptionMatcher(Base):
         else:
             got = 'nothing'
 
-        return 'Expected %s, got %s' % (self.expected.__name__, got)
+        return 'Expected {expected_exception}{negative_message} to be raised, got {actual_exception}'.format(
+            expected_exception=self.expected.__name__,
+            negative_message=self.negative_message,
+            actual_exception=got
+        )
 
 
 expect.register('throw', ExceptionMatcher)

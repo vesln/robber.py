@@ -12,23 +12,15 @@ class Contain(Base):
         return self.expected in self.actual
 
     def failure_message(self):
-        return 'Expected {0} to contain {1}'.format(self.actual, self.expected)
+        if self.is_negative:
+            verb = 'exclude'
+        else:
+            verb = 'contain'
 
+        message = 'Expected {actual} to {verb} {expected}'
 
-class NotContain(Base):
-    """
-    expect({'key': value}).to.not_contain('other')
-    expect([1, 2, 3]).to.not_contain(4)
-    """
-
-    def matches(self):
-        return self.expected not in self.actual
-
-    def failure_message(self):
-        return 'Expected {0} to not contain {1}'.format(self.actual, self.expected)
+        return message.format(actual=self.actual, verb=verb, expected=self.expected)
 
 
 expect.register('contain', Contain)
-
-expect.register('not_contain', NotContain)
-expect.register('exclude', NotContain)
+expect.register('exclude', Contain, is_negative=True)

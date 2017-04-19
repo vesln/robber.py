@@ -1,7 +1,18 @@
 __all__ = [
-    'equal', 'identical', 'boolean', 'instanceof',
-    'regexp', 'respond_to', 'truthy', 'length',
-    'types', 'numbers', 'contain'
+    'boolean',
+    'callable',
+    'called',
+    'contain'
+    'equal',
+    'exception',
+    'identical',
+    'instanceof',
+    'length',
+    'numbers',
+    'regexp',
+    'respond_to',
+    'truthy',
+    'types',
 ]
 # from robber.matchers.base import *
 from robber.matchers.boolean import *  # noqa F403
