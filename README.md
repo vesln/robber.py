@@ -314,10 +314,7 @@ If you want to have custom failure messages, for
 assertion or group of assertions, you can simply do:
 
 ```python
-from robber import failure_message
-
-with failure_message('Something went wrong'):
-    expect(1).to.eq(2)
+# Todo: update after implementing new logic
 ```
 
 ## Installation

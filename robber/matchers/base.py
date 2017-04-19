@@ -24,7 +24,11 @@ class Base:
         if self.matches() is not self.is_negative:
             return expect(self.actual)
 
-        message = self.message or self.failure_message()
+        # This is temporary, and will be removed after explanation system is fully implemented
+        try:
+            message = self.explanation.message
+        except AttributeError:
+            message = self.message or self.failure_message()
         raise BadExpectation(message)
 
     @property

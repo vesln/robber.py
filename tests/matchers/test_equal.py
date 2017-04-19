@@ -9,13 +9,21 @@ class TestEqual:
 
     def test_failure_message(self):
         equal = Equal('123', 123)
-        message = equal.failure_message()
-        expect(message) == 'Expected str("123") to equal int("123")'
+
+        expect(equal.explanation.message).to.eq("""
+A = '123'
+B = 123
+Expected A to equal B
+""")
 
     def test_negative_failure_message(self):
         equal = Equal('actual', 'actual', is_negative=True)
-        message = equal.failure_message()
-        expect(message) == 'Expected str("actual") not to equal str("actual")'
+
+        expect(equal.explanation.message).to.eq("""
+A = 'actual'
+B = 'actual'
+Expected A not to equal B
+""")
 
     def test_register(self):
         expect(expect.matcher('eq')) == Equal
