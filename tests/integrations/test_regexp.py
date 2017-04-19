@@ -13,8 +13,8 @@ class TestRegexpIntegrations(TestCase):
         expect('bar').to.match(r'foo')
 
     def test_not_match_success(self):
-        expect('bar').to.not_match(r'foo')
+        expect('foo').not_to.match(r'bar$')
 
     @must_fail
     def test_not_match_failure(self):
-        expect('foo').to.not_match(r'foo')
+        expect('foo').not_to.match(r'foo$')

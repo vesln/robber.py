@@ -11,20 +11,9 @@ class Identical(Base):
         return self.actual is self.expected
 
     def failure_message(self):
-        return 'Expected "%s" to be "%s"' % (self.actual, self.expected)
-
-
-class NotIdentical(Base):
-    """
-    expect(1).to.not_equal(2)
-    """
-
-    def matches(self):
-        return self.actual is not self.expected
-
-    def failure_message(self):
-        return 'Expected "%s" not to be "%s"' % (self.actual, self.expected)
+        return 'Expected "{actual}"{negative_message} to be "{expected}"'.format(
+            actual=self.actual, negative_message=self.negative_message, expected=self.expected
+        )
 
 
 expect.register('equal', Identical)
-expect.register('not_equal', NotIdentical)
