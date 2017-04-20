@@ -276,7 +276,7 @@ Asserts that a mock has ever been called with params.
 The call is not necessary to be to latest one (the same as assert.any_call).
 
 ```python
-expect(mock).to.have.ever.been.ever_called_with(*args, **kwargs)
+expect(mock).to.have.been.ever_called_with(*args, **kwargs)
 ```
 
 ### Language chains
