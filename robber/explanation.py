@@ -1,12 +1,13 @@
 class Explanation:
-    def __init__(self, a, is_negative, action, b=None, c=None, additional_info=None):
+    def __init__(self, a, is_negative, action, b=None, c=None, additional_info=None, negative_action=None):
         self.a = a
         self.action = action
         self.b = b
         self.c = c
 
+        self.action = negative_action if is_negative and negative_action else action
         self.additional_info = '{0}\n'.format(additional_info) if additional_info else ''
-        self.negative_word = ' not' if is_negative else ''
+        self.negative_word = ' not' if is_negative and not negative_action else ''
         self.b_word = ' B' if b else ''
 
     @property

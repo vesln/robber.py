@@ -33,6 +33,24 @@ class TestNegativeWord(TestCase):
         explanation = Explanation(1, True, 'be truthy')
         expect(explanation.negative_word).to.eq(' not')
 
+    def test_negative_word_of_negative_explanation_with_negative_action(self):
+        explanation = Explanation(1, True, 'be truthy', negative_action='be falsy')
+        expect(explanation.negative_word).to.eq('')
+
+
+class TestAction(TestCase):
+    def test_action_of_positive_explanation(self):
+        explanation = Explanation(1, False, 'be truthy')
+        expect(explanation.action).to.eq('be truthy')
+
+    def test_action_of_negative_explanation(self):
+        explanation = Explanation(1, True, 'be truthy')
+        expect(explanation.action).to.eq('be truthy')
+
+    def test_action_of_negative_explanation_with_negative_action(self):
+        explanation = Explanation(1, True, 'be truthy', negative_action='be falsy')
+        expect(explanation.action).to.eq('be falsy')
+
 
 class TestBWord(TestCase):
     def test_b_word(self):

@@ -8,14 +8,18 @@ class TestBooleanMatcher:
         expect(Boolean(False).matches()).to.eq(False)
 
     def test_failure_message(self):
-        true = Boolean(False)
-        message = true.failure_message()
-        expect(message) == 'Expected False to be True'
+        boolean = Boolean(False)
+        expect(boolean.explanation.message).to.eq("""
+A = False
+Expected A to be True
+""")
 
     def test_negative_failure_message(self):
-        true = Boolean(True, is_negative=True)
-        message = true.failure_message()
-        expect(message) == 'Expected True to be False'
+        boolean = Boolean(True, is_negative=True)
+        expect(boolean.explanation.message).to.eq("""
+A = True
+Expected A to be False
+""")
 
     def test_register(self):
         expect(expect.matcher('true')) == Boolean
