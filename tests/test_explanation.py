@@ -1,5 +1,7 @@
 from unittest import TestCase
 
+from mock import patch
+
 from robber import expect
 from robber.explanation import Explanation
 
@@ -62,22 +64,71 @@ class TestBWord(TestCase):
         expect(explanation.b_word).to.eq('')
 
 
+class TestHavingTwoStrings(TestCase):
+    def test_having_two_strings_with_two_strings(self):
+        explanation = Explanation('a', True, 'equal', 'b')
+        expect(explanation.having_two_strings).to.eq(True)
+
+    def test_having_two_strings_with_one_strings(self):
+        explanation = Explanation('a', True, 'equal', 2)
+        expect(explanation.having_two_strings).to.eq(False)
+
+    def test_having_two_strings_with_no_strings(self):
+        explanation = Explanation(1, True, 'equal', 2)
+        expect(explanation.having_two_strings).to.eq(False)
+
+
+class TestSpecialInit(TestCase):
+    @patch('tests.test_explanation.Explanation.build_diff')
+    def test_special_init_with_equal(self, mock_build_diff):
+        Explanation('a', True, 'equal', 'b')
+        mock_build_diff.assert_called_with('a', 'b')
+
+    @patch('tests.test_explanation.Explanation.build_diff')
+    def test_special_init_with_other_than_equal(self, mock_build_diff):
+        Explanation('a', True, 'something', 'b')
+        mock_build_diff.assert_not_called()
+
+
 class TestBuildLine(TestCase):
     def test_build_line_with_int(self):
-        line = Explanation.build_line(1, 'A')
+        line = Explanation.build_line(1, 'A', is_repr=False)
         expect(line).to.eq('A = 1\n')
 
-    def test_build_line_with_str(self):
-        line = Explanation.build_line('1', 'A')
-        expect(line).to.eq("A = '1'\n")
+    def test_build_line_with_is_repr(self):
+        line = Explanation.build_line('a', 'A', is_repr=True)
+        expect(line).to.eq("A = 'a'\n")
 
     def test_build_line_with_empty_str(self):
-        line = Explanation.build_line('', 'A')
-        expect(line).to.eq("A = ''\n")
+        line = Explanation.build_line('', 'A', is_repr=False)
+        expect(line).to.eq('A = \n')
 
     def test_build_line_with_none(self):
-        line = Explanation.build_line(None, 'A')
+        line = Explanation.build_line(None, 'A', is_repr=True)
         expect(line).to.eq('')
+
+
+class TestBuildDiff(TestCase):
+    def test_build_diff_with_no_strings(self):
+        diff = Explanation.build_diff(2, 1)
+        expect(diff).to.eq('')
+
+    def test_build_diff_with_one_string(self):
+        diff = Explanation.build_diff('a', 1)
+        expect(diff).to.eq('')
+
+    def test_build_diff_with_two_equal_strings(self):
+        diff = Explanation.build_diff('a', 'a')
+        expect(diff).to.eq('')
+
+    def test_build_diff_with_two_not_equal_strings(self):
+        diff = Explanation.build_diff('A little cat', 'A little dog')
+        expect(diff).to.eq("""- A little cat
+?          ^^^
+
++ A little dog
+?          ^^^
+""")
 
 
 class TestMessage(TestCase):

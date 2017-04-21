@@ -20,10 +20,31 @@ Expected A to equal B
         equal = Equal('actual', 'actual', is_negative=True)
 
         expect(equal.explanation.message).to.eq("""
-A = 'actual'
-B = 'actual'
+A = actual
+B = actual
 Expected A not to equal B
 """)
+
+    def test_failure_message_when_compare_two_strings(self):
+        string_a = """The walking cats
+are walking"""
+        string_b = """The walking dogs
+are walking"""
+        equal = Equal(string_a, string_b, is_negative=False)
+
+        expect(equal.explanation.message).to.eq("""
+A = The walking cats
+are walking
+B = The walking dogs
+are walking
+Expected A to equal B
+- The walking cats
+?             ^^^
+
++ The walking dogs
+?             ^^^
+
+  are walking""")
 
     def test_register(self):
         expect(expect.matcher('eq')) == Equal
