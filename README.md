@@ -235,7 +235,15 @@ expect(any_callable).to.throw(Exception)
 Asserts that a mock has been called
 
 ```python
-expect(mock).to.be.called
+expect(mock).to.be.called()
+```
+
+#### called_once
+
+Asserts that a mock has been called exactly one time
+
+```python
+expect(mock).to.be.called_once()
 ```
 
 #### callable
@@ -243,7 +251,32 @@ expect(mock).to.be.called
 Asserts that a object is callable 
 
 ```python
-expect(object).to.be.callable
+expect(object).to.be.callable()
+```
+
+#### called_with
+
+Asserts that a mock has been called with params 
+
+```python
+expect(mock).to.be.called_with(*args, **kwargs)
+```
+
+#### called_once_with
+
+Asserts that a mock has been called once with params 
+
+```python
+expect(mock).to.be.called_once_with(*args, **kwargs)
+```
+
+#### ever_called_with
+
+Asserts that a mock has ever been called with params. 
+The call is not necessary to be to latest one (the same as assert.any_call).
+
+```python
+expect(mock).to.have.been.ever_called_with(*args, **kwargs)
 ```
 
 ### Language chains
@@ -254,6 +287,7 @@ built-in language chains that you can use:
 #### Positive chains
 - to
 - be
+- been
 - a
 - an
 - have

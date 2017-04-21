@@ -4,7 +4,7 @@ from robber.matchers.base import Base
 
 class Callable(Base):
     """
-    expect(function).to.be.callable()
+    expect(object).to.be.callable()
     """
 
     def matches(self):
