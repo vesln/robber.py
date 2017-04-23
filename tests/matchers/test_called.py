@@ -15,17 +15,23 @@ class TestCalled(TestCase):
     def test_failure_message(self):
         mock = Mock()
         called = Called(mock)
-        message = called.failure_message()
-        expect(message) == 'Expected {mock} to be called'.format(mock=mock)
+        message = called.explanation.message
+        expect(message) == """
+A = {mock}
+Expected A to be called
+""".format(mock=mock)
 
     def test_negative_failure_message(self):
         mock = Mock()
-        called = Called(mock)
-        message = called.failure_message()
+        called = Called(mock, is_negative=True)
+        message = called.explanation.message
 
         mock()
 
-        expect(message) == 'Expected {mock} to be called'.format(mock=mock)
+        expect(message) == """
+A = {mock}
+Expected A not to be called
+""".format(mock=mock)
 
     def test_register(self):
         expect(expect.matcher('called')) == Called

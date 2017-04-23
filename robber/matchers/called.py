@@ -1,4 +1,5 @@
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
@@ -13,10 +14,9 @@ class Called(Base):
         except AttributeError:
             raise TypeError('{actual} is not a mock'.format(actual=self.actual))
 
-    def failure_message(self):
-        return 'Expected {actual}{negative_message} to be called'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, "be called")
 
 
 expect.register('called', Called)
