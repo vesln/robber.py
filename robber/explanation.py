@@ -31,7 +31,7 @@ class Explanation:
             'Expected A{negative_word} to {action}{b_word}\n'
             '{additional_info}'
         ).format(
-            line_a=self.build_line(self.a, 'A', not self.having_two_strings),
+            line_a=self.build_line(self.a, 'A', not self.having_two_strings, allowed_none=True),
             line_b=self.build_line(self.b, 'B', not self.having_two_strings),
             line_c=self.build_line(self.c, 'C', not self.having_two_strings),
             negative_word=self.negative_word,
@@ -41,8 +41,8 @@ class Explanation:
         )
 
     @staticmethod
-    def build_line(obj, obj_name, is_repr):
-        if obj is not None:
+    def build_line(obj, obj_name, is_repr, allowed_none=False):
+        if obj is not None or allowed_none:
             if is_repr:
                 obj = repr(obj)
             return '{obj_name} = {obj}\n'.format(

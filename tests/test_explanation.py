@@ -107,6 +107,10 @@ class TestBuildLine(TestCase):
         line = Explanation.build_line(None, 'A', is_repr=True)
         expect(line).to.eq('')
 
+    def test_build_line_allowed_none(self):
+        line = Explanation.build_line(None, 'A', is_repr=True, allowed_none=True)
+        expect(line).to.eq('A = None\n')
+
 
 class TestBuildDiff(TestCase):
     def test_build_diff_with_no_strings(self):

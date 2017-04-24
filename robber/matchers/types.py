@@ -1,4 +1,5 @@
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
@@ -10,10 +11,9 @@ class String(Base):
     def matches(self):
         return isinstance(self.actual, str)
 
-    def failure_message(self):
-        return 'Expected "{actual}"{negative_message} to be a string'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be a string')
 
 
 class Integer(Base):
@@ -24,10 +24,9 @@ class Integer(Base):
     def matches(self):
         return isinstance(self.actual, int)
 
-    def failure_message(self):
-        return 'Expected "{actual}"{negative_message} to be an integer'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be an integer')
 
 
 class Float(Base):
@@ -38,10 +37,9 @@ class Float(Base):
     def matches(self):
         return isinstance(self.actual, float)
 
-    def failure_message(self):
-        return 'Expected "{actual}"{negative_message} to be a floating point number'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be a floating point number')
 
 
 class List(Base):
@@ -52,10 +50,9 @@ class List(Base):
     def matches(self):
         return isinstance(self.actual, list)
 
-    def failure_message(self):
-        return 'Expected "{actual}"{negative_message} to be an array'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be an array')
 
 
 class Dict(Base):
@@ -66,10 +63,9 @@ class Dict(Base):
     def matches(self):
         return isinstance(self.actual, dict)
 
-    def failure_message(self):
-        return 'Expected "{actual}"{negative_message} to be a dictionary'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be a dictionary')
 
 
 class Tuple(Base):
@@ -80,10 +76,9 @@ class Tuple(Base):
     def matches(self):
         return isinstance(self.actual, tuple)
 
-    def failure_message(self):
-        return 'Expected "{actual}"{negative_message} to be a tuple'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be a tuple')
 
 
 class Non(Base):
@@ -94,10 +89,9 @@ class Non(Base):
     def matches(self):
         return self.actual is None
 
-    def failure_message(self):
-        return 'Expected "{actual}"{negative_message} to be None'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be None')
 
 
 expect.register('string', String)
