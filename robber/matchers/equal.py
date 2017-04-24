@@ -18,6 +18,7 @@ class Equal(Base):
         return Explanation(self.actual, self.is_negative, 'equal', self.expected)
 
 
+
 expect.register('eq', Equal)
 expect.register('__eq__', Equal)
 

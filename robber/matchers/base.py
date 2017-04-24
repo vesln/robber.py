@@ -9,12 +9,14 @@ class Base:
     idea to extend it, as well.
     """
 
-    def __init__(self, actual, expected=None, is_negative=False, *args):
+    def __init__(self, actual, expected=None, is_negative=False, *args, **kwargs):
         self.actual = actual
         self.expected = expected
         self.is_negative = is_negative
         self.args = args
+        self.kwargs = kwargs
         self.message = None
+        self.fail_class = None
 
     def fail_with(self, message):
         self.message = message

@@ -5,7 +5,7 @@ from robber.matchers.base import Base
 
 class Called(Base):
     """
-    expect(function).to.be.called()
+    expect(mock).to.be.called()
     """
 
     def matches(self):
