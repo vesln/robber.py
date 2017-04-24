@@ -15,16 +15,24 @@ class TestCalledOnce(TestCase):
     def test_failure_message(self):
         mock = Mock()
         called_once = CalledOnce(mock)
-        message = called_once.failure_message()
-        expect(message) == 'Expected {mock} to be called once. Called 0 times'.format(mock=mock)
+        message = called_once.explanation.message
+        expect(message) == """
+A = {mock}
+Expected A to be called once
+Called 0 times
+""".format(mock=mock)
 
     def test_negative_failure_message(self):
         mock = Mock()
         mock()
         called_once = CalledOnce(mock, is_negative=True)
-        message = called_once.failure_message()
+        message = called_once.explanation.message
 
-        expect(message) == 'Expected {mock} not to be called once. Called 1 times'.format(mock=mock)
+        expect(message) == """
+A = {mock}
+Expected A not to be called once
+Called 1 times
+""".format(mock=mock)
 
     def test_register(self):
         expect(expect.matcher('called_once')) == CalledOnce
