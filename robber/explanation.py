@@ -2,7 +2,10 @@ from difflib import Differ
 
 
 class Explanation:
-    def __init__(self, a, is_negative, action, b=None, c=None, additional_info=None, negative_action=None):
+    def __init__(
+            self, a, is_negative, action, b=None, c=None,
+            additional_info=None, negative_action=None, additional_action=None
+    ):
         self.a = a
         self.action = action
         self.b = b
@@ -11,8 +14,10 @@ class Explanation:
         self.action = negative_action if is_negative and negative_action else action
         self.additional_info = '{0}\n'.format(additional_info) if additional_info else ''
         self.negative_word = ' not' if is_negative and not negative_action else ''
-        self.b_word = ' B' if b else ''
+        self.additional_action = ' {0}'.format(additional_action) if additional_action else ''
 
+        self.b_word = ' B' if b is not None else ''
+        self.c_word = ' C' if c is not None and additional_action else ''
         self.having_two_strings = True if type(a) is str and type(b) is str else False
 
         self.special_init()
@@ -28,7 +33,7 @@ class Explanation:
             '{line_a}'
             '{line_b}'
             '{line_c}'
-            'Expected A{negative_word} to {action}{b_word}\n'
+            'Expected A{negative_word} to {action}{b_word}{additional_action}{c_word}\n'
             '{additional_info}'
         ).format(
             line_a=self.build_line(self.a, 'A', not self.having_two_strings, allowed_none=True),
@@ -37,7 +42,9 @@ class Explanation:
             negative_word=self.negative_word,
             action=self.action,
             b_word=self.b_word,
-            additional_info=self.additional_info
+            additional_info=self.additional_info,
+            additional_action=self.additional_action,
+            c_word=self.c_word,
         )
 
     @staticmethod

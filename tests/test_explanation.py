@@ -63,6 +63,28 @@ class TestBWord(TestCase):
         explanation = Explanation(1, True, 'be truthy')
         expect(explanation.b_word).to.eq('')
 
+    def test_b_word_with_0(self):
+        explanation = Explanation(1, False, 0, 'equal')
+        expect(explanation.b_word).to.eq(' B')
+
+
+class TestCWord(TestCase):
+    def test_c_word(self):
+        explanation = Explanation(1, True, 'within', 2, 3, additional_action='and')
+        expect(explanation.c_word).to.eq(' C')
+
+    def test_c_word_without_additional_action(self):
+        explanation = Explanation('mock', False, 'be called with', 1, 2, 'Actually called with C')
+        expect(explanation.c_word).to.eq('')
+
+    def test_none_c_word(self):
+        explanation = Explanation(1, True, 'be truthy')
+        expect(explanation.c_word).to.eq('')
+
+    def test_c_word_with_0(self):
+        explanation = Explanation(1, True, 'within', -1, 0, additional_action='and')
+        expect(explanation.c_word).to.eq(' C')
+
 
 class TestHavingTwoStrings(TestCase):
     def test_having_two_strings_with_two_strings(self):
@@ -166,4 +188,13 @@ B = 1
 C = 2
 Expected A to be called with B
 Actually called with C
+""")
+
+    def test_message_of_explanation_with_a_b_c_and_additional_action(self):
+        explanation = Explanation(1, False, 'be within', 0, 2, additional_action='and')
+        expect(explanation.message).to.eq("""
+A = 1
+B = 0
+C = 2
+Expected A to be within B and C
 """)

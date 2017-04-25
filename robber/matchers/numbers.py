@@ -1,5 +1,6 @@
 from robber import BadExpectation
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
@@ -11,10 +12,9 @@ class Above(Base):
     def matches(self):
         return self.actual > self.expected
 
-    def failure_message(self):
-        return 'Expected {a}{negative_message} to be above {b}'.format(
-            a=self.actual, negative_message=self.negative_message, b=self.expected
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be above', self.expected)
 
 
 class Below(Base):
@@ -25,10 +25,9 @@ class Below(Base):
     def matches(self):
         return self.actual < self.expected
 
-    def failure_message(self):
-        return 'Expected {a}{negative_message} to be below {b}'.format(
-            a=self.actual, negative_message=self.negative_message, b=self.expected
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be below', self.expected)
 
 
 class Within(Base):
@@ -39,9 +38,15 @@ class Within(Base):
     def matches(self):
         return self.expected <= self.actual <= self.args[0]
 
-    def failure_message(self):
-        return 'Expected {a}{negative_message} to be within {m} and {n}'.format(
-            a=self.actual, negative_message=self.negative_message, m=self.expected, n=self.args[0]
+    # def failure_message(self):
+    #     return 'Expected {a}{negative_message} to be within {m} and {n}'.format(
+    #         a=self.actual, negative_message=self.negative_message, m=self.expected, n=self.args[0]
+    #     )
+
+    @property
+    def explanation(self):
+        return Explanation(
+            self.actual, self.is_negative, 'be within', self.expected, self.args[0], additional_action='and'
         )
 
 
