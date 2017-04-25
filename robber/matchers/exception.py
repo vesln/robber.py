@@ -1,4 +1,5 @@
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
@@ -24,16 +25,16 @@ class ExceptionMatcher(Base):
     def matches(self):
         return isinstance(self.raised, self.expected)
 
-    def failure_message(self):
+    @property
+    def explanation(self):
         if self.raised:
             got = self.raised.__class__.__name__
         else:
             got = 'nothing'
 
-        return 'Expected {expected_exception}{negative_message} to be raised, got {actual_exception}'.format(
-            expected_exception=self.expected.__name__,
-            negative_message=self.negative_message,
-            actual_exception=got
+        return Explanation(
+            self.expected.__name__, self.is_negative, 'be raised',
+            c=got, additional_info='Actually got C'
         )
 
 
