@@ -11,18 +11,22 @@ class TestInstanceOf:
     def test_failure_message(self):
         first = First()
         instance_of = InstanceOf(first, First)
-        message = instance_of.failure_message()
-        expect(message) == 'Expected "{actual}" to be an instance of "{expected}"'.format(
-            actual=first, expected=First
-        )
+        message = instance_of.explanation.message
+        expect(message) == """
+A = {actual}
+B = {expected}
+Expected A to be an instance of B
+""".format(actual=first, expected=First)
 
     def test_negative_failure_message(self):
         first = First()
         instance_of = InstanceOf(first, First, is_negative=True)
-        message = instance_of.failure_message()
-        expect(message) == 'Expected "{actual}" not to be an instance of "{expected}"'.format(
-            actual=first, expected=First
-        )
+        message = instance_of.explanation.message
+        expect(message) == """
+A = {actual}
+B = {expected}
+Expected A not to be an instance of B
+""".format(actual=first, expected=First)
 
     def test_register(self):
         expect(expect.matcher('instance_of')) == InstanceOf
