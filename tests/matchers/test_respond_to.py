@@ -10,11 +10,25 @@ class TestRespondTo(unittest.TestCase):
 
     def test_failure_message(self):
         respond = RespondTo('object', 'method')
-        expect(respond.failure_message()) == 'Expected "object" to respond to "method"'
+        message = respond.explanation.message
+        expect(message) == """
+A = object
+B = method
+Expected A to respond to B
+"""
 
     def test_negative_failure_message(self):
-        respond = RespondTo('object', 'method', is_negative=True)
-        expect(respond.failure_message()) == 'Expected "object" not to respond to "method"'
+        class Foo:
+            def bar(self):
+                pass
+
+        respond = RespondTo(Foo, 'bar', is_negative=True)
+        message = respond.explanation.message
+        expect(message) == """
+A = {0}
+B = 'bar'
+Expected A not to respond to B
+""".format(Foo)
 
     def test_register(self):
         expect(expect.matcher('respond_to')) == RespondTo
