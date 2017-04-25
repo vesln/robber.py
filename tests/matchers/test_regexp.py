@@ -9,13 +9,21 @@ class TestMatch:
 
     def test_failure_message(self):
         match = Match('actual', r'expected$')
-        message = match.failure_message()
-        expect(message) == 'Expected "actual" to match "expected$"'
+        message = match.explanation.message
+        expect(message) == """
+A = actual
+B = expected$
+Expected A to match B
+"""
 
     def test_negative_failure_message(self):
         match = Match('actual', r'actual$', is_negative=True)
-        message = match.failure_message()
-        expect(message) == 'Expected "actual" not to match "actual$"'
+        message = match.explanation.message
+        expect(message) == """
+A = actual
+B = actual$
+Expected A not to match B
+"""
 
     def test_register(self):
         expect(expect.matcher('match')) == Match

@@ -28,7 +28,7 @@ Expected A to respond to B
 A = {0}
 B = 'bar'
 Expected A not to respond to B
-""".format(Foo)
+""".format(repr(Foo))
 
     def test_register(self):
         expect(expect.matcher('respond_to')) == RespondTo
