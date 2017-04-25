@@ -16,7 +16,7 @@ class TestInstanceOf:
 A = {actual}
 B = {expected}
 Expected A to be an instance of B
-""".format(actual=first, expected=First)
+""".format(actual=first, expected=repr(First))
 
     def test_negative_failure_message(self):
         first = First()
@@ -26,7 +26,7 @@ Expected A to be an instance of B
 A = {actual}
 B = {expected}
 Expected A not to be an instance of B
-""".format(actual=first, expected=First)
+""".format(actual=first, expected=repr(First))
 
     def test_register(self):
         expect(expect.matcher('instance_of')) == InstanceOf
