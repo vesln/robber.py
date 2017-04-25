@@ -67,12 +67,12 @@ Asserts that the target is False:
 expect(False).to.be.false()
 ```
 
-#### instanceof
+#### instance_of
 
 Asserts that the target is an instance of expected:
 
 ```python
-expect(obj).to.be.instanceof(Klass)
+expect(obj).to.be.instance_of(Klass)
 ```
 
 #### match

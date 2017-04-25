@@ -2,9 +2,9 @@ from robber import expect
 from robber.matchers.base import Base
 
 
-class Instanceof(Base):
+class InstanceOf(Base):
     """
-    expect(obj).to.be.an.instanceof(Klass)
+    expect(obj).to.be.an.instance_of(Klass)
     """
 
     def matches(self):
@@ -16,4 +16,4 @@ class Instanceof(Base):
         )
 
 
-expect.register('instanceof', Instanceof)
+expect.register('instance_of', InstanceOf)
