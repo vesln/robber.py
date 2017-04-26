@@ -38,11 +38,6 @@ class Within(Base):
     def matches(self):
         return self.expected <= self.actual <= self.args[0]
 
-    # def failure_message(self):
-    #     return 'Expected {a}{negative_message} to be within {m} and {n}'.format(
-    #         a=self.actual, negative_message=self.negative_message, m=self.expected, n=self.args[0]
-    #     )
-
     @property
     def explanation(self):
         return Explanation(
