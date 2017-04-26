@@ -17,9 +17,14 @@ class TestCalledOnceWith(TestCase):
 
         called_once_with = CalledOnceWith(mock, 2)
         called_once_with.matches()
-        message = called_once_with.failure_message()
+        message = called_once_with.explanation.message
 
-        expect(message) == 'Expected {mock} to be called once with 2. Actually not called.'.format(mock=mock)
+        expect(message) == """
+A = {0}
+B = 2
+Expected A to be called once with B
+Actually not called
+""".format(mock)
 
     def test_failure_message_with_called_multiple_times(self):
         mock = Mock()
@@ -28,10 +33,15 @@ class TestCalledOnceWith(TestCase):
 
         called_once_with = CalledOnceWith(mock, 2)
         called_once_with.matches()
-        message = called_once_with.failure_message()
+        message = called_once_with.explanation.message
 
-        expect(message) == 'Expected {mock} to be called once with 2. ' \
-                           'Actually called 2 times with 1.'.format(mock=mock)
+        expect(message) == """
+A = {0}
+B = 2
+C = 1
+Expected A to be called once with B
+Actually called 2 times with C
+""".format(mock)
 
     def test_failure_message_with_wrong_params(self):
         mock = Mock()
@@ -39,10 +49,15 @@ class TestCalledOnceWith(TestCase):
         mock(4, 5, 6, c=7)
         called_once_with = CalledOnceWith(mock, 1, False, 2, 3, a=4)
         called_once_with.matches()
-        message = called_once_with.failure_message()
+        message = called_once_with.explanation.message
 
-        expect(message) == 'Expected {mock} to be called once with 1, 2, 3, a=4. ' \
-                           'Actually called 1 times with 4, 5, 6, c=7.'.format(mock=mock)
+        expect(message) == """
+A = {0}
+B = 1, 2, 3, a=4
+C = 4, 5, 6, c=7
+Expected A to be called once with B
+Actually called 1 times with C
+""".format(mock)
 
     def test_negative_failure_message(self):
         mock = Mock()
@@ -50,10 +65,15 @@ class TestCalledOnceWith(TestCase):
         mock(1, 2, 3, a=4)
         called_once_with = CalledOnceWith(mock, 1, True, 2, 3, a=4)
         called_once_with.matches()
-        message = called_once_with.failure_message()
+        message = called_once_with.explanation.message
 
-        expect(message) == 'Expected {mock} not to be called once with 1, 2, 3, a=4. ' \
-                           'Actually called 1 times with 1, 2, 3, a=4.'.format(mock=mock)
+        expect(message) == """
+A = {0}
+B = 1, 2, 3, a=4
+C = 1, 2, 3, a=4
+Expected A not to be called once with B
+Actually called 1 times with C
+""".format(mock)
 
     def test_register(self):
         expect(expect.matcher('called_once_with')) == CalledOnceWith
