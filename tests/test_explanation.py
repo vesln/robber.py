@@ -86,16 +86,18 @@ class TestCWord(TestCase):
         expect(explanation.c_word).to.eq(' C')
 
 
-class TestSpecialInit(TestCase):
+class TestDiffs(TestCase):
     @patch('tests.test_explanation.Explanation.build_diff')
-    def test_special_init_with_equal(self, mock_build_diff):
-        Explanation('a', True, 'equal', 'b')
-        mock_build_diff.assert_called_with('a', 'b')
+    def test_diffs_with_need_to_build_diffs(self, mock_build_diff):
+        mock_build_diff.return_value = 'diffs'
+        explanation = Explanation('a', False, 'equal', 'b', need_to_build_diffs=True)
+        expect(explanation.diffs).to.eq('diffs')
 
     @patch('tests.test_explanation.Explanation.build_diff')
-    def test_special_init_with_other_than_equal(self, mock_build_diff):
-        Explanation('a', True, 'something', 'b')
-        mock_build_diff.assert_not_called()
+    def test_diffs_with_no_need_to_build_diffs(self, mock_build_diff):
+        mock_build_diff.return_value = 'diffs'
+        explanation = Explanation('a', False, 'equal', 'b')
+        expect(explanation.diffs).to.eq('')
 
 
 class TestIsRepr(TestCase):

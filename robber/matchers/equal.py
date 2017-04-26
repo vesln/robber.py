@@ -15,7 +15,7 @@ class Equal(Base):
 
     @property
     def explanation(self):
-        return Explanation(self.actual, self.is_negative, 'equal', self.expected)
+        return Explanation(self.actual, self.is_negative, 'equal', self.expected, need_to_build_diffs=True)
 
 
 expect.register('eq', Equal)
