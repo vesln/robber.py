@@ -86,20 +86,6 @@ class TestCWord(TestCase):
         expect(explanation.c_word).to.eq(' C')
 
 
-class TestHavingTwoStrings(TestCase):
-    def test_having_two_strings_with_two_strings(self):
-        explanation = Explanation('a', True, 'equal', 'b')
-        expect(explanation.having_two_strings).to.eq(True)
-
-    def test_having_two_strings_with_one_strings(self):
-        explanation = Explanation('a', True, 'equal', 2)
-        expect(explanation.having_two_strings).to.eq(False)
-
-    def test_having_two_strings_with_no_strings(self):
-        explanation = Explanation(1, True, 'equal', 2)
-        expect(explanation.having_two_strings).to.eq(False)
-
-
 class TestSpecialInit(TestCase):
     @patch('tests.test_explanation.Explanation.build_diff')
     def test_special_init_with_equal(self, mock_build_diff):
@@ -110,6 +96,20 @@ class TestSpecialInit(TestCase):
     def test_special_init_with_other_than_equal(self, mock_build_diff):
         Explanation('a', True, 'something', 'b')
         mock_build_diff.assert_not_called()
+
+
+class TestIsRepr(TestCase):
+    def test_is_repr_with_force_disable_repr(self):
+        explanation = Explanation('a', True, 'equal', 'b', force_disable_repr=True)
+        expect(explanation.is_repr).to.eq(False)
+
+    def test_is_repr_with_two_strings(self):
+        explanation = Explanation('a', True, 'equal', 'b')
+        expect(explanation.is_repr).to.eq(False)
+
+    def test_is_repr_with_one_strings(self):
+        explanation = Explanation('a', True, 'be True')
+        expect(explanation.is_repr).to.eq(True)
 
 
 class TestBuildLine(TestCase):

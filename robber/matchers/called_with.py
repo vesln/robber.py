@@ -1,6 +1,7 @@
 from mock import call
 
 from robber import expect
+from robber.explanation import Explanation
 from robber.helper import Helper
 from robber.matchers.base import Base
 
@@ -16,24 +17,23 @@ class CalledWith(Base):
         except AttributeError:
             raise TypeError('{actual} is not a mock'.format(actual=self.actual))
 
-    def failure_message(self):
-        if not self.actual.called:
-            return 'Expected {actual}{negative_message} to be called with {expected_args}. ' \
-                   'Actually not called.'.format(
-                        actual=self.actual, negative_message=self.negative_message,
-                        expected_args=Helper.build_expected_params_string(
-                            expected=self.expected, args=self.args, kwargs=self.kwargs
-                        )
-                    )
+    @property
+    def explanation(self):
+        expected_args = Helper.build_expected_params_string(
+            expected=self.expected, args=self.args, kwargs=self.kwargs
+        )
 
-        return 'Expected {actual}{negative_message} to be called with {expected_params}. ' \
-               'Actually called with {called_params}.'.format(
-                    actual=self.actual, negative_message=self.negative_message,
-                    expected_params=Helper.build_expected_params_string(
-                        expected=self.expected, args=self.args, kwargs=self.kwargs
-                    ),
-                    called_params=Helper.build_called_params_string(self.actual.call_args)
-                )
+        if not self.actual.called:
+            return Explanation(
+                self.actual, self.is_negative, 'be called with', expected_args,
+                additional_info='Actually not called', force_disable_repr=True
+            )
+
+        called_params = Helper.build_called_params_string(self.actual.call_args)
+        return Explanation(
+            self.actual, self.is_negative, 'be called with', expected_args,
+            called_params, 'Actually called with C', force_disable_repr=True
+        )
 
 
 expect.register('called_with', CalledWith)
