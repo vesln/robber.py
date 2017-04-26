@@ -20,9 +20,13 @@ class TestEverCalledWith(TestCase):
         mock('other')
 
         ever_called_with = EverCalledWith(mock, 5, False, 6, 7, b=8)
-        message = ever_called_with.failure_message()
+        message = ever_called_with.explanation.message
 
-        expect(message) == 'Expected {mock} to have been ever called with 5, 6, 7, b=8.'.format(mock=mock)
+        expect(message) == """
+A = {0}
+B = 5, 6, 7, b=8
+Expected A to have been ever called with B
+""".format(mock)
 
     def test_negative_failure_message(self):
         mock = Mock()
@@ -30,9 +34,13 @@ class TestEverCalledWith(TestCase):
         mock(1, 2, 3, a=4)
         ever_called_with = EverCalledWith(mock, 1, True, 2, 3, a=4)
         ever_called_with.matches()
-        message = ever_called_with.failure_message()
+        message = ever_called_with.explanation.message
 
-        expect(message) == 'Expected {mock} not to have been ever called with 1, 2, 3, a=4.'.format(mock=mock)
+        expect(message) == """
+A = {0}
+B = 1, 2, 3, a=4
+Expected A not to have been ever called with B
+""".format(mock)
 
     def test_register(self):
         expect(expect.matcher('ever_called_with')) == EverCalledWith

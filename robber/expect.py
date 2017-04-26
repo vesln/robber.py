@@ -29,10 +29,6 @@ class expect:
         cls.message = message
 
     @classmethod
-    def remove_custom_message(cls):
-        cls.message = None
-
-    @classmethod
     def register(cls, name, klass, is_negative=False):
         cls.matchers[name] = klass
 
