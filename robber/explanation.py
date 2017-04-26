@@ -5,12 +5,13 @@ class Explanation:
     def __init__(
             self, a, is_negative, action, b=None, c=None,
             additional_info=None, negative_action=None, additional_action=None, force_disable_repr=False,
-            need_to_build_diffs=False
+            need_to_build_diffs=False, d=None
     ):
         self.a = a
         self.action = action
         self.b = b
         self.c = c
+        self.d = d
         self.force_disable_repr = force_disable_repr
         self.need_to_build_diffs = need_to_build_diffs
 
@@ -22,6 +23,7 @@ class Explanation:
 
         self.b_word = ' B' if b is not None else ''
         self.c_word = ' C' if c is not None and additional_action else ''
+        self.d_word = ' D' if d is not None else ''
 
     @property
     def is_repr(self):
@@ -35,6 +37,7 @@ class Explanation:
             '{line_a}'
             '{line_b}'
             '{line_c}'
+            '{line_d}'
             'Expected A{negative_word} to {action}{b_word}{additional_action}{c_word}\n'
             '{additional_info}'
             '{diffs}'
@@ -42,6 +45,7 @@ class Explanation:
             line_a=self.build_line(self.a, 'A', self.is_repr, allowed_none=True),
             line_b=self.build_line(self.b, 'B', self.is_repr),
             line_c=self.build_line(self.c, 'C', self.is_repr),
+            line_d=self.build_line(self.d, 'D', self.is_repr),
             negative_word=self.negative_word,
             action=self.action,
             b_word=self.b_word,

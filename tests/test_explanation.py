@@ -86,6 +86,20 @@ class TestCWord(TestCase):
         expect(explanation.c_word).to.eq(' C')
 
 
+class TestDWord(TestCase):
+    def test_d_word(self):
+        explanation = Explanation('func', False, 'change', 1, additional_action='by', c=2, d=3)
+        expect(explanation.d_word).to.eq(' D')
+
+    def test_none_d_word(self):
+        explanation = Explanation(1, True, 'be truthy')
+        expect(explanation.d_word).to.eq('')
+
+    def test_d_word_with_0(self):
+        explanation = Explanation('func', False, 'change', 1, additional_action='by', c=2, d=0)
+        expect(explanation.d_word).to.eq(' D')
+
+
 class TestDiffs(TestCase):
     @patch('tests.test_explanation.Explanation.build_diff')
     def test_diffs_with_need_to_build_diffs(self, mock_build_diff):
@@ -199,4 +213,18 @@ A = 1
 B = 0
 C = 2
 Expected A to be within B and C
+""")
+
+    def test_message_of_explanation_with_a_b_c_d_and_additional_action(self):
+        explanation = Explanation(
+            'func', False, 'change', 1, additional_action='by', c=2,
+            d=3, additional_info='Actually changed by D', force_disable_repr=True
+        )
+        expect(explanation.message).to.eq("""
+A = func
+B = 1
+C = 2
+D = 3
+Expected A to change B by C
+Actually changed by D
 """)

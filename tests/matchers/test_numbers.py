@@ -97,7 +97,14 @@ class TestChange(unittest.TestCase):
         try:
             Change(increase_by_2, 1).by(1)
         except BadExpectation as exception:
-            expect(exception.message) == 'Expected function increase_by_2 to change 1 by 1, but was changed by 2'
+            expect(exception.message) == """
+A = increase_by_2
+B = 1
+C = 1
+D = 2
+Expected A to change B by C
+Actually changed by D
+"""
 
     def test_change_by_raise_exception_with_not_to(self):
         def increase_by_2(x):
@@ -106,7 +113,14 @@ class TestChange(unittest.TestCase):
         try:
             Change(increase_by_2, 1, is_negative=True).by(2)
         except BadExpectation as exception:
-            expect(exception.message) == 'Expected function increase_by_2 not to change 1 by 2, but was changed by 2'
+            expect(exception.message) == """
+A = increase_by_2
+B = 1
+C = 2
+D = 2
+Expected A not to change B by C
+Actually changed by D
+"""
 
     def test_register(self):
         expect(expect.matcher('change')) == Change
