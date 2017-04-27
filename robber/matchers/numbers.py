@@ -59,21 +59,12 @@ class Change(Base):
     def by(self, amount=0):
         self.changed = self.callable(self.obj) - self.obj
         self.amount = amount
-        # message = self.message or self.failure_message(self.callable.__name__, self.obj, amount, self.changed)
         message = self.message or self.explanation.message
 
         if (self.changed == amount) == (not self.is_negative):
             return expect(self.obj)
 
         raise BadExpectation(message)
-
-    # def failure_message(self, callable_name, obj, changed, got):
-    #     message = 'Expected function {function}{negative_message} to change {a} by {x}, but was changed by {y}'
-    #     return message.format(
-    #         function=callable_name,
-    #         negative_message=self.negative_message,
-    #         a=obj, x=changed, y=got
-    #     )
 
     @property
     def explanation(self):
