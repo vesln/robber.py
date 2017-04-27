@@ -320,8 +320,8 @@ expect(1 + 1).to.be within(1, 3)
 ### Custom assertions
 
 Writing custom assertion is as easy as extending a base
-matcher class and adding two methods - matches for matching
-and failure_message for the error notice:
+matcher class and adding the method `matches` for matching
+and the property `explanation` for the error notice:
 
 ```python
 class Chain(Base):
@@ -329,9 +329,10 @@ class Chain(Base):
         expectation = self.actual(None)
         chain = getattr(expectation, self.expected)
         return expectation is chain
-
-    def failure_message(self):
-        return 'Expected "%s" to have chain "%s"' % (self.actual, self.expected)
+    
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'equal', self.expected)
 
 expect.register('chain', Chain)
 ```

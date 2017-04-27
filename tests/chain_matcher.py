@@ -1,4 +1,5 @@
 from robber.expect import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
@@ -8,8 +9,8 @@ class Chain(Base):
         chain = getattr(expectation, self.expected)
         return expectation is chain
 
-    def failure_message(self):
-        return 'Expected "%s" to have chain "%s"' % (self.actual, self.expected)
-
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'have chain', self.expected)
 
 expect.register('chain', Chain)
