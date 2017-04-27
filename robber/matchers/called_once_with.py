@@ -32,11 +32,11 @@ class CalledOnceWith(Base):
             )
 
         called_args = Helper.build_called_params_string(self.actual.call_args)
-        additional_info = 'Actually called {call_count} times with C'.format(call_count=self.actual.call_count)
+        additional_info = 'Actually called {call_count} times with Z'.format(call_count=self.actual.call_count)
 
         return Explanation(
-            self.actual, self.is_negative, 'be called once with', expected_args, called_args,
-            additional_info=additional_info, force_disable_repr=True
+            self.actual, self.is_negative, 'be called once with', expected_args,
+            z=called_args, additional_info=additional_info, force_disable_repr=True
         )
 
 

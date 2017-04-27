@@ -38,9 +38,9 @@ Actually not called
         expect(message) == """
 A = {0}
 B = 2
-C = 1
+Z = 1
 Expected A to be called once with B
-Actually called 2 times with C
+Actually called 2 times with Z
 """.format(mock)
 
     def test_failure_message_with_wrong_params(self):
@@ -54,9 +54,9 @@ Actually called 2 times with C
         expect(message) == """
 A = {0}
 B = 1, 2, 3, a=4
-C = 4, 5, 6, c=7
+Z = 4, 5, 6, c=7
 Expected A to be called once with B
-Actually called 1 times with C
+Actually called 1 times with Z
 """.format(mock)
 
     def test_negative_failure_message(self):
@@ -70,9 +70,8 @@ Actually called 1 times with C
         expect(message) == """
 A = {0}
 B = 1, 2, 3, a=4
-C = 1, 2, 3, a=4
 Expected A not to be called once with B
-Actually called 1 times with C
+But it happened
 """.format(mock)
 
     def test_register(self):

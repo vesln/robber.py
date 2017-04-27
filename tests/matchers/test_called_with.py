@@ -40,9 +40,9 @@ Actually not called
         expect(message) == """
 A = {0}
 B = 2
-C = 1
+Z = 1
 Expected A to be called with B
-Actually called with C
+Actually called with Z
 """.format(mock)
 
     def test_negative_failure_message_with_one_arg(self):
@@ -55,9 +55,8 @@ Actually called with C
         expect(message) == """
 A = {0}
 B = 2
-C = 2
 Expected A not to be called with B
-Actually called with C
+But it happened
 """.format(mock)
 
     def test_failure_message_with_multiple_args(self):
@@ -70,9 +69,9 @@ Actually called with C
         expect(message) == """
 A = {0}
 B = 1, 2, 3, a=4
-C = 4, 5, 6, c=7
+Z = 4, 5, 6, c=7
 Expected A to be called with B
-Actually called with C
+Actually called with Z
 """.format(mock)
 
     def test_negative_failure_message_with_multiple_args(self):
@@ -85,9 +84,8 @@ Actually called with C
         expect(message) == """
 A = {0}
 B = 1, 2, 3, a=4
-C = 1, 2, 3, a=4
 Expected A not to be called with B
-Actually called with C
+But it happened
 """.format(mock)
 
     def test_register(self):

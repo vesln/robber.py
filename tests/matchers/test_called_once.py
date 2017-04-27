@@ -31,7 +31,7 @@ Called 0 times
         expect(message) == """
 A = {mock}
 Expected A not to be called once
-Called 1 times
+But it happened
 """.format(mock=mock)
 
     def test_register(self):

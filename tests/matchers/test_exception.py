@@ -20,9 +20,9 @@ class TestExceptionMatcher(unittest.TestCase):
         message = exception_raised.explanation.message
         expect(message) == """
 A = 'ZeroDivisionError'
-C = 'TypeError'
+Z = 'TypeError'
 Expected A to be raised
-Actually got C
+Actually got Z
 """
 
     def test_negative_failure_message_with_wrong_exception(self):
@@ -31,9 +31,8 @@ Actually got C
         message = exception_raised.explanation.message
         expect(message) == """
 A = 'ZeroDivisionError'
-C = 'ZeroDivisionError'
 Expected A not to be raised
-Actually got C
+But it happened
 """
 
     def test_failure_message_with_no_exception_was_raised(self):
@@ -41,7 +40,7 @@ Actually got C
         message = no_exception.explanation.message
         expect(message) == """
 A = 'Exception'
-C = 'nothing'
+Z = 'nothing'
 Expected A to be raised
-Actually got C
+Actually got Z
 """

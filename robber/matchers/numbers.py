@@ -79,7 +79,7 @@ class Change(Base):
     def explanation(self):
         return Explanation(
             self.callable.__name__, self.is_negative, 'change', self.obj, additional_action='by', c=self.amount,
-            d=self.changed, additional_info='Actually changed by D', force_disable_repr=True
+            z=self.changed, additional_info='Actually changed by Z', force_disable_repr=True
         )
 
 

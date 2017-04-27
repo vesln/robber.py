@@ -32,7 +32,7 @@ class CalledWith(Base):
         called_params = Helper.build_called_params_string(self.actual.call_args)
         return Explanation(
             self.actual, self.is_negative, 'be called with', expected_args,
-            called_params, 'Actually called with C', force_disable_repr=True
+            z=called_params, additional_info='Actually called with Z', force_disable_repr=True
         )
 
 

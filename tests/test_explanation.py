@@ -16,10 +16,24 @@ class TestInit(TestCase):
         expect(explanation.c).to.eq(3)
 
 
+class TestZ(TestCase):
+    def test_z_with_positive_explanation(self):
+        explanation = Explanation('func', False, 'change', 1, additional_action='by', c=2, z=3)
+        expect(explanation.z).to.eq(3)
+
+    def test_z_with_negative_explanation(self):
+        explanation = Explanation('func', True, 'change', 1, additional_action='by', c=2, z=3)
+        expect(explanation.z).to.eq(None)
+
+
 class TestAdditionalInfo(TestCase):
-    def test_additional_info(self):
-        explanation = Explanation(1, True, 'called with', 2, 3, 'Actually called with C.')
-        expect(explanation.additional_info).to.eq('Actually called with C.\n')
+    def test_additional_info_with_negative_explanation(self):
+        explanation = Explanation(1, True, 'called with', 2, z=3, additional_info='Actually called with Z')
+        expect(explanation.additional_info).to.eq('But it happened\n')
+
+    def test_additional_info_with_positive_explanation(self):
+        explanation = Explanation(1, False, 'called with', 2, z=3, additional_info='Actually called with Z')
+        expect(explanation.additional_info).to.eq('Actually called with Z\n')
 
     def test_none_additional_info(self):
         explanation = Explanation(1, True, 'called with', 2, 3)
@@ -86,18 +100,18 @@ class TestCWord(TestCase):
         expect(explanation.c_word).to.eq(' C')
 
 
-class TestDWord(TestCase):
-    def test_d_word(self):
-        explanation = Explanation('func', False, 'change', 1, additional_action='by', c=2, d=3)
-        expect(explanation.d_word).to.eq(' D')
+class TestZWord(TestCase):
+    def test_z_word(self):
+        explanation = Explanation('func', False, 'change', 1, additional_action='by', c=2, z=3)
+        expect(explanation.z_word).to.eq(' Z')
 
-    def test_none_d_word(self):
+    def test_none_z_word(self):
         explanation = Explanation(1, True, 'be truthy')
-        expect(explanation.d_word).to.eq('')
+        expect(explanation.z_word).to.eq('')
 
-    def test_d_word_with_0(self):
-        explanation = Explanation('func', False, 'change', 1, additional_action='by', c=2, d=0)
-        expect(explanation.d_word).to.eq(' D')
+    def test_z_word_with_0(self):
+        explanation = Explanation('func', False, 'change', 1, additional_action='by', c=2, z=0)
+        expect(explanation.z_word).to.eq(' Z')
 
 
 class TestDiffs(TestCase):
@@ -218,13 +232,13 @@ Expected A to be within B and C
     def test_message_of_explanation_with_a_b_c_d_and_additional_action(self):
         explanation = Explanation(
             'func', False, 'change', 1, additional_action='by', c=2,
-            d=3, additional_info='Actually changed by D', force_disable_repr=True
+            z=3, additional_info='Actually changed by Z', force_disable_repr=True
         )
         expect(explanation.message).to.eq("""
 A = func
 B = 1
 C = 2
-D = 3
+Z = 3
 Expected A to change B by C
-Actually changed by D
+Actually changed by Z
 """)

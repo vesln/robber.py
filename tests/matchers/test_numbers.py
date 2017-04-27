@@ -101,9 +101,9 @@ class TestChange(unittest.TestCase):
 A = increase_by_2
 B = 1
 C = 1
-D = 2
+Z = 2
 Expected A to change B by C
-Actually changed by D
+Actually changed by Z
 """
 
     def test_change_by_raise_exception_with_not_to(self):
@@ -117,9 +117,8 @@ Actually changed by D
 A = increase_by_2
 B = 1
 C = 2
-D = 2
 Expected A not to change B by C
-Actually changed by D
+But it happened
 """
 
     def test_register(self):
