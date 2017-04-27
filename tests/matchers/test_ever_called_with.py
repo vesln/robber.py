@@ -14,7 +14,7 @@ class TestEverCalledWith(TestCase):
 
         expect(EverCalledWith(mock, 1, False, 2, 3, a=4).matches()).to.eq(True)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         mock = Mock()
         mock(1, 2, 3, a=4)
         mock('other')
@@ -28,7 +28,7 @@ B = 5, 6, 7, b=8
 Expected A to have been ever called with B
 """.format(mock)
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         mock = Mock()
 
         mock(1, 2, 3, a=4)

@@ -8,7 +8,7 @@ class TestAbove(unittest.TestCase):
         expect(Above(2, 1).matches()).to.eq(True)
         expect(Above(1, 2).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         above = Above(1, 2)
         message = above.explanation.message
         expect(message) == """
@@ -17,7 +17,7 @@ B = 2
 Expected A to be above B
 """
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         above = Above(2, 1, is_negative=True)
         message = above.explanation.message
         expect(message) == """
@@ -35,7 +35,7 @@ class TestBelow(unittest.TestCase):
         expect(Below(1, 2).matches()).to.eq(True)
         expect(Below(2, 1).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         below = Below(2, 1)
         message = below.explanation.message
         expect(message) == """
@@ -44,7 +44,7 @@ B = 1
 Expected A to be below B
 """
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         below = Below(1, 2, is_negative=True)
         message = below.explanation.message
         expect(message) == """
@@ -62,7 +62,7 @@ class TestWithin(unittest.TestCase):
         expect(Within(1, 0, False, 2).matches()).to.eq(True)
         expect(Within(2, 3, False, 4).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         within = Within(1, 2, False, 3)
         message = within.explanation.message
         expect(message) == """
@@ -72,7 +72,7 @@ C = 3
 Expected A to be within B and C
 """
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         within = Within(1, 0, True, 2)
         message = within.explanation.message
         expect(message) == """

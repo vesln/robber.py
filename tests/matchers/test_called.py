@@ -12,7 +12,7 @@ class TestCalled(TestCase):
         mock()
         expect(Called(mock).matches()).to.eq(True)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         mock = Mock()
         called = Called(mock)
         message = called.explanation.message
@@ -21,7 +21,7 @@ A = {mock}
 Expected A to be called
 """.format(mock=mock)
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         mock = Mock()
         called = Called(mock, is_negative=True)
         message = called.explanation.message

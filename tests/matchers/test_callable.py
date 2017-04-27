@@ -11,7 +11,7 @@ class TestCallable(TestCase):
 
         expect(Callable(a).matches()).to.eq(True)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         assert_callable = Callable("string")
         message = assert_callable.explanation.message
         expect(message) == """
@@ -19,7 +19,7 @@ A = 'string'
 Expected A to be callable
 """
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         def a():
             pass
 

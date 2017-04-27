@@ -12,7 +12,7 @@ class TestTruthy(unittest.TestCase):
         expect(Truthy(None).matches()).to.eq(False)
         expect(Truthy([]).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         truthy = Truthy(False)
         message = truthy.explanation.message
         expect(message) == """
@@ -20,7 +20,7 @@ A = False
 Expected A to be truthy
 """
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         truthy = Truthy(True, is_negative=True)
         message = truthy.explanation.message
         expect(message) == """

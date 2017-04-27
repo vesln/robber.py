@@ -8,7 +8,7 @@ class TestRespondTo(unittest.TestCase):
         expect(RespondTo(expect, 'register').matches()).to.eq(True)
         expect(RespondTo(expect, 'invalid_method').matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         respond = RespondTo('object', 'method')
         message = respond.explanation.message
         expect(message) == """
@@ -17,7 +17,7 @@ B = method
 Expected A to respond to B
 """
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         class Foo:
             def bar(self):
                 pass

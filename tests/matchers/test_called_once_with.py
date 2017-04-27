@@ -12,7 +12,7 @@ class TestCalledOnceWith(TestCase):
         mock(1, 2, 3, a=4)
         expect(CalledOnceWith(mock, 1, False, 2, 3, a=4).matches()).to.eq(True)
 
-    def test_failure_message_with_not_called_mock(self):
+    def test_explanation_message_with_not_called_mock(self):
         mock = Mock()
 
         called_once_with = CalledOnceWith(mock, 2)
@@ -26,7 +26,7 @@ Expected A to be called once with B
 Actually not called
 """.format(mock)
 
-    def test_failure_message_with_called_multiple_times(self):
+    def test_explanation_message_with_called_multiple_times(self):
         mock = Mock()
         mock(1)
         mock(1)
@@ -43,7 +43,7 @@ Expected A to be called once with B
 Actually called 2 times with Z
 """.format(mock)
 
-    def test_failure_message_with_wrong_params(self):
+    def test_explanation_message_with_wrong_params(self):
         mock = Mock()
 
         mock(4, 5, 6, c=7)
@@ -59,7 +59,7 @@ Expected A to be called once with B
 Actually called 1 times with Z
 """.format(mock)
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         mock = Mock()
 
         mock(1, 2, 3, a=4)

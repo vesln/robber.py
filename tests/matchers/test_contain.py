@@ -14,7 +14,7 @@ class TestContain(unittest.TestCase):
         expect(Contain([1, 2, 3], 4).matches()).to.eq(False)
         expect(Contain((1, 2, 3), 4).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         contain = Contain([1, 2, 3], 4)
         message = contain.explanation.message
         expect(message) == """
@@ -23,7 +23,7 @@ B = 4
 Expected A to contain B
 """
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         contain = Contain([1, 2, 3], 2, is_negative=True)
         message = contain.explanation.message
         expect(message) == """

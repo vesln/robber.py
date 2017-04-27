@@ -7,7 +7,7 @@ class TestMatch:
         expect(Match('1', r'1').matches()).to.eq(True)
         expect(Match('2', r'1').matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         match = Match('actual', r'expected$')
         message = match.explanation.message
         expect(message) == """
@@ -16,7 +16,7 @@ B = expected$
 Expected A to match B
 """
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         match = Match('actual', r'actual$', is_negative=True)
         message = match.explanation.message
         expect(message) == """

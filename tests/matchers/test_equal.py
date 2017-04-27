@@ -7,7 +7,7 @@ class TestEqual:
         expect(Equal(1, 1).matches()).to.eq(True)
         expect(Equal(1, 2).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         equal = Equal('123', 123)
         message = equal.explanation.message
         expect(message).to.eq("""
@@ -16,7 +16,7 @@ B = 123
 Expected A to equal B
 """)
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         equal = Equal('actual', 'actual', is_negative=True)
         message = equal.explanation.message
         expect(message).to.eq("""
@@ -25,7 +25,7 @@ B = actual
 Expected A not to equal B
 """)
 
-    def test_failure_message_when_compare_two_strings(self):
+    def test_explanation_message_when_compare_two_strings(self):
         string_a = """The walking cats
 are walking"""
         string_b = """The walking dogs
