@@ -26,7 +26,7 @@ class Base:
         if self.matches() is not self.is_negative:
             return expect(self.actual)
 
-        message = self.explanation.message
+        message = self.message or self.explanation.message
         raise BadExpectation(message)
 
     @property

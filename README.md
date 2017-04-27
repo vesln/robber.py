@@ -345,11 +345,14 @@ expect(obj).to.have.chain('be')
 
 ### Custom error messages
 
-If you want to have custom failure messages, for
+If you want to have custom explanations, for
 assertion or group of assertions, you can simply do:
 
 ```python
-# Todo: update after implementing new logic
+from robber import CustomExplanation
+
+with CustomExplanation('Something went wrong'):
+    expect(1).to.eq(2)
 ```
 
 ## Installation

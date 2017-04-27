@@ -5,9 +5,9 @@ __all__ = [
     'called_once',
     'called_once_with',
     'called_with',
-    'contain'
+    'contain',
     'equal',
-    'ever_called'
+    'ever_called',
     'exception',
     'identical',
     'instance_of',

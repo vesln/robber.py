@@ -13,7 +13,7 @@ class expect:
     In order to make the tests more readable, there are a few chains:
 
     ```
-    to, be, a, an, have
+    to, be, a, an, have, been
     ```
     """
     matchers = {}
@@ -27,6 +27,10 @@ class expect:
     @classmethod
     def fail_with(cls, message):
         cls.message = message
+
+    @classmethod
+    def remove_custom_message(cls):
+        cls.message = None
 
     @classmethod
     def register(cls, name, klass, is_negative=False):
