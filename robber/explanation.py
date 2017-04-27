@@ -86,4 +86,4 @@ class Explanation:
         differ = Differ()
         diffs = differ.compare(a.splitlines(), b.splitlines())
 
-        return '\n'.join(diffs)
+        return 'Diffs:\n{0}'.format('\n'.join(diffs))

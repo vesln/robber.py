@@ -38,6 +38,7 @@ are walking
 B = The walking dogs
 are walking
 Expected A to equal B
+Diffs:
 - The walking cats
 ?             ^^^
 

@@ -179,7 +179,8 @@ class TestBuildDiff(TestCase):
 
     def test_build_diff_with_two_not_equal_strings(self):
         diff = Explanation.build_diff('A little cat', 'A little dog')
-        expect(diff).to.eq("""- A little cat
+        expect(diff).to.eq("""Diffs:
+- A little cat
 ?          ^^^
 
 + A little dog
