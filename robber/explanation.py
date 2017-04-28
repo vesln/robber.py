@@ -5,13 +5,13 @@ class Explanation:
     """
     This class gives use a simple way to implement explanations for your expectations.
     """
+
     def __init__(
-            self, a, is_negative, action, b=None, c=None,
-            additional_info=None, negative_action=None, additional_action=None, force_disable_repr=False,
+            self, a, is_negative, action, b=None, additional_action=None, c=None,
+            additional_info=None, negative_action=None, force_disable_repr=False,
             need_to_build_diffs=False, z=None
     ):
         """
-        
         :param a: first object
         :param is_negative: is this a negative explanation?
         :param action: a string defining an action, ex: "equal", "be True", "called"...
@@ -22,8 +22,9 @@ class Explanation:
         :param additional_action: the action applied on the third object
         :param force_disable_repr: force disable the use of repr()
         :param need_to_build_diffs: trigger if you want to build the diffs string
-        :param z: additional object ex: Expected A to be called with B but actually called with Z 
+        :param z: additional object ex: Expected A to be called with B but actually called with Z
         """
+
         self.a = a
         self.action = action
         self.b = b
@@ -40,7 +41,7 @@ class Explanation:
         self.additional_info = self.build_additional_info(additional_info)
 
         self.b_word = ' B' if b is not None else ''
-        self.c_word = ' C' if c is not None and additional_action else ''
+        self.c_word = ' C' if c is not None else ''
         self.z_word = ' Z' if z is not None else ''
 
     def build_additional_info(self, info):

@@ -8,12 +8,15 @@ from robber.explanation import Explanation
 
 class TestInit(TestCase):
     def test_init(self):
-        explanation = Explanation(1, True, 'called with', 2, 3, 'Actually called with C.')
+        explanation = Explanation(1, True, 'within', 2, 'and', 3, force_disable_repr=True, need_to_build_diffs=True)
 
         expect(explanation.a).to.eq(1)
-        expect(explanation.action).to.eq('called with')
+        expect(explanation.is_negative).to.eq(True)
+        expect(explanation.action).to.eq('within')
         expect(explanation.b).to.eq(2)
         expect(explanation.c).to.eq(3)
+        expect(explanation.force_disable_repr).to.eq(True)
+        expect(explanation.need_to_build_diffs).to.eq(True)
 
 
 class TestZ(TestCase):
@@ -84,19 +87,15 @@ class TestBWord(TestCase):
 
 class TestCWord(TestCase):
     def test_c_word(self):
-        explanation = Explanation(1, True, 'within', 2, 3, additional_action='and')
+        explanation = Explanation(1, True, 'within', 2, 'and', 3)
         expect(explanation.c_word).to.eq(' C')
-
-    def test_c_word_without_additional_action(self):
-        explanation = Explanation('mock', False, 'be called with', 1, 2, 'Actually called with C')
-        expect(explanation.c_word).to.eq('')
 
     def test_none_c_word(self):
         explanation = Explanation(1, True, 'be truthy')
         expect(explanation.c_word).to.eq('')
 
     def test_c_word_with_0(self):
-        explanation = Explanation(1, True, 'within', -1, 0, additional_action='and')
+        explanation = Explanation(1, True, 'within', -1, 'and', 0)
         expect(explanation.c_word).to.eq(' C')
 
 
@@ -212,17 +211,17 @@ Expected A to equal B
 """)
 
     def test_message_of_explanation_with_a_b_c(self):
-        explanation = Explanation('mock', False, 'be called with', 1, 2, 'Actually called with C')
+        explanation = Explanation('mock', False, 'be called with', 1, additional_info='Actually called with Z', z=2)
         expect(explanation.message).to.eq("""
 A = 'mock'
 B = 1
-C = 2
+Z = 2
 Expected A to be called with B
-Actually called with C
+Actually called with Z
 """)
 
     def test_message_of_explanation_with_a_b_c_and_additional_action(self):
-        explanation = Explanation(1, False, 'be within', 0, 2, additional_action='and')
+        explanation = Explanation(1, False, 'be within', 0, 'and', 2)
         expect(explanation.message).to.eq("""
 A = 1
 B = 0

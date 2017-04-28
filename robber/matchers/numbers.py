@@ -41,7 +41,7 @@ class Within(Base):
     @property
     def explanation(self):
         return Explanation(
-            self.actual, self.is_negative, 'be within', self.expected, self.args[0], additional_action='and'
+            self.actual, self.is_negative, 'be within', self.expected, 'and', self.args[0]
         )
 
 
