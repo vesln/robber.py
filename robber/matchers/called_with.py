@@ -26,13 +26,13 @@ class CalledWith(Base):
         if not self.actual.called:
             return Explanation(
                 self.actual, self.is_negative, 'be called with', expected_args,
-                additional_info='Actually not called', force_disable_repr=True
+                more_detail='Actually not called', force_disable_repr=True
             )
 
         called_params = Helper.build_called_params_string(self.actual.call_args)
         return Explanation(
             self.actual, self.is_negative, 'be called with', expected_args,
-            z=called_params, additional_info='Actually called with Z', force_disable_repr=True
+            other=called_params, more_detail='Actually called with Z', force_disable_repr=True
         )
 
 

@@ -34,7 +34,7 @@ class ExceptionMatcher(Base):
 
         return Explanation(
             self.expected.__name__, self.is_negative, 'be raised',
-            z=got, additional_info='Actually got Z'
+            other=got, more_detail='Actually got Z'
         )
 
 

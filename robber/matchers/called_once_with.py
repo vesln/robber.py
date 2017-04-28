@@ -28,7 +28,7 @@ class CalledOnceWith(Base):
         if not self.actual.called:
             return Explanation(
                 self.actual, self.is_negative, 'be called once with', expected_args,
-                additional_info='Actually not called', force_disable_repr=True
+                more_detail='Actually not called', force_disable_repr=True
             )
 
         called_args = Helper.build_called_params_string(self.actual.call_args)
@@ -36,7 +36,7 @@ class CalledOnceWith(Base):
 
         return Explanation(
             self.actual, self.is_negative, 'be called once with', expected_args,
-            z=called_args, additional_info=additional_info, force_disable_repr=True
+            other=called_args, more_detail=additional_info, force_disable_repr=True
         )
 
 
