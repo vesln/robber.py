@@ -19,24 +19,22 @@ class TestInit(TestCase):
         expect(explanation.need_to_build_diffs).to.eq(True)
 
 
-class TestZ(TestCase):
-    def test_z_with_positive_explanation(self):
-        explanation = Explanation('func', False, 'change', 1, another_action='by', another_expected=2, other=3)
-        expect(explanation.other).to.eq(3)
-
-    def test_z_with_negative_explanation(self):
-        explanation = Explanation('func', True, 'change', 1, another_action='by', another_expected=2, other=3)
-        expect(explanation.other).to.eq(None)
-
-
-class TestAdditionalInfo(TestCase):
+class TestMoreDetail(TestCase):
     def test_additional_info_with_negative_explanation(self):
-        explanation = Explanation(1, True, 'called with', 2, other=3, more_detail='Actually called with Z')
+        explanation = Explanation(1, True, 'called with', 2, other=3, more_detail='Some message')
         expect(explanation.more_detail).to.eq('But it happened\n')
 
-    def test_additional_info_with_positive_explanation(self):
-        explanation = Explanation(1, False, 'called with', 2, other=3, more_detail='Actually called with Z')
+    def test_additional_info_with_pre_defined_more_detail(self):
+        explanation = Explanation(1, False, 'called with', 2, other=3, more_detail='Some message')
+        expect(explanation.more_detail).to.eq('Some message\n')
+
+    def test_additional_info_with_other(self):
+        explanation = Explanation(1, False, 'called with', 2, other=3)
         expect(explanation.more_detail).to.eq('Actually called with Z\n')
+
+    def test_additional_info_with_another_action(self):
+        explanation = Explanation('func', False, 'change', 2, 'by', 3, other=4)
+        expect(explanation.more_detail).to.eq('Actually change by Z\n')
 
     def test_none_additional_info(self):
         explanation = Explanation(1, True, 'called with', 2, 3)
@@ -211,7 +209,7 @@ Expected A to equal B
 """)
 
     def test_message_of_explanation_with_a_b_c(self):
-        explanation = Explanation('mock', False, 'be called with', 1, more_detail='Actually called with Z', other=2)
+        explanation = Explanation('mock', False, 'be called with', 1, other=2)
         expect(explanation.message).to.eq("""
 A = 'mock'
 B = 1
@@ -220,7 +218,7 @@ Expected A to be called with B
 Actually called with Z
 """)
 
-    def test_message_of_explanation_with_a_b_c_and_additional_action(self):
+    def test_message_of_explanation_with_another_action(self):
         explanation = Explanation(1, False, 'be within', 0, 'and', 2)
         expect(explanation.message).to.eq("""
 A = 1
@@ -229,10 +227,10 @@ C = 2
 Expected A to be within B and C
 """)
 
-    def test_message_of_explanation_with_a_b_c_d_and_additional_action(self):
+    def test_message_of_explanation_with_other(self):
         explanation = Explanation(
             'func', False, 'change', 1, another_action='by', another_expected=2,
-            other=3, more_detail='Actually changed by Z', force_disable_repr=True
+            other=3, force_disable_repr=True
         )
         expect(explanation.message).to.eq("""
 A = func
@@ -240,5 +238,5 @@ B = 1
 C = 2
 Z = 3
 Expected A to change B by C
-Actually changed by Z
+Actually change by Z
 """)

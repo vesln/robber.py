@@ -22,7 +22,7 @@ class TestExceptionMatcher(unittest.TestCase):
 A = 'ZeroDivisionError'
 Z = 'TypeError'
 Expected A to be raised
-Actually got Z
+Actually raised Z
 """
 
     def test_negative_explanation_message_with_wrong_exception(self):
@@ -42,5 +42,5 @@ But it happened
 A = 'Exception'
 Z = 'nothing'
 Expected A to be raised
-Actually got Z
+Actually raised Z
 """

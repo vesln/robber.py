@@ -103,7 +103,7 @@ B = 1
 C = 1
 Z = 2
 Expected A to change B by C
-Actually changed by Z
+Actually change by Z
 """
 
     def test_change_by_raise_exception_with_not_to(self):

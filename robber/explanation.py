@@ -1,3 +1,4 @@
+import re
 from difflib import Differ
 
 
@@ -5,6 +6,7 @@ class Explanation:
     """
     This class gives use a simple way to implement explanations for your expectations.
     """
+    TENSE_WORDS = ['be', 'have', 'been']
 
     def __init__(
             self, actual, is_negative, action, expected=None, another_action=None, another_expected=None,
@@ -29,7 +31,7 @@ class Explanation:
         self.action = action
         self.expected = expected
         self.another_expected = another_expected
-        self.other = other if not is_negative else None
+        self.other = other
         self.force_disable_repr = force_disable_repr
         self.need_to_build_diffs = need_to_build_diffs
         self.is_negative = is_negative
@@ -45,13 +47,22 @@ class Explanation:
         self.other_word = ' Z' if other is not None else ''
 
     def build_more_detail(self, info):
-        if info:
-            if self.is_negative:
-                return 'But it happened\n'
-            else:
-                return '{0}\n'.format(info)
-        else:
+        if not self.other and not info:
             return ''
+
+        if self.is_negative:
+            return 'But it happened\n'
+
+        if info:
+            return '{0}\n'.format(info)
+
+        if self.other:
+            tense_words_str = ' |'.join(self.TENSE_WORDS)
+            match = re.search('({0}|)(.+)'.format(tense_words_str), self.action)
+            other_action = '{action}{another_action} '.format(
+                action=match.group(2), another_action=self.another_action
+            )
+            return 'Actually {0}Z\n'.format(other_action)
 
     @property
     def is_repr(self):
@@ -73,7 +84,7 @@ class Explanation:
             actual_line=self.build_line(self.actual, 'A', self.is_repr, allowed_none=True),
             expected_line=self.build_line(self.expected, 'B', self.is_repr),
             another_expected_line=self.build_line(self.another_expected, 'C', self.is_repr),
-            other_line=self.build_line(self.other, 'Z', self.is_repr),
+            other_line='' if self.is_negative else self.build_line(self.other, 'Z', self.is_repr),
             negative_word=self.negative_word,
             action=self.action,
             expected_word=self.expected_word,

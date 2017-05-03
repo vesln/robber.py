@@ -32,10 +32,7 @@ class ExceptionMatcher(Base):
         else:
             got = 'nothing'
 
-        return Explanation(
-            self.expected.__name__, self.is_negative, 'be raised',
-            other=got, more_detail='Actually got Z'
-        )
+        return Explanation(self.expected.__name__, self.is_negative, 'be raised', other=got)
 
 
 expect.register('throw', ExceptionMatcher)
