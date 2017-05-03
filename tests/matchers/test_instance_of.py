@@ -1,5 +1,5 @@
 from robber import expect
-from robber.matchers.instance_of import InstanceOf
+from robber.matchers.instanceof import InstanceOf
 from tests.fixtures import First, Second
 
 
@@ -10,8 +10,8 @@ class TestInstanceOf:
 
     def test_explanation_message(self):
         first = First()
-        instance_of = InstanceOf(first, First)
-        message = instance_of.explanation.message
+        instanceof = InstanceOf(first, First)
+        message = instanceof.explanation.message
         expect(message) == """
 A = {actual}
 B = {expected}
@@ -20,8 +20,8 @@ Expected A to be an instance of B
 
     def test_negative_explanation_message(self):
         first = First()
-        instance_of = InstanceOf(first, First, is_negative=True)
-        message = instance_of.explanation.message
+        instanceof = InstanceOf(first, First, is_negative=True)
+        message = instanceof.explanation.message
         expect(message) == """
 A = {actual}
 B = {expected}
@@ -29,4 +29,4 @@ Expected A not to be an instance of B
 """.format(actual=first, expected=repr(First))
 
     def test_register(self):
-        expect(expect.matcher('instance_of')) == InstanceOf
+        expect(expect.matcher('instanceof')) == InstanceOf

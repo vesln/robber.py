@@ -10,7 +10,7 @@ __all__ = [
     'ever_called',
     'exception',
     'identical',
-    'instance_of',
+    'instanceof',
     'length',
     'numbers',
     'regexp',
@@ -29,7 +29,7 @@ from robber.matchers.equal import *  # noqa F403
 from robber.matchers.ever_called_with import *  # noqa F403
 from robber.matchers.exception import *  # noqa F403
 from robber.matchers.identical import *  # noqa F403
-from robber.matchers.instance_of import *  # noqa F403
+from robber.matchers.instanceof import *  # noqa F403
 from robber.matchers.length import *  # noqa F403
 from robber.matchers.numbers import *  # noqa F403
 from robber.matchers.regexp import *  # noqa F403
