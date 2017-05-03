@@ -37,5 +37,5 @@ Expected A not to be called
         expect(expect.matcher('called')) == Called
 
     def test_not_a_mock(self):
-        self.assertRaises(TypeError, Called("a").matches)
+        self.assertRaises(TypeError, Called('a').matches)
         self.assertRaises(TypeError, Called(1).matches)

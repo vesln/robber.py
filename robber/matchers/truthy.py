@@ -13,7 +13,7 @@ class Truthy(Base):
 
     @property
     def explanation(self):
-        return Explanation(self.actual, self.is_negative, action="be truthy", negative_action='be falsy')
+        return Explanation(self.actual, self.is_negative, action='be truthy', negative_action='be falsy')
 
 
 expect.register('truthy', Truthy)

@@ -13,7 +13,7 @@ class Callable(Base):
 
     @property
     def explanation(self):
-        return Explanation(self.actual, self.is_negative, "be callable")
+        return Explanation(self.actual, self.is_negative, 'be callable')
 
 
 expect.register('callable', Callable)

@@ -14,7 +14,7 @@ class Contain(Base):
 
     @property
     def explanation(self):
-        return Explanation(self.actual, self.is_negative, "contain", self.expected, negative_action="exclude")
+        return Explanation(self.actual, self.is_negative, 'contain', self.expected, negative_action='exclude')
 
 
 expect.register('contain', Contain)

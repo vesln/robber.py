@@ -9,6 +9,7 @@ from robber.matchers.base import Base
 class EverCalledWith(Base):
     """
     expect(mock).to.have.been.ever_called_with(*args, **kwargs)
+    expect(mock).to.have.any_call(*args, **kwargs)
     """
 
     def matches(self):
@@ -29,3 +30,4 @@ class EverCalledWith(Base):
 
 
 expect.register('ever_called_with', EverCalledWith)
+expect.register('any_call', EverCalledWith)

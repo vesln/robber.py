@@ -14,7 +14,7 @@ class Length(Base):
 
     @property
     def explanation(self):
-        return Explanation(self.actual, self.is_negative, "have length of", self.expected)
+        return Explanation(self.actual, self.is_negative, 'have length of', self.expected)
 
 
 class Empty(Base):
@@ -28,7 +28,7 @@ class Empty(Base):
 
     @property
     def explanation(self):
-        return Explanation(self.actual, self.is_negative, "be empty")
+        return Explanation(self.actual, self.is_negative, 'be empty')
 
 
 expect.register('length', Length)

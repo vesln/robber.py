@@ -12,7 +12,7 @@ class TestCallable(TestCase):
         expect(Callable(a).matches()).to.eq(True)
 
     def test_explanation_message(self):
-        assert_callable = Callable("string")
+        assert_callable = Callable('string')
         message = assert_callable.explanation.message
         expect(message) == """
 A = 'string'

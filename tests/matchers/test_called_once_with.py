@@ -78,5 +78,5 @@ But it happened
         expect(expect.matcher('called_once_with')) == CalledOnceWith
 
     def test_not_a_mock(self):
-        self.assertRaises(TypeError, CalledOnceWith("a", "b").matches)
-        self.assertRaises(TypeError, CalledOnceWith(1, "b").matches)
+        self.assertRaises(TypeError, CalledOnceWith('a', 'b').matches)
+        self.assertRaises(TypeError, CalledOnceWith(1, 'b').matches)

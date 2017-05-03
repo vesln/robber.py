@@ -16,7 +16,7 @@ class Called(Base):
 
     @property
     def explanation(self):
-        return Explanation(self.actual, self.is_negative, "be called")
+        return Explanation(self.actual, self.is_negative, 'be called')
 
 
 expect.register('called', Called)

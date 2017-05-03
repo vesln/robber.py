@@ -13,7 +13,7 @@ class RespondTo(Base):
 
     @property
     def explanation(self):
-        return Explanation(self.actual, self.is_negative, "respond to", self.expected)
+        return Explanation(self.actual, self.is_negative, 'respond to', self.expected)
 
 
 expect.register('respond_to', RespondTo)

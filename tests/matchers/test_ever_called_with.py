@@ -44,7 +44,8 @@ Expected A not to have been ever called with B
 
     def test_register(self):
         expect(expect.matcher('ever_called_with')) == EverCalledWith
+        expect(expect.matcher('any_call')) == EverCalledWith
 
     def test_not_a_mock(self):
-        self.assertRaises(TypeError, EverCalledWith("a", "b").matches)
-        self.assertRaises(TypeError, EverCalledWith(1, "b").matches)
+        self.assertRaises(TypeError, EverCalledWith('a', 'b').matches)
+        self.assertRaises(TypeError, EverCalledWith(1, 'b').matches)

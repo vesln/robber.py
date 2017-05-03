@@ -13,7 +13,7 @@ class Boolean(Base):
 
     @property
     def explanation(self):
-        return Explanation(self.actual, self.is_negative, "be True", negative_action="be False")
+        return Explanation(self.actual, self.is_negative, 'be True', negative_action='be False')
 
 
 expect.register('true', Boolean)

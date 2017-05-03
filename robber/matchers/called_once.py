@@ -17,7 +17,7 @@ class CalledOnce(Base):
     @property
     def explanation(self):
         return Explanation(
-            self.actual, self.is_negative, "be called once",
+            self.actual, self.is_negative, 'be called once',
             more_detail='Called {0} times'.format(self.actual.call_count)
         )
 

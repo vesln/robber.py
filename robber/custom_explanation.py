@@ -3,7 +3,7 @@ from robber.expect import expect
 
 class CustomExplanation:
     """
-    with failure_message('Custom failure message'):
+    with CustomExplanation('Custom failure message'):
         # some assertions
     """
 
