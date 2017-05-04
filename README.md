@@ -333,7 +333,7 @@ class Chain(Base):
     
     @property
     def explanation(self):
-        return Explanation(self.actual, self.is_negative, 'equal', self.expected)
+        return Explanation(self.actual, self.is_negative, 'have chain', self.expected)
 
 expect.register('chain', Chain)
 ```
