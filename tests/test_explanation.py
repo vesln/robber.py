@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from mock import patch
+from robber.bad_expectation import BadExpectation
 
 from robber import expect
 from robber.explanation import Explanation
@@ -186,12 +187,22 @@ class TestBuildDiff(TestCase):
 
     def test_build_diff_with_dict(self):
         diff = Explanation.build_diff({'a': 1, 'b': 2}, {'a': 1, 'b': 3})
-        expect(diff).to.eq("""Diffs:
+        # this try catch is for Python 3.5 sake
+        try:
+            expect(diff).to.eq("""Diffs:
 - {'a': 1, 'b': 2}
 ?               ^
 
 + {'a': 1, 'b': 3}
 ?               ^
+""")
+        except BadExpectation:
+            expect(diff).to.eq("""Diffs:
+- {'b': 2, 'a': 1}
+?       ^
+
++ {'b': 3, 'a': 1}
+?       ^
 """)
 
     def test_build_diff_with_strings(self):
