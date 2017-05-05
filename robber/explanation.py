@@ -1,12 +1,13 @@
 import re
 from difflib import Differ
 
+from robber.constants import TENSE_WORDS, DIFF_BUILDABLE_TYPES
+
 
 class Explanation:
     """
     This class gives use a simple way to implement explanations for your expectations.
     """
-    TENSE_WORDS = ['be', 'have', 'been']
 
     def __init__(
             self, actual, is_negative, action, expected=None, another_action=None, another_expected=None,
@@ -57,7 +58,7 @@ class Explanation:
             return '{0}\n'.format(info)
 
         if self.other:
-            tense_words_str = ' |'.join(self.TENSE_WORDS)
+            tense_words_str = ' |'.join(TENSE_WORDS)
             match = re.search('({0}|)(.+)'.format(tense_words_str), self.action)
             other_action = '{action}{another_action} '.format(
                 action=match.group(2), another_action=self.another_action
@@ -107,12 +108,21 @@ class Explanation:
 
     @staticmethod
     def build_diff(a, b):
-        if type(a) is not str or type(b) is not str:
-            return ''
         if a == b:
             return ''
 
+        if type(a) is not type(b):
+            return ''
+
+        object_type = type(a)
+
+        if object_type not in DIFF_BUILDABLE_TYPES:
+            return ''
+
+        if object_type is not str:
+            a = repr(a)
+            b = repr(b)
+
         differ = Differ()
         diffs = differ.compare(a.splitlines(), b.splitlines())
-
         return 'Diffs:\n{0}'.format('\n'.join(diffs))

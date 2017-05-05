@@ -162,19 +162,39 @@ class TestBuildLine(TestCase):
 
 
 class TestBuildDiff(TestCase):
-    def test_build_diff_with_no_strings(self):
-        diff = Explanation.build_diff(2, 1)
-        expect(diff).to.eq('')
-
-    def test_build_diff_with_one_string(self):
-        diff = Explanation.build_diff('a', 1)
-        expect(diff).to.eq('')
-
     def test_build_diff_with_two_equal_strings(self):
         diff = Explanation.build_diff('a', 'a')
         expect(diff).to.eq('')
 
-    def test_build_diff_with_two_not_equal_strings(self):
+    def test_build_diff_with_two_objects_with_different_types(self):
+        diff = Explanation.build_diff('1', 1)
+        expect(diff).to.eq('')
+
+    def test_build_diff_with_no_buildable_types(self):
+        diff = Explanation.build_diff(1, 1)
+        expect(diff).to.eq('')
+
+    def test_build_diff_with_list(self):
+        diff = Explanation.build_diff([1, 2, 3], [2, 1, 3])
+        expect(diff).to.eq("""Diffs:
+- [1, 2, 3]
+?  ^  ^
+
++ [2, 1, 3]
+?  ^  ^
+""")
+
+    def test_build_diff_with_dict(self):
+        diff = Explanation.build_diff({'a': 1, 'b': 2}, {'a': 1, 'b': 3})
+        expect(diff).to.eq("""Diffs:
+- {'a': 1, 'b': 2}
+?               ^
+
++ {'a': 1, 'b': 3}
+?               ^
+""")
+
+    def test_build_diff_with_strings(self):
         diff = Explanation.build_diff('A little cat', 'A little dog')
         expect(diff).to.eq("""Diffs:
 - A little cat
