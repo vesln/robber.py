@@ -70,45 +70,57 @@ class TestAction(TestCase):
         expect(explanation.action).to.eq('be falsy')
 
 
-class TestBWord(TestCase):
-    def test_b_word(self):
+class TestExpectedWord(TestCase):
+    def test_expected_word(self):
         explanation = Explanation(1, True, 'equal', 2)
         expect(explanation.expected_word).to.eq(' B')
 
-    def test_none_b_word(self):
+    def test_none_expected_word(self):
         explanation = Explanation(1, True, 'be truthy')
         expect(explanation.expected_word).to.eq('')
 
-    def test_b_word_with_0(self):
+    def test_expected_word_with_0(self):
         explanation = Explanation(1, False, 0, 'equal')
         expect(explanation.expected_word).to.eq(' B')
 
+    def test_expected_word_with_none(self):
+        explanation = Explanation(1, False, None, 'equal')
+        expect(explanation.expected_word).to.eq(' B')
 
-class TestCWord(TestCase):
-    def test_c_word(self):
+
+class TestAnotherExpectedWord(TestCase):
+    def test_another_expected_word(self):
         explanation = Explanation(1, True, 'within', 2, 'and', 3)
         expect(explanation.another_expected_word).to.eq(' C')
 
-    def test_none_c_word(self):
+    def test_none_another_expected_word(self):
         explanation = Explanation(1, True, 'be truthy')
         expect(explanation.another_expected_word).to.eq('')
 
-    def test_c_word_with_0(self):
+    def test_another_expected_word_with_0(self):
         explanation = Explanation(1, True, 'within', -1, 'and', 0)
         expect(explanation.another_expected_word).to.eq(' C')
 
+    def test_another_expected_word_with_none(self):
+        explanation = Explanation(1, True, 'within', -1, 'and', None)
+        expect(explanation.another_expected_word).to.eq(' C')
 
-class TestZWord(TestCase):
-    def test_z_word(self):
+
+class TestOtherWord(TestCase):
+    def test_other_word(self):
         explanation = Explanation('func', False, 'change', 1, another_action='by', another_expected=2, other=3)
         expect(explanation.other_word).to.eq(' Z')
 
-    def test_none_z_word(self):
+    def test_none_other_word(self):
         explanation = Explanation(1, True, 'be truthy')
         expect(explanation.other_word).to.eq('')
 
-    def test_z_word_with_0(self):
+    def test_other_word_with_0(self):
         explanation = Explanation('func', False, 'change', 1, another_action='by', another_expected=2, other=0)
+        expect(explanation.other_word).to.eq(' Z')
+
+    def test_another_expected_word_with_none(self):
+        explanation = Explanation('func', False, 'change', 1, another_action='by', another_expected=2, other=None)
         expect(explanation.other_word).to.eq(' Z')
 
 
@@ -155,10 +167,6 @@ class TestBuildLine(TestCase):
 
     def test_build_line_with_none(self):
         line = Explanation.build_line(None, 'A', is_repr=True)
-        expect(line).to.eq('')
-
-    def test_build_line_allowed_none(self):
-        line = Explanation.build_line(None, 'A', is_repr=True, allowed_none=True)
         expect(line).to.eq('A = None\n')
 
 
@@ -224,6 +232,13 @@ A = 1
 Expected A to be truthy
 """)
 
+    def test_message_of_explanation_with_none(self):
+        explanation = Explanation(None, False, 'be truthy')
+        expect(explanation.message).to.eq("""
+A = None
+Expected A to be truthy
+""")
+
     def test_message_of_negative_explanation_with_a(self):
         explanation = Explanation(1, True, 'be truthy')
         expect(explanation.message).to.eq("""
@@ -239,14 +254,12 @@ B = 2
 Expected A to equal B
 """)
 
-    def test_message_of_explanation_with_a_b_c(self):
-        explanation = Explanation('mock', False, 'be called with', 1, other=2)
+    def test_message_of_explanation_with_a_and_none(self):
+        explanation = Explanation(1, False, 'equal', None)
         expect(explanation.message).to.eq("""
-A = 'mock'
-B = 1
-Z = 2
-Expected A to be called with B
-Actually called with Z
+A = 1
+B = None
+Expected A to equal B
 """)
 
     def test_message_of_explanation_with_another_action(self):
@@ -271,3 +284,15 @@ Z = 3
 Expected A to change B by C
 Actually change by Z
 """)
+
+
+class TestIsPassed(TestCase):
+    def test_is_passed_called_with_object(self):
+        expect(Explanation.is_passed(object)).to.eq(False)
+
+    def test_is_passed_called_with_none(self):
+        expect(Explanation.is_passed(None)).to.eq(True)
+
+    def test_is_passed_called_with_normal_params(self):
+        expect(Explanation.is_passed(1)).to.eq(True)
+        expect(Explanation.is_passed('a')).to.eq(True)

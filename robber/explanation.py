@@ -10,9 +10,9 @@ class Explanation:
     """
 
     def __init__(
-            self, actual, is_negative, action, expected=None, another_action=None, another_expected=None,
-            more_detail=None, negative_action=None, force_disable_repr=False,
-            need_to_build_diffs=False, other=None
+            self, actual=object, is_negative=False, action=None, expected=object,
+            another_action=None, another_expected=object, more_detail=None, negative_action=None,
+            force_disable_repr=False, need_to_build_diffs=False, other=object
     ):
         """
         :param actual: first object
@@ -43,12 +43,12 @@ class Explanation:
         self.diffs = self.build_diff(self.actual, self.expected) if self.need_to_build_diffs else ''
         self.more_detail = self.build_more_detail(more_detail)
 
-        self.expected_word = ' B' if expected is not None else ''
-        self.another_expected_word = ' C' if another_expected is not None else ''
-        self.other_word = ' Z' if other is not None else ''
+        self.expected_word = ' B' if self.is_passed(expected) else ''
+        self.another_expected_word = ' C' if self.is_passed(another_expected) else ''
+        self.other_word = ' Z' if self.is_passed(other) else ''
 
     def build_more_detail(self, info):
-        if not self.other and not info:
+        if not self.is_passed(self.other) and not info:
             return ''
 
         if self.is_negative:
@@ -57,7 +57,7 @@ class Explanation:
         if info:
             return '{0}\n'.format(info)
 
-        if self.other:
+        if self.is_passed(self.other):
             tense_words_str = ' |'.join(TENSE_WORDS)
             match = re.search('({0}|)(.+)'.format(tense_words_str), self.action)
             other_action = '{action}{another_action} '.format(
@@ -72,6 +72,10 @@ class Explanation:
 
     @property
     def message(self):
+        actual_line = self.build_line(self.actual, 'A', self.is_repr)
+        expected_line = self.build_line(self.expected, 'B', self.is_repr)
+        another_expected_line = self.build_line(self.another_expected, 'C', self.is_repr)
+        other_line = self.build_line(self.other, 'Z', self.is_repr)
         return (
             '\n'
             '{actual_line}'
@@ -82,10 +86,10 @@ class Explanation:
             '{more_detail}'
             '{diffs}'
         ).format(
-            actual_line=self.build_line(self.actual, 'A', self.is_repr, allowed_none=True),
-            expected_line=self.build_line(self.expected, 'B', self.is_repr),
-            another_expected_line=self.build_line(self.another_expected, 'C', self.is_repr),
-            other_line='' if self.is_negative else self.build_line(self.other, 'Z', self.is_repr),
+            actual_line=actual_line,
+            expected_line=expected_line if self.is_passed(self.expected) else '',
+            another_expected_line=another_expected_line if self.is_passed(self.another_expected) else '',
+            other_line=other_line if not self.is_negative and self.is_passed(self.other) else '',
             negative_word=self.negative_word,
             action=self.action,
             expected_word=self.expected_word,
@@ -96,8 +100,8 @@ class Explanation:
         )
 
     @staticmethod
-    def build_line(obj, obj_name, is_repr, allowed_none=False):
-        if obj is not None or allowed_none:
+    def build_line(obj, obj_name, is_repr):
+        if Explanation.is_passed(obj):
             if is_repr:
                 obj = repr(obj)
             return '{obj_name} = {obj}\n'.format(
@@ -126,3 +130,7 @@ class Explanation:
         differ = Differ()
         diffs = differ.compare(a.splitlines(), b.splitlines())
         return 'Diffs:\n{0}'.format('\n'.join(diffs))
+
+    @staticmethod
+    def is_passed(param):
+        return False if param is object else True
