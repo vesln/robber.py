@@ -15,7 +15,24 @@ class Equal(Base):
 
     @property
     def explanation(self):
+        if type(self.actual) is dict and type(self.expected) is dict:
+            return Explanation(self.actual, self.is_negative, 'equal', self.expected, more_detail=self.dict_diffs)
+
         return Explanation(self.actual, self.is_negative, 'equal', self.expected, need_to_build_diffs=True)
+
+    @property
+    def dict_diffs(self):
+        if len(self.actual) != len(self.expected):
+            return 'A and B does not have the same length'
+
+        for k in self.actual:
+            try:
+                val_a = self.actual[k]
+                val_b = self.expected[k]
+                if not val_a == val_b:
+                    return "A['{key}'] = {val_a} while B['{key}'] = {val_b}".format(key=k, val_a=val_a, val_b=val_b)
+            except KeyError:
+                return "A has key '{k}' while B does not".format(k=k)
 
 
 expect.register('eq', Equal)
