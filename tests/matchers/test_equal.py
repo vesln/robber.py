@@ -39,6 +39,36 @@ class TestDictDiff:
         expect(equal.dict_diffs).to.eq("A['b'] = 2 while B['b'] = 3")
 
 
+class TestListDiff:
+    def test_list_diffs_with_different_length(self):
+        l1 = [1]
+        d2 = [1, 2]
+        equal = Equal(l1, d2)
+        expect(equal.list_diffs).to.eq('A and B does not have the same length')
+
+    def test_list_diffs_with_different_member(self):
+        l1 = [1, 2]
+        d2 = [1, 3]
+        equal = Equal(l1, d2)
+        expect(equal.list_diffs).to.eq("A contains 2 while B does not")
+
+
+class TestStrDiff(TestCase):
+    def test_str_diff_with_two_equal_strings(self):
+        equal = Equal('a', 'a', is_negative=True)
+        expect(equal.str_diffs).to.eq('')
+
+    def test_str_diff_with_strings(self):
+        equal = Equal('A little cat', 'A little dog', is_negative=False)
+        expect(equal.str_diffs).to.eq("""Diffs:
+- A little cat
+?          ^^^
+
++ A little dog
+?          ^^^
+""")
+
+
 class TestExplanationMessage(TestCase):
     def test_positive_explanation_message(self):
         equal = Equal('123', 123)
@@ -58,29 +88,6 @@ B = actual
 Expected A not to equal B
 """)
 
-    def test_explanation_message_when_compare_two_strings(self):
-        string_a = """The walking cats
-are walking"""
-        string_b = """The walking dogs
-are walking"""
-        equal = Equal(string_a, string_b, is_negative=False)
-        message = equal.explanation.message
-        expect(message).to.eq("""
-A = The walking cats
-are walking
-B = The walking dogs
-are walking
-Expected A to equal B
-Diffs:
-- The walking cats
-?             ^^^
-
-+ The walking dogs
-?             ^^^
-
-  are walking
-""")
-
     @patch('robber.matchers.equal.Equal.dict_diffs', new_callable=PropertyMock)
     def test_explanation_message_with_two_dicts(self, mock_dict_diffs):
         mock_dict_diffs.return_value = 'Some diffs'
@@ -90,36 +97,20 @@ Diffs:
 
         expect('Some diffs' in equal.explanation.message).to.eq(True)
 
+    @patch('robber.matchers.equal.Equal.list_diffs', new_callable=PropertyMock)
+    def test_explanation_message_with_two_lists(self, mock_list_diffs):
+        mock_list_diffs.return_value = 'Some diffs'
+        l1 = [1, 2]
+        l2 = [1, 3]
+        equal = Equal(l1, l2)
 
-class TestBuildDiff(TestCase):
-    def test_build_diff_with_two_equal_strings(self):
-        equal = Equal('a', 'a', is_negative=True)
-        expect(equal.diffs).to.eq('')
+        expect('Some diffs' in equal.explanation.message).to.eq(True)
 
-    def test_build_diff_with_two_objects_with_different_types(self):
-        equal = Equal('1', 1, is_negative=False)
-        expect(equal.diffs).to.eq('')
+    @patch('robber.matchers.equal.Equal.str_diffs', new_callable=PropertyMock)
+    def test_explanation_message_with_two_strings(self, mock_str_diffs):
+        mock_str_diffs.return_value = 'Some diffs'
+        l1 = 'cat'
+        l2 = 'dog'
+        equal = Equal(l1, l2)
 
-    def test_build_diff_with_no_buildable_types(self):
-        equal = Equal(1, 1, is_negative=False)
-        expect(equal.diffs).to.eq('')
-
-    def test_build_diff_with_list(self):
-        equal = Equal([1, 2, 3], [2, 1, 3], is_negative=False)
-        expect(equal.diffs).to.eq("""Diffs:
-- [1, 2, 3]
-?  ^  ^
-
-+ [2, 1, 3]
-?  ^  ^
-""")
-
-    def test_build_diff_with_strings(self):
-        equal = Equal('A little cat', 'A little dog', is_negative=False)
-        expect(equal.diffs).to.eq("""Diffs:
-- A little cat
-?          ^^^
-
-+ A little dog
-?          ^^^
-""")
+        expect('Some diffs' in equal.explanation.message).to.eq(True)

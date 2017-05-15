@@ -1,7 +1,6 @@
 from difflib import Differ
 
 from robber import expect
-from robber.constants import DIFF_BUILDABLE_TYPES
 from robber.explanation import Explanation
 from robber.matchers.base import Base
 
@@ -19,9 +18,15 @@ class Equal(Base):
     @property
     def explanation(self):
         if type(self.actual) is dict and type(self.expected) is dict:
-            return Explanation(self.actual, self.is_negative, 'equal', self.expected, more_detail=self.dict_diffs)
+            more_detail = self.dict_diffs
+        elif type(self.actual) is list and type(self.expected) is list:
+            more_detail = self.list_diffs
+        elif type(self.actual) is str and type(self.expected) is str:
+            more_detail = self.str_diffs
+        else:
+            more_detail = None
 
-        return Explanation(self.actual, self.is_negative, 'equal', self.expected, more_detail=self.diffs)
+        return Explanation(self.actual, self.is_negative, 'equal', self.expected, more_detail=more_detail)
 
     @property
     def dict_diffs(self):
@@ -38,27 +43,21 @@ class Equal(Base):
                 return "A has key '{k}' while B does not".format(k=k)
 
     @property
-    def diffs(self):
-        actual = self.actual
-        expected = self.expected
+    def list_diffs(self):
+        if len(self.actual) != len(self.expected):
+            return 'A and B does not have the same length'
 
-        if actual == expected:
+        for m in self.actual:
+            if m not in self.expected:
+                return "A contains {m} while B does not".format(m=m)
+
+    @property
+    def str_diffs(self):
+        if self.actual == self.expected:
             return ''
-
-        if type(actual) is not type(expected):
-            return ''
-
-        object_type = type(actual)
-
-        if object_type not in DIFF_BUILDABLE_TYPES:
-            return ''
-
-        if object_type is not str:
-            actual = repr(actual)
-            expected = repr(expected)
 
         differ = Differ()
-        diffs = differ.compare(actual.splitlines(), expected.splitlines())
+        diffs = differ.compare(self.actual.splitlines(), self.expected.splitlines())
         return 'Diffs:\n{0}'.format('\n'.join(diffs))
 
 
