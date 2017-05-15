@@ -78,7 +78,8 @@ Diffs:
 + The walking dogs
 ?             ^^^
 
-  are walking""")
+  are walking
+""")
 
     @patch('robber.matchers.equal.Equal.dict_diffs', new_callable=PropertyMock)
     def test_explanation_message_with_two_dicts(self, mock_dict_diffs):
@@ -88,3 +89,37 @@ Diffs:
         equal = Equal(d1, d2)
 
         expect('Some diffs' in equal.explanation.message).to.eq(True)
+
+
+class TestBuildDiff(TestCase):
+    def test_build_diff_with_two_equal_strings(self):
+        equal = Equal('a', 'a', is_negative=True)
+        expect(equal.diffs).to.eq('')
+
+    def test_build_diff_with_two_objects_with_different_types(self):
+        equal = Equal('1', 1, is_negative=False)
+        expect(equal.diffs).to.eq('')
+
+    def test_build_diff_with_no_buildable_types(self):
+        equal = Equal(1, 1, is_negative=False)
+        expect(equal.diffs).to.eq('')
+
+    def test_build_diff_with_list(self):
+        equal = Equal([1, 2, 3], [2, 1, 3], is_negative=False)
+        expect(equal.diffs).to.eq("""Diffs:
+- [1, 2, 3]
+?  ^  ^
+
++ [2, 1, 3]
+?  ^  ^
+""")
+
+    def test_build_diff_with_strings(self):
+        equal = Equal('A little cat', 'A little dog', is_negative=False)
+        expect(equal.diffs).to.eq("""Diffs:
+- A little cat
+?          ^^^
+
++ A little dog
+?          ^^^
+""")

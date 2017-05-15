@@ -1,15 +1,12 @@
 from unittest import TestCase
 
-from mock import patch
-from robber.bad_expectation import BadExpectation
-
 from robber import expect
 from robber.explanation import Explanation
 
 
 class TestInit(TestCase):
     def test_init(self):
-        explanation = Explanation(1, True, 'within', 2, 'and', 3, force_disable_repr=True, need_to_build_diffs=True)
+        explanation = Explanation(1, True, 'within', 2, 'and', 3, force_disable_repr=True)
 
         expect(explanation.actual).to.eq(1)
         expect(explanation.is_negative).to.eq(True)
@@ -17,7 +14,6 @@ class TestInit(TestCase):
         expect(explanation.expected).to.eq(2)
         expect(explanation.another_expected).to.eq(3)
         expect(explanation.force_disable_repr).to.eq(True)
-        expect(explanation.need_to_build_diffs).to.eq(True)
 
 
 class TestMoreDetail(TestCase):
@@ -124,20 +120,6 @@ class TestOtherWord(TestCase):
         expect(explanation.other_word).to.eq(' Z')
 
 
-class TestDiffs(TestCase):
-    @patch('tests.test_explanation.Explanation.build_diff')
-    def test_diffs_with_need_to_build_diffs(self, mock_build_diff):
-        mock_build_diff.return_value = 'diffs'
-        explanation = Explanation('a', False, 'equal', 'b', need_to_build_diffs=True)
-        expect(explanation.diffs).to.eq('diffs')
-
-    @patch('tests.test_explanation.Explanation.build_diff')
-    def test_diffs_with_no_need_to_build_diffs(self, mock_build_diff):
-        mock_build_diff.return_value = 'diffs'
-        explanation = Explanation('a', False, 'equal', 'b')
-        expect(explanation.diffs).to.eq('')
-
-
 class TestIsRepr(TestCase):
     def test_is_repr_with_force_disable_repr(self):
         explanation = Explanation('a', True, 'equal', 'b', force_disable_repr=True)
@@ -168,60 +150,6 @@ class TestBuildLine(TestCase):
     def test_build_line_with_none(self):
         line = Explanation.build_line(None, 'A', is_repr=True)
         expect(line).to.eq('A = None\n')
-
-
-class TestBuildDiff(TestCase):
-    def test_build_diff_with_two_equal_strings(self):
-        diff = Explanation.build_diff('a', 'a')
-        expect(diff).to.eq('')
-
-    def test_build_diff_with_two_objects_with_different_types(self):
-        diff = Explanation.build_diff('1', 1)
-        expect(diff).to.eq('')
-
-    def test_build_diff_with_no_buildable_types(self):
-        diff = Explanation.build_diff(1, 1)
-        expect(diff).to.eq('')
-
-    def test_build_diff_with_list(self):
-        diff = Explanation.build_diff([1, 2, 3], [2, 1, 3])
-        expect(diff).to.eq("""Diffs:
-- [1, 2, 3]
-?  ^  ^
-
-+ [2, 1, 3]
-?  ^  ^
-""")
-
-    def test_build_diff_with_dict(self):
-        diff = Explanation.build_diff({'a': 1, 'b': 2}, {'a': 1, 'b': 3})
-        # this try catch is for Python 3.5 sake
-        try:
-            expect(diff).to.eq("""Diffs:
-- {'a': 1, 'b': 2}
-?               ^
-
-+ {'a': 1, 'b': 3}
-?               ^
-""")
-        except BadExpectation:
-            expect(diff).to.eq("""Diffs:
-- {'b': 2, 'a': 1}
-?       ^
-
-+ {'b': 3, 'a': 1}
-?       ^
-""")
-
-    def test_build_diff_with_strings(self):
-        diff = Explanation.build_diff('A little cat', 'A little dog')
-        expect(diff).to.eq("""Diffs:
-- A little cat
-?          ^^^
-
-+ A little dog
-?          ^^^
-""")
 
 
 class TestMessage(TestCase):

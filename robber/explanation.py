@@ -1,7 +1,6 @@
 import re
-from difflib import Differ
 
-from robber.constants import TENSE_WORDS, DIFF_BUILDABLE_TYPES
+from robber.constants import TENSE_WORDS
 
 
 class Explanation:
@@ -34,13 +33,11 @@ class Explanation:
         self.another_expected = another_expected
         self.other = other
         self.force_disable_repr = force_disable_repr
-        self.need_to_build_diffs = need_to_build_diffs
         self.is_negative = is_negative
 
         self.action = negative_action if is_negative and negative_action else action
         self.negative_word = ' not' if is_negative and not negative_action else ''
         self.another_action = ' {0}'.format(another_action) if another_action else ''
-        self.diffs = self.build_diff(self.actual, self.expected) if self.need_to_build_diffs else ''
         self.more_detail = self.build_more_detail(more_detail)
 
         self.expected_word = ' B' if self.is_passed(expected) else ''
@@ -84,7 +81,6 @@ class Explanation:
             '{other_line}'
             'Expected A{negative_word} to {action}{expected_word}{another_action}{another_expected_word}\n'
             '{more_detail}'
-            '{diffs}'
         ).format(
             actual_line=actual_line,
             expected_line=expected_line if self.is_passed(self.expected) else '',
@@ -96,7 +92,6 @@ class Explanation:
             more_detail=self.more_detail,
             another_action=self.another_action,
             another_expected_word=self.another_expected_word,
-            diffs=self.diffs
         )
 
     @staticmethod
@@ -109,27 +104,6 @@ class Explanation:
                 obj=obj
             )
         return ''
-
-    @staticmethod
-    def build_diff(a, b):
-        if a == b:
-            return ''
-
-        if type(a) is not type(b):
-            return ''
-
-        object_type = type(a)
-
-        if object_type not in DIFF_BUILDABLE_TYPES:
-            return ''
-
-        if object_type is not str:
-            a = repr(a)
-            b = repr(b)
-
-        differ = Differ()
-        diffs = differ.compare(a.splitlines(), b.splitlines())
-        return 'Diffs:\n{0}'.format('\n'.join(diffs))
 
     @staticmethod
     def is_passed(param):

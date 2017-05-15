@@ -1,4 +1,7 @@
+from difflib import Differ
+
 from robber import expect
+from robber.constants import DIFF_BUILDABLE_TYPES
 from robber.explanation import Explanation
 from robber.matchers.base import Base
 
@@ -18,7 +21,7 @@ class Equal(Base):
         if type(self.actual) is dict and type(self.expected) is dict:
             return Explanation(self.actual, self.is_negative, 'equal', self.expected, more_detail=self.dict_diffs)
 
-        return Explanation(self.actual, self.is_negative, 'equal', self.expected, need_to_build_diffs=True)
+        return Explanation(self.actual, self.is_negative, 'equal', self.expected, more_detail=self.diffs)
 
     @property
     def dict_diffs(self):
@@ -33,6 +36,30 @@ class Equal(Base):
                     return "A['{key}'] = {val_a} while B['{key}'] = {val_b}".format(key=k, val_a=val_a, val_b=val_b)
             except KeyError:
                 return "A has key '{k}' while B does not".format(k=k)
+
+    @property
+    def diffs(self):
+        actual = self.actual
+        expected = self.expected
+
+        if actual == expected:
+            return ''
+
+        if type(actual) is not type(expected):
+            return ''
+
+        object_type = type(actual)
+
+        if object_type not in DIFF_BUILDABLE_TYPES:
+            return ''
+
+        if object_type is not str:
+            actual = repr(actual)
+            expected = repr(expected)
+
+        differ = Differ()
+        diffs = differ.compare(actual.splitlines(), expected.splitlines())
+        return 'Diffs:\n{0}'.format('\n'.join(diffs))
 
 
 expect.register('eq', Equal)
