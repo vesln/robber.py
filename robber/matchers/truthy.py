@@ -6,6 +6,7 @@ from robber.matchers.base import Base
 class Truthy(Base):
     """
     expect('str').to.be.truthy()
+    expect('str').to.be.falsy()
     """
 
     def matches(self):

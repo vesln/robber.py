@@ -8,8 +8,9 @@ from robber.matchers.base import Base
 class Equal(Base):
     """
     expect(1).to.eq(1)
-    expect(1).to == 1
     expect(1) == 1
+    expect(1).to.ne(1)
+    expect(1) != 1
     """
 
     def matches(self):
