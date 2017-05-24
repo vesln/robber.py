@@ -1,11 +1,8 @@
 [![Build Status](https://secure.travis-ci.org/taoenator/robber.py.png)](http://travis-ci.org/taoenator/robber.py)
 [![Coverage Status](https://coveralls.io/repos/github/taoenator/robber.py/badge.svg?branch=master)](https://coveralls.io/github/taoenator/robber.py?branch=master)
-
+[![Code Climate](https://codeclimate.com/github/vesln/robber.py/badges/gpa.svg)](https://codeclimate.com/github/vesln/robber.py)
 
 # robber.py - BDD / TDD assertion library for Python.
-## Supported python versions
-- `robber.py` now supports python 2.6, 2.7, 3.4, 3.5 and python 3.6
-
 ## Synopsis
 
 In order to use `robber`, you need to import `expect`
@@ -362,7 +359,7 @@ $ pip install robber
 
 ## Requirements
 
-- Python 2.6, 2.7 or 3.5
+- Python 2.6, 2.7, 3.5 or 3.6
 - pip
 - nose (for testing)
 
