@@ -12,24 +12,30 @@ class TestCalled(TestCase):
         mock()
         expect(Called(mock).matches()).to.eq(True)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         mock = Mock()
         called = Called(mock)
-        message = called.failure_message()
-        expect(message) == 'Expected {mock} to be called'.format(mock=mock)
+        message = called.explanation.message
+        expect(message) == """
+A = {mock}
+Expected A to be called
+""".format(mock=mock)
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         mock = Mock()
-        called = Called(mock)
-        message = called.failure_message()
+        called = Called(mock, is_negative=True)
+        message = called.explanation.message
 
         mock()
 
-        expect(message) == 'Expected {mock} to be called'.format(mock=mock)
+        expect(message) == """
+A = {mock}
+Expected A not to be called
+""".format(mock=mock)
 
     def test_register(self):
         expect(expect.matcher('called')) == Called
 
     def test_not_a_mock(self):
-        self.assertRaises(TypeError, Called("a").matches)
+        self.assertRaises(TypeError, Called('a').matches)
         self.assertRaises(TypeError, Called(1).matches)

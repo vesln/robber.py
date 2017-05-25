@@ -8,13 +8,23 @@ class TestAbove(unittest.TestCase):
         expect(Above(2, 1).matches()).to.eq(True)
         expect(Above(1, 2).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         above = Above(1, 2)
-        expect(above.failure_message()) == 'Expected 1 to be above 2'
+        message = above.explanation.message
+        expect(message) == """
+A = 1
+B = 2
+Expected A to be above B
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         above = Above(2, 1, is_negative=True)
-        expect(above.failure_message()) == 'Expected 2 not to be above 1'
+        message = above.explanation.message
+        expect(message) == """
+A = 2
+B = 1
+Expected A not to be above B
+"""
 
     def test_register(self):
         expect(expect.matcher('above')) == Above
@@ -25,13 +35,23 @@ class TestBelow(unittest.TestCase):
         expect(Below(1, 2).matches()).to.eq(True)
         expect(Below(2, 1).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         below = Below(2, 1)
-        expect(below.failure_message()) == 'Expected 2 to be below 1'
+        message = below.explanation.message
+        expect(message) == """
+A = 2
+B = 1
+Expected A to be below B
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         below = Below(1, 2, is_negative=True)
-        expect(below.failure_message()) == 'Expected 1 not to be below 2'
+        message = below.explanation.message
+        expect(message) == """
+A = 1
+B = 2
+Expected A not to be below B
+"""
 
     def test_register(self):
         expect(expect.matcher('below')) == Below
@@ -42,13 +62,25 @@ class TestWithin(unittest.TestCase):
         expect(Within(1, 0, False, 2).matches()).to.eq(True)
         expect(Within(2, 3, False, 4).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         within = Within(1, 2, False, 3)
-        expect(within.failure_message()) == 'Expected 1 to be within 2 and 3'
+        message = within.explanation.message
+        expect(message) == """
+A = 1
+B = 2
+C = 3
+Expected A to be within B and C
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         within = Within(1, 0, True, 2)
-        expect(within.failure_message()) == 'Expected 1 not to be within 0 and 2'
+        message = within.explanation.message
+        expect(message) == """
+A = 1
+B = 0
+C = 2
+Expected A not to be within B and C
+"""
 
     def test_register(self):
         expect(expect.matcher('within')) == Within
@@ -65,7 +97,14 @@ class TestChange(unittest.TestCase):
         try:
             Change(increase_by_2, 1).by(1)
         except BadExpectation as exception:
-            expect(exception.message) == 'Expected function increase_by_2 to change 1 by 1, but was changed by 2'
+            expect(exception.message) == """
+A = increase_by_2
+B = 1
+C = 1
+Z = 2
+Expected A to change B by C
+Actually change by Z
+"""
 
     def test_change_by_raise_exception_with_not_to(self):
         def increase_by_2(x):
@@ -74,7 +113,13 @@ class TestChange(unittest.TestCase):
         try:
             Change(increase_by_2, 1, is_negative=True).by(2)
         except BadExpectation as exception:
-            expect(exception.message) == 'Expected function increase_by_2 not to change 1 by 2, but was changed by 2'
+            expect(exception.message) == """
+A = increase_by_2
+B = 1
+C = 2
+Expected A not to change B by C
+But it happened
+"""
 
     def test_register(self):
         expect(expect.matcher('change')) == Change

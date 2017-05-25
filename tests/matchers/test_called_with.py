@@ -17,55 +17,80 @@ class TestCalledWith(TestCase):
         mock(1, 2, 3)
         expect(CalledWith(mock, 1, False, 2, 3).matches()).to.eq(True)
 
-    def test_failure_message_with_not_called_mock(self):
+    def test_explanation_message_with_not_called_mock(self):
         mock = Mock()
 
         called_with = CalledWith(mock, 2)
-        message = called_with.failure_message()
+        message = called_with.explanation.message
 
-        expect(message) == 'Expected {mock} to be called with 2. Actually not called.'.format(mock=mock)
+        expect(message) == """
+A = {0}
+B = 2
+Expected A to be called with B
+Actually not called
+""".format(mock)
 
-    def test_failure_message_with_one_arg(self):
+    def test_explanation_message_with_one_arg(self):
         mock = Mock()
         mock(1)
 
         called_with = CalledWith(mock, 2)
-        message = called_with.failure_message()
+        message = called_with.explanation.message
 
-        expect(message) == 'Expected {mock} to be called with 2. Actually called with 1.'.format(mock=mock)
+        expect(message) == """
+A = {0}
+B = 2
+Z = 1
+Expected A to be called with B
+Actually called with Z
+""".format(mock)
 
-    def test_negative_failure_message_with_one_arg(self):
+    def test_negative_explanation_message_with_one_arg(self):
         mock = Mock()
         mock(2)
 
         called_with = CalledWith(mock, 2, is_negative=True)
-        message = called_with.failure_message()
+        message = called_with.explanation.message
 
-        expect(message) == 'Expected {mock} not to be called with 2. Actually called with 2.'.format(mock=mock)
+        expect(message) == """
+A = {0}
+B = 2
+Expected A not to be called with B
+But it happened
+""".format(mock)
 
-    def test_failure_message_with_multiple_args(self):
+    def test_explanation_message_with_multiple_args(self):
         mock = Mock()
 
         mock(4, 5, 6, c=7)
         called_with = CalledWith(mock, 1, False, 2, 3, a=4)
-        message = called_with.failure_message()
+        message = called_with.explanation.message
 
-        expect(message) == 'Expected {mock} to be called with 1, 2, 3, a=4. ' \
-                           'Actually called with 4, 5, 6, c=7.'.format(mock=mock)
+        expect(message) == """
+A = {0}
+B = 1, 2, 3, a=4
+Z = 4, 5, 6, c=7
+Expected A to be called with B
+Actually called with Z
+""".format(mock)
 
-    def test_negative_failure_message_with_multiple_args(self):
+    def test_negative_explanation_message_with_multiple_args(self):
         mock = Mock()
 
         mock(1, 2, 3, a=4)
         called_with = CalledWith(mock, 1, True, 2, 3, a=4)
-        message = called_with.failure_message()
+        message = called_with.explanation.message
 
-        expect(message) == 'Expected {mock} not to be called with 1, 2, 3, a=4. ' \
-                           'Actually called with 1, 2, 3, a=4.'.format(mock=mock)
+        expect(message) == """
+A = {0}
+B = 1, 2, 3, a=4
+Expected A not to be called with B
+But it happened
+""".format(mock)
 
     def test_register(self):
         expect(expect.matcher('called_with')) == CalledWith
 
     def test_not_a_mock(self):
-        self.assertRaises(TypeError, CalledWith("a", "b").matches)
-        self.assertRaises(TypeError, CalledWith(1, "b").matches)
+        self.assertRaises(TypeError, CalledWith('a', 'b').matches)
+        self.assertRaises(TypeError, CalledWith(1, 'b').matches)

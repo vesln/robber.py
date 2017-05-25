@@ -8,13 +8,21 @@ class TestString(unittest.TestCase):
         expect(String('str').matches()).to.eq(True)
         expect(String(1).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         string = String(1)
-        expect(string.failure_message()) == 'Expected "1" to be a string'
+        message = string.explanation.message
+        expect(message) == """
+A = 1
+Expected A to be a string
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         string = String('a', is_negative=True)
-        expect(string.failure_message()) == 'Expected "a" not to be a string'
+        message = string.explanation.message
+        expect(message) == """
+A = 'a'
+Expected A not to be a string
+"""
 
     def test_register(self):
         expect(expect.matcher('string')) == String
@@ -25,13 +33,21 @@ class TestInteger(unittest.TestCase):
         expect(Integer(1).matches()).to.eq(True)
         expect(Integer('str').matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         integer = Integer('a')
-        expect(integer.failure_message()) == 'Expected "a" to be an integer'
+        message = integer.explanation.message
+        expect(message) == """
+A = 'a'
+Expected A to be an integer
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         integer = Integer(1, is_negative=True)
-        expect(integer.failure_message()) == 'Expected "1" not to be an integer'
+        message = integer.explanation.message
+        expect(message) == """
+A = 1
+Expected A not to be an integer
+"""
 
     def test_register(self):
         expect(expect.matcher('integer')) == Integer
@@ -42,13 +58,21 @@ class TestFloat(unittest.TestCase):
         expect(Float(1.0).matches()).to.eq(True)
         expect(Float(1).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         float_assertion = Float(1)
-        expect(float_assertion.failure_message()) == 'Expected "1" to be a floating point number'
+        message = float_assertion.explanation.message
+        expect(message) == """
+A = 1
+Expected A to be a floating point number
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         float_assertion = Float(1.1, is_negative=True)
-        expect(float_assertion.failure_message()) == 'Expected "1.1" not to be a floating point number'
+        message = float_assertion.explanation.message
+        expect(message) == """
+A = {0}
+Expected A not to be a floating point number
+""".format(repr(1.1))
 
     def test_register(self):
         expect(expect.matcher('float')) == Float
@@ -59,13 +83,21 @@ class TestArray(unittest.TestCase):
         expect(List([]).matches()).to.eq(True)
         expect(List(1).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         array = List(1)
-        expect(array.failure_message()) == 'Expected "1" to be an array'
+        message = array.explanation.message
+        expect(message) == """
+A = 1
+Expected A to be an array
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         array = List([], is_negative=True)
-        expect(array.failure_message()) == 'Expected "[]" not to be an array'
+        message = array.explanation.message
+        expect(message) == """
+A = []
+Expected A not to be an array
+"""
 
     def test_register(self):
         expect(expect.matcher('list')) == List
@@ -76,13 +108,21 @@ class TestDict(unittest.TestCase):
         expect(Dict({}).matches()).to.eq(True)
         expect(Dict(1).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         dict_assertion = Dict(1)
-        expect(dict_assertion.failure_message()) == 'Expected "1" to be a dictionary'
+        message = dict_assertion.explanation.message
+        expect(message) == """
+A = 1
+Expected A to be a dictionary
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         dict_assertion = Dict({}, is_negative=True)
-        expect(dict_assertion.failure_message()) == 'Expected "{}" not to be a dictionary'
+        message = dict_assertion.explanation.message
+        expect(message) == """
+A = {}
+Expected A not to be a dictionary
+"""
 
     def test_register(self):
         expect(expect.matcher('dict')) == Dict
@@ -93,13 +133,21 @@ class TestTuple(unittest.TestCase):
         expect(Tuple((1, 2)).matches()).to.eq(True)
         expect(Tuple(1).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         tuple_assertion = Tuple(1)
-        expect(tuple_assertion.failure_message()) == 'Expected "1" to be a tuple'
+        message = tuple_assertion.explanation.message
+        expect(message) == """
+A = 1
+Expected A to be a tuple
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         tuple_assertion = Tuple((1, 2), is_negative=True)
-        expect(tuple_assertion.failure_message()) == 'Expected "(1, 2)" not to be a tuple'
+        message = tuple_assertion.explanation.message
+        expect(message) == """
+A = (1, 2)
+Expected A not to be a tuple
+"""
 
     def test_register(self):
         expect(expect.matcher('tuple')) == Tuple
@@ -110,13 +158,21 @@ class TestNone(unittest.TestCase):
         expect(Non(None).matches()).to.eq(True)
         expect(Non(1).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         none = Non(1)
-        expect(none.failure_message()) == 'Expected "1" to be None'
+        message = none.explanation.message
+        expect(message) == """
+A = 1
+Expected A to be None
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         none = Non(None, is_negative=True)
-        expect(none.failure_message()) == 'Expected "None" not to be None'
+        message = none.explanation.message
+        expect(message) == """
+A = None
+Expected A not to be None
+"""
 
     def test_register(self):
         expect(expect.matcher('none')) == Non

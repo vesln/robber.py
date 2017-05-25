@@ -1,6 +1,7 @@
 import re
 
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
@@ -12,10 +13,9 @@ class Match(Base):
     def matches(self):
         return bool(re.match(self.expected, self.actual))
 
-    def failure_message(self):
-        return 'Expected "{actual}"{negative_message} to match "{expected}"'.format(
-            actual=self.actual, negative_message=self.negative_message, expected=self.expected
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'match', self.expected)
 
 
 expect.register('match', Match)

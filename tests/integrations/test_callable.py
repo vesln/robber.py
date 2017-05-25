@@ -12,11 +12,11 @@ class TestCallableIntegrations(TestCase):
 
     @must_fail
     def test_callable_failure(self):
-        expect("a").to.be.callable()
+        expect('a').to.be.callable()
         expect(1).to.be.callable()
 
     def test_not_to_be_callable_success(self):
-        expect("a").not_to.be.callable()
+        expect('a').not_to.be.callable()
         expect(1).not_to.be.callable()
 
     @must_fail

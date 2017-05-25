@@ -1,4 +1,5 @@
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
@@ -10,10 +11,9 @@ class Callable(Base):
     def matches(self):
         return callable(self.actual)
 
-    def failure_message(self):
-        return 'Expected {actual}{negative_message} to be callable'.format(
-            actual=self.actual, negative_message=self.negative_message
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be callable')
 
 
 expect.register('callable', Callable)

@@ -29,7 +29,14 @@ class TestWontMatch(Base):
     def matches(self):
         return False
 
-    def failure_message(self):
+    @property
+    def explanation(self):
+        return TestExplanation()
+
+
+class TestExplanation:
+    @property
+    def message(self):
         return 'Failure message'
 
 

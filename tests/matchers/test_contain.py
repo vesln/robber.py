@@ -14,13 +14,23 @@ class TestContain(unittest.TestCase):
         expect(Contain([1, 2, 3], 4).matches()).to.eq(False)
         expect(Contain((1, 2, 3), 4).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         contain = Contain([1, 2, 3], 4)
-        expect(contain.failure_message()) == 'Expected {0} to contain 4'.format([1, 2, 3])
+        message = contain.explanation.message
+        expect(message) == """
+A = [1, 2, 3]
+B = 4
+Expected A to contain B
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         contain = Contain([1, 2, 3], 2, is_negative=True)
-        expect(contain.failure_message()) == 'Expected {0} to exclude 2'.format([1, 2, 3])
+        message = contain.explanation.message
+        expect(message) == """
+A = [1, 2, 3]
+B = 2
+Expected A to exclude B
+"""
 
     def test_register(self):
         expect(expect.matcher('contain')) == Contain

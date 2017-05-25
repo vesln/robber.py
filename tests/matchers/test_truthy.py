@@ -12,13 +12,21 @@ class TestTruthy(unittest.TestCase):
         expect(Truthy(None).matches()).to.eq(False)
         expect(Truthy([]).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         truthy = Truthy(False)
-        expect(truthy.failure_message()) == 'Expected "False" to be truthy'
+        message = truthy.explanation.message
+        expect(message) == """
+A = False
+Expected A to be truthy
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         truthy = Truthy(True, is_negative=True)
-        expect(truthy.failure_message()) == 'Expected "True" to be falsy'
+        message = truthy.explanation.message
+        expect(message) == """
+A = True
+Expected A to be falsy
+"""
 
     def test_register(self):
         expect(expect.matcher('truthy')) == Truthy

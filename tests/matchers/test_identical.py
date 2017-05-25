@@ -7,15 +7,23 @@ class TestIdentical:
         expect(Identical(1, 1).matches()).to.eq(True)
         expect(Identical({0: 1}, {0: 1}).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         identical = Identical('actual', 'expected')
-        message = identical.failure_message()
-        expect(message) == 'Expected "actual" to be "expected"'
+        message = identical.explanation.message
+        expect(message) == """
+A = actual
+B = expected
+Expected A to be B
+"""
 
-    def test_negative_failure_message(self):
+    def test_negative_explanation_message(self):
         identical = Identical('actual', 'actual', is_negative=True)
-        message = identical.failure_message()
-        expect(message) == 'Expected "actual" not to be "actual"'
+        message = identical.explanation.message
+        expect(message) == """
+A = actual
+B = actual
+Expected A not to be B
+"""
 
     def test_register(self):
         expect(expect.matcher('equal')) == Identical

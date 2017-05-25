@@ -1,3 +1,5 @@
+from termcolor import colored
+
 from robber.bad_expectation import BadExpectation
 from robber.expect import expect
 
@@ -26,8 +28,8 @@ class Base:
         if self.matches() is not self.is_negative:
             return expect(self.actual)
 
-        message = self.message or self.failure_message()
-        raise BadExpectation(message)
+        message = self.message or self.explanation.message
+        raise BadExpectation(colored(message, 'red'))
 
     @property
     def negative_message(self):

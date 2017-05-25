@@ -1,7 +1,7 @@
 __all__ = [
-    'expect', 'bad_expectations', 'failure_message', 'matchers'
+    'custom_explanation', 'expect', 'bad_expectations', 'matchers',
 ]
-from robber.expect import expect
+from robber.custom_explanation import CustomExplanation  # noqa F401
+from robber.expect import expect  # noqa F401
 from robber.bad_expectation import BadExpectation  # noqa F401
-from robber.failure_message import failure_message
 import robber.matchers  # noqa F401

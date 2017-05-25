@@ -13,7 +13,7 @@ class expect:
     In order to make the tests more readable, there are a few chains:
 
     ```
-    to, be, a, an, have
+    to, be, a, an, have, been
     ```
     """
     matchers = {}

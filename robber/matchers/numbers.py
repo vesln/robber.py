@@ -1,5 +1,6 @@
 from robber import BadExpectation
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
@@ -11,10 +12,9 @@ class Above(Base):
     def matches(self):
         return self.actual > self.expected
 
-    def failure_message(self):
-        return 'Expected {a}{negative_message} to be above {b}'.format(
-            a=self.actual, negative_message=self.negative_message, b=self.expected
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be above', self.expected)
 
 
 class Below(Base):
@@ -25,10 +25,9 @@ class Below(Base):
     def matches(self):
         return self.actual < self.expected
 
-    def failure_message(self):
-        return 'Expected {a}{negative_message} to be below {b}'.format(
-            a=self.actual, negative_message=self.negative_message, b=self.expected
-        )
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be below', self.expected)
 
 
 class Within(Base):
@@ -39,9 +38,10 @@ class Within(Base):
     def matches(self):
         return self.expected <= self.actual <= self.args[0]
 
-    def failure_message(self):
-        return 'Expected {a}{negative_message} to be within {m} and {n}'.format(
-            a=self.actual, negative_message=self.negative_message, m=self.expected, n=self.args[0]
+    @property
+    def explanation(self):
+        return Explanation(
+            self.actual, self.is_negative, 'be within', self.expected, 'and', self.args[0]
         )
 
 
@@ -57,20 +57,21 @@ class Change(Base):
         return self
 
     def by(self, amount=0):
-        changed = self.callable(self.obj) - self.obj
-        message = self.message or self.failure_message(self.callable.__name__, self.obj, amount, changed)
+        self.changed = self.callable(self.obj) - self.obj
+        self.amount = amount
+        message = self.message or self.explanation.message
 
-        if (changed == amount) == (not self.is_negative):
+        if (self.changed == amount) == (not self.is_negative):
             return expect(self.obj)
 
         raise BadExpectation(message)
 
-    def failure_message(self, callable_name, obj, changed, got):
-        message = 'Expected function {function}{negative_message} to change {a} by {x}, but was changed by {y}'
-        return message.format(
-            function=callable_name,
-            negative_message=self.negative_message,
-            a=obj, x=changed, y=got
+    @property
+    def explanation(self):
+        return Explanation(
+            self.callable.__name__, self.is_negative, 'change', self.obj,
+            another_action='by', another_expected=self.amount,
+            other=self.changed, force_disable_repr=True
         )
 
 

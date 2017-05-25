@@ -1,9 +1,9 @@
-from robber import expect
+from robber.expect import expect
 
 
-class failure_message():
+class CustomExplanation:
     """
-    with failure_message('Custom failure message'):
+    with CustomExplanation('Custom failure message'):
         # some assertions
     """
 

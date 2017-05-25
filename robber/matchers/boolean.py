@@ -1,24 +1,20 @@
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
 class Boolean(Base):
     """
     expect(true).to.be.true()
+    expect(true).to.be.false()
     """
 
     def matches(self):
         return self.actual is True
 
-    def failure_message(self):
-        message = 'Expected {actual} to be {adj}'
-
-        if not self.is_negative:
-            adj = 'True'
-        else:
-            adj = 'False'
-
-        return message.format(actual=self.actual, adj=adj)
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be True', negative_action='be False')
 
 
 expect.register('true', Boolean)

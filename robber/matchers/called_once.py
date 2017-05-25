@@ -1,4 +1,5 @@
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
@@ -13,9 +14,11 @@ class CalledOnce(Base):
         except AttributeError:
             raise TypeError('{actual} is not a mock'.format(actual=self.actual))
 
-    def failure_message(self):
-        return 'Expected {actual}{negative_message} to be called once. Called {call_count} times'.format(
-            actual=self.actual, negative_message=self.negative_message, call_count=self.actual.call_count
+    @property
+    def explanation(self):
+        return Explanation(
+            self.actual, self.is_negative, 'be called once',
+            more_detail='Called {0} times'.format(self.actual.call_count)
         )
 
 
