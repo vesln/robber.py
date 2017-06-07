@@ -18,3 +18,19 @@ class TestExceptionIntegrations(TestCase):
     @must_fail
     def test_not_exception_failure(self):
         expect(lambda: 1 / 0).not_to.throw(ZeroDivisionError)
+
+
+class TestExactExceptionIntegrations(TestCase):
+    def test_exact_exception_success(self):
+        expect(lambda: 1 / 0).to.throw_exactly(ZeroDivisionError)
+
+    @must_fail
+    def test_exact_exception_failure(self):
+        expect(lambda: 1 / 0).to.throw_exactly(Exception)
+
+    def test_not_exact_exception_success(self):
+        expect(lambda: 1 / 0).not_to.throw_exactly(Exception)
+
+    @must_fail
+    def test_not_exact_exception_failure(self):
+        expect(lambda: 1 / 0).not_to.throw_exactly(ZeroDivisionError)

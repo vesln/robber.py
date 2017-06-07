@@ -220,11 +220,22 @@ expect({'foo': 'bar'}).to.exclude('baz')
 
 #### throw
 
-Asserts that the target throws an exception
+Asserts that the target throws an exception (or its subclass)
 
 ```python
 expect(lambda: raise_exception(...)).to.throw(Exception)
+expect(lambda: raise_exception(...)).to.throw(ParentException)
 expect(any_callable).to.throw(Exception)
+expect(any_callable).to.throw(ParentException)
+```
+
+#### throw_exactly
+
+Asserts that the target throws exactly an exception (not its subclass)
+
+```python
+expect(lambda: raise_exception(...)).to.throw_exactly(Exception)
+expect(any_callable).to.throw_exactly(Exception)
 ```
 
 #### called
