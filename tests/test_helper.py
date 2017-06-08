@@ -90,3 +90,15 @@ class TestIsStrOrUnicode(TestCase):
 class TestUnicodeToStr(TestCase):
     def test_unicode_to_str(self):
         self.assertEqual(Helper.unicode_to_str(u'Mèo'), u'Mèo'.encode('utf-8'))
+
+
+class TestUnicodeListToStrList(TestCase):
+    def test_with_simple_list(self):
+        u_list = [u'Mèo', u'Chó']
+        str_list = ['Mèo', 'Chó']
+        self.assertEqual(Helper.unicode_list_to_str_list(u_list), str_list)
+
+    def test_with_multi_level_list(self):
+        u_list = [[u'Mèo'], [u'Chó']]
+        str_list = [['Mèo'], ['Chó']]
+        self.assertEqual(Helper.unicode_list_to_str_list(u_list), str_list)

@@ -14,12 +14,6 @@ class TestEqual:
         expect(Equal(1, 1).matches()).to.eq(True)
         expect(Equal(1, 2).matches()).to.eq(False)
 
-    def test_if_unicode_string_is_converted_to_str(self):
-        equal = Equal(u'Mèo', u'Mèo')
-        equal.matches()
-        expect(type(equal.actual)).to.equal(str)
-        expect(type(equal.expected)).to.equal(str)
-
     def test_register(self):
         expect(expect.matcher('eq')) == Equal
         expect(expect.matcher('__eq__')) == Equal
@@ -122,3 +116,17 @@ Expected A not to equal B
         equal = Equal(l1, l2)
 
         expect('Some diffs' in equal.explanation.message).to.eq(True)
+
+
+class TestStandardizeArgs(TestCase):
+    def test_if_unicode_string_is_converted_to_str(self):
+        equal = Equal(u'Mèo', u'Mèo')
+        equal.matches()
+        self.assertEqual(equal.actual, 'Mèo')
+        self.assertEqual(equal.expected, 'Mèo')
+
+    def test_if_unicode_list_is_converted_to_str_list(self):
+        equal = Equal([u'Mèo', u'Chó'], [u'Mèo', u'Chó'])
+        equal.matches()
+        self.assertEqual(equal.actual, ['Mèo', 'Chó'])
+        self.assertEqual(equal.expected, ['Mèo', 'Chó'])

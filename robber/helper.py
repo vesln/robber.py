@@ -41,3 +41,15 @@ class Helper:
     @staticmethod
     def unicode_to_str(u_string):
         return u_string.encode('utf-8')
+
+    @classmethod
+    def unicode_list_to_str_list(cls, u_list):
+        str_list = list(u_list)
+
+        for i in range(0, len(str_list)):
+            if cls.is_unicode(str_list[i]):
+                str_list[i] = cls.unicode_to_str(str_list[i])
+            elif type(str_list[i]) is list:
+                str_list[i] = cls.unicode_list_to_str_list(str_list[i])
+
+        return str_list

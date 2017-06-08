@@ -14,6 +14,8 @@ class TestEqualIntegrations(TestCase):
         expect(1).to == 1
         expect(1) == 1
         expect(u'Mèo').to.eq('Mèo')
+        expect([u'Mèo', u'Chó']).to.eq(['Mèo', 'Chó'])
+        expect([[u'Mèo'], [u'Chó']]).to.eq([['Mèo'], ['Chó']])
 
     @must_fail
     def test_eq_failure(self):

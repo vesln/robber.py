@@ -15,15 +15,7 @@ class Equal(Base):
     """
 
     def matches(self):
-        if Helper.is_str_or_unicode(self.actual) and Helper.is_str_or_unicode(self.expected):
-            try:
-                if type(self.actual) is unicode:
-                    self.actual = Helper.unicode_to_str(self.actual)
-                if type(self.expected) is unicode:
-                    self.expected = Helper.unicode_to_str(self.expected)
-            except NameError:
-                pass
-
+        self.standardize_args()
         return self.actual == self.expected
 
     @property
@@ -70,6 +62,21 @@ class Equal(Base):
         differ = Differ()
         diffs = differ.compare(self.actual.splitlines(), self.expected.splitlines())
         return 'Diffs:\n{0}'.format('\n'.join(diffs))
+
+    def standardize_args(self):
+        try:
+            if type(self.actual) is unicode:
+                self.actual = Helper.unicode_to_str(self.actual)
+            if type(self.expected) is unicode:
+                self.expected = Helper.unicode_to_str(self.expected)
+        except NameError:
+            pass
+
+        if type(self.actual) is list:
+            self.actual = Helper.unicode_list_to_str_list(self.actual)
+
+        if type(self.expected) is list:
+            self.expected = Helper.unicode_list_to_str_list(self.expected)
 
 
 expect.register('eq', Equal)
