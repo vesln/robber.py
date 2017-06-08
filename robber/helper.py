@@ -26,3 +26,18 @@ class Helper:
         match = re.search('call\((.*)\)', str(call_args))
         params = match.group(1)
         return params or 'no arguments'
+
+    @classmethod
+    def is_str_or_unicode(cls, obj):
+        return type(obj) is str or cls.is_unicode(obj)
+
+    @staticmethod
+    def is_unicode(obj):
+        try:
+            return type(obj) is unicode
+        except NameError:
+            return False
+
+    @staticmethod
+    def unicode_to_str(u_string):
+        return u_string.encode('utf-8')

@@ -2,6 +2,7 @@ from difflib import Differ
 
 from robber import expect
 from robber.explanation import Explanation
+from robber.helper import Helper
 from robber.matchers.base import Base
 
 
@@ -14,6 +15,15 @@ class Equal(Base):
     """
 
     def matches(self):
+        if Helper.is_str_or_unicode(self.actual) and Helper.is_str_or_unicode(self.expected):
+            try:
+                if type(self.actual) is unicode:
+                    self.actual = Helper.unicode_to_str(self.actual)
+                if type(self.expected) is unicode:
+                    self.expected = Helper.unicode_to_str(self.expected)
+            except NameError:
+                pass
+
         return self.actual == self.expected
 
     @property

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from unittest import TestCase
 
 from mock import patch
@@ -11,6 +13,12 @@ class TestEqual:
     def test_matches(self):
         expect(Equal(1, 1).matches()).to.eq(True)
         expect(Equal(1, 2).matches()).to.eq(False)
+
+    def test_if_unicode_string_is_converted_to_str(self):
+        equal = Equal(u'Mèo', u'Mèo')
+        equal.matches()
+        expect(type(equal.actual)).to.equal(str)
+        expect(type(equal.expected)).to.equal(str)
 
     def test_register(self):
         expect(expect.matcher('eq')) == Equal

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from unittest import TestCase
 
 from robber import expect
@@ -11,6 +13,7 @@ class TestEqualIntegrations(TestCase):
         expect((1, 2)).to.eq((1, 2))
         expect(1).to == 1
         expect(1) == 1
+        expect(u'Mèo').to.eq('Mèo')
 
     @must_fail
     def test_eq_failure(self):

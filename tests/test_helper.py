@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+import sys
 from unittest import TestCase
 
 from mock import call
@@ -57,3 +60,33 @@ class TestBuildExpectedParamsString(TestCase):
         expect(split_expected_params_str).to.contain("'a'")
         expect(split_expected_params_str).to.contain("b='b'")
         expect(split_expected_params_str).to.contain('one=1')
+
+
+class TestIsUnicode(TestCase):
+    def test_with_str(self):
+        expect(Helper.is_unicode('a')).to.eq(False)
+
+    def test_with_unicode(self):
+        if sys.version_info.major < 3:
+            expect(Helper.is_unicode(u'a')).to.eq(True)
+        else:
+            expect(Helper.is_unicode(u'a')).to.eq(False)
+
+    def test_with_int(self):
+        expect(Helper.is_unicode(1)).to.eq(False)
+
+
+class TestIsStrOrUnicode(TestCase):
+    def test_with_str(self):
+        expect(Helper.is_str_or_unicode('a')).to.eq(True)
+
+    def test_with_unicode(self):
+        expect(Helper.is_str_or_unicode(u'a')).to.eq(True)
+
+    def test_with_int(self):
+        expect(Helper.is_str_or_unicode(1)).to.eq(False)
+
+
+class TestUnicodeToStr(TestCase):
+    def test_unicode_to_str(self):
+        self.assertEqual(Helper.unicode_to_str(u'Mèo'), u'Mèo'.encode('utf-8'))
