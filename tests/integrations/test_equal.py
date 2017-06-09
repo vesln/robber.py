@@ -16,6 +16,20 @@ class TestEqualIntegrations(TestCase):
         expect(u'Mèo').to.eq('Mèo')
         expect([u'Mèo', u'Chó']).to.eq(['Mèo', 'Chó'])
         expect([[u'Mèo'], [u'Chó']]).to.eq([['Mèo'], ['Chó']])
+        expect({
+            'cat': u'Mèo',
+            'dog': u'Chó',
+        }).to.eq({
+            'cat': 'Mèo',
+            'dog': 'Chó',
+        })
+        expect({
+            'd1': {'cat': u'Mèo'},
+            'd2': {'dog': u'Chó'},
+        }).to.eq({
+            'd1': {'cat': 'Mèo'},
+            'd2': {'dog': 'Chó'},
+        })
 
     @must_fail
     def test_eq_failure(self):

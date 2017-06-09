@@ -67,7 +67,8 @@ class TestIsUnicode(TestCase):
         expect(Helper.is_unicode('a')).to.eq(False)
 
     def test_with_unicode(self):
-        if sys.version_info.major < 3:
+        # python <= 2.7
+        if type(sys.version_info) is tuple or sys.version_info.major < 3:
             expect(Helper.is_unicode(u'a')).to.eq(True)
         else:
             expect(Helper.is_unicode(u'a')).to.eq(False)
@@ -102,3 +103,27 @@ class TestUnicodeListToStrList(TestCase):
         u_list = [[u'Mèo'], [u'Chó']]
         str_list = [['Mèo'], ['Chó']]
         self.assertEqual(Helper.unicode_list_to_str_list(u_list), str_list)
+
+
+class TestUnicodeDictToStrDict(TestCase):
+    def test_with_simple_dict(self):
+        u_dict = {
+            'cat': u'Mèo',
+            'dog': u'Chó',
+        }
+        str_dict = {
+            'cat': 'Mèo',
+            'dog': 'Chó',
+        }
+        self.assertEqual(Helper.unicode_dict_to_str_dict(u_dict), str_dict)
+
+    def test_with_multi_level_dict(self):
+        u_dict = {
+            'd1': {'cat': u'Mèo'},
+            'd2': {'dog': u'Chó'},
+        }
+        str_dict = {
+            'd1': {'cat': 'Mèo'},
+            'd2': {'dog': 'Chó'},
+        }
+        self.assertEqual(Helper.unicode_dict_to_str_dict(u_dict), str_dict)

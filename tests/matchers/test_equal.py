@@ -130,3 +130,17 @@ class TestStandardizeArgs(TestCase):
         equal.matches()
         self.assertEqual(equal.actual, ['Mèo', 'Chó'])
         self.assertEqual(equal.expected, ['Mèo', 'Chó'])
+
+    def test_if_unicode_dict_is_converted_to_str_dict(self):
+        u_dict = {
+            'cat': u'Mèo',
+            'dog': u'Chó',
+        }
+        str_dict = {
+            'cat': 'Mèo',
+            'dog': 'Chó',
+        }
+        equal = Equal(u_dict, u_dict)
+        equal.matches()
+        self.assertEqual(equal.actual, str_dict)
+        self.assertEqual(equal.expected, str_dict)

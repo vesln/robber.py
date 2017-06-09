@@ -53,3 +53,15 @@ class Helper:
                 str_list[i] = cls.unicode_list_to_str_list(str_list[i])
 
         return str_list
+
+    @classmethod
+    def unicode_dict_to_str_dict(cls, u_dict):
+        str_dict = dict(u_dict)
+
+        for key in str_dict:
+            if cls.is_unicode(str_dict[key]):
+                str_dict[key] = cls.unicode_to_str(str_dict[key])
+            elif type(str_dict[key]) is dict:
+                str_dict[key] = cls.unicode_dict_to_str_dict(str_dict[key])
+
+        return str_dict

@@ -78,6 +78,12 @@ class Equal(Base):
         if type(self.expected) is list:
             self.expected = Helper.unicode_list_to_str_list(self.expected)
 
+        if type(self.actual) is dict:
+            self.actual = Helper.unicode_dict_to_str_dict(self.actual)
+
+        if type(self.expected) is dict:
+            self.expected = Helper.unicode_dict_to_str_dict(self.expected)
+
 
 expect.register('eq', Equal)
 expect.register('__eq__', Equal)
