@@ -64,25 +64,8 @@ class Equal(Base):
         return 'Diffs:\n{0}'.format('\n'.join(diffs))
 
     def standardize_args(self):
-        try:
-            if type(self.actual) is unicode:
-                self.actual = Helper.unicode_to_str(self.actual)
-            if type(self.expected) is unicode:
-                self.expected = Helper.unicode_to_str(self.expected)
-        except NameError:
-            pass
-
-        if type(self.actual) is list:
-            self.actual = Helper.unicode_list_to_str_list(self.actual)
-
-        if type(self.expected) is list:
-            self.expected = Helper.unicode_list_to_str_list(self.expected)
-
-        if type(self.actual) is dict:
-            self.actual = Helper.unicode_dict_to_str_dict(self.actual)
-
-        if type(self.expected) is dict:
-            self.expected = Helper.unicode_dict_to_str_dict(self.expected)
+        self.actual = Helper.unicode_to_str(self.actual)
+        self.expected = Helper.unicode_to_str(self.expected)
 
 
 expect.register('eq', Equal)

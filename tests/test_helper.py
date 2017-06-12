@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-
 import sys
 from unittest import TestCase
 
-from mock import call
+from mock import call, patch
 
 from robber.expect import expect
 from robber.helper import Helper
@@ -62,68 +61,51 @@ class TestBuildExpectedParamsString(TestCase):
         expect(split_expected_params_str).to.contain('one=1')
 
 
-class TestIsUnicode(TestCase):
-    def test_with_str(self):
-        expect(Helper.is_unicode('a')).to.eq(False)
-
-    def test_with_unicode(self):
-        # python <= 2.7
-        if type(sys.version_info) is tuple or sys.version_info.major < 3:
-            expect(Helper.is_unicode(u'a')).to.eq(True)
-        else:
-            expect(Helper.is_unicode(u'a')).to.eq(False)
-
-    def test_with_int(self):
-        expect(Helper.is_unicode(1)).to.eq(False)
-
-
-class TestIsStrOrUnicode(TestCase):
-    def test_with_str(self):
-        expect(Helper.is_str_or_unicode('a')).to.eq(True)
-
-    def test_with_unicode(self):
-        expect(Helper.is_str_or_unicode(u'a')).to.eq(True)
-
-    def test_with_int(self):
-        expect(Helper.is_str_or_unicode(1)).to.eq(False)
-
-
-class TestUnicodeToStr(TestCase):
-    def test_unicode_to_str(self):
-        self.assertEqual(Helper.unicode_to_str(u'Mèo'), u'Mèo'.encode('utf-8'))
+class TestUnicodeStringToStr(TestCase):
+    def test_unicode_string_to_str(self):
+        self.assertEqual(Helper.unicode_string_to_str(u'Mèo'), u'Mèo'.encode('utf-8'))
 
 
 class TestUnicodeListToStrList(TestCase):
-    def test_with_simple_list(self):
-        u_list = [u'Mèo', u'Chó']
-        str_list = ['Mèo', 'Chó']
-        self.assertEqual(Helper.unicode_list_to_str_list(u_list), str_list)
-
-    def test_with_multi_level_list(self):
-        u_list = [[u'Mèo'], [u'Chó']]
-        str_list = [['Mèo'], ['Chó']]
-        self.assertEqual(Helper.unicode_list_to_str_list(u_list), str_list)
+    @patch('tests.test_helper.Helper.unicode_to_str')
+    def test_unicode_list_to_str_list(self, mock_unicode_to_str):
+        Helper.unicode_list_to_str_list([u'Mèo', u'Chó'])
+        mock_unicode_to_str.assert_any_call(u'Mèo')
+        mock_unicode_to_str.assert_any_call(u'Chó')
 
 
 class TestUnicodeDictToStrDict(TestCase):
-    def test_with_simple_dict(self):
+    @patch('tests.test_helper.Helper.unicode_to_str')
+    def test_unicode_dict_to_str_dict(self, mock_unicode_to_str):
         u_dict = {
             'cat': u'Mèo',
             'dog': u'Chó',
         }
-        str_dict = {
-            'cat': 'Mèo',
-            'dog': 'Chó',
-        }
-        self.assertEqual(Helper.unicode_dict_to_str_dict(u_dict), str_dict)
+        Helper.unicode_dict_to_str_dict(u_dict)
+        mock_unicode_to_str.assert_any_call(u'Mèo')
+        mock_unicode_to_str.assert_any_call(u'Chó')
 
-    def test_with_multi_level_dict(self):
+
+class TestUnicodeToStr(TestCase):
+    @patch('tests.test_helper.Helper.unicode_string_to_str')
+    def test_with_unicode_string(self, mock_unicode_string_to_str):
+        Helper.unicode_to_str(u'Mèo')
+        # python <= 2.7
+        if sys.version_info[0] < 3:
+            mock_unicode_string_to_str.assert_called_with(u'Mèo')
+        else:
+            mock_unicode_string_to_str.assert_not_called()
+
+    @patch('tests.test_helper.Helper.unicode_list_to_str_list')
+    def test_with_unicode_list(self, mock_unicode_list_to_str_list):
+        Helper.unicode_to_str([u'Mèo', u'Chó'])
+        mock_unicode_list_to_str_list.assert_called_with([u'Mèo', u'Chó'])
+
+    @patch('tests.test_helper.Helper.unicode_dict_to_str_dict')
+    def test_with_unicode_dict(self, mock_unicode_dict_to_str_dict):
         u_dict = {
-            'd1': {'cat': u'Mèo'},
-            'd2': {'dog': u'Chó'},
+            'cat': u'Mèo',
+            'dog': u'Chó',
         }
-        str_dict = {
-            'd1': {'cat': 'Mèo'},
-            'd2': {'dog': 'Chó'},
-        }
-        self.assertEqual(Helper.unicode_dict_to_str_dict(u_dict), str_dict)
+        Helper.unicode_to_str(u_dict)
+        mock_unicode_dict_to_str_dict.assert_called_with(u_dict)
