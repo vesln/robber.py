@@ -2,7 +2,7 @@ from difflib import Differ
 
 from robber import expect
 from robber.explanation import Explanation
-from robber.helper import Helper
+from robber.helper import unicode_to_str
 from robber.matchers.base import Base
 
 
@@ -64,8 +64,8 @@ class Equal(Base):
         return 'Diffs:\n{0}'.format('\n'.join(diffs))
 
     def standardize_args(self):
-        self.actual = Helper.unicode_to_str(self.actual)
-        self.expected = Helper.unicode_to_str(self.expected)
+        self.actual = unicode_to_str(self.actual)
+        self.expected = unicode_to_str(self.expected)
 
 
 expect.register('eq', Equal)

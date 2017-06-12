@@ -2,7 +2,7 @@ from mock import call
 
 from robber import expect
 from robber.explanation import Explanation
-from robber.helper import Helper
+from robber.helper import build_expected_params_string, build_called_params_string
 from robber.matchers.base import Base
 
 
@@ -19,7 +19,7 @@ class CalledWith(Base):
 
     @property
     def explanation(self):
-        expected_args = Helper.build_expected_params_string(
+        expected_args = build_expected_params_string(
             expected=self.expected, args=self.args, kwargs=self.kwargs
         )
 
@@ -29,7 +29,7 @@ class CalledWith(Base):
                 more_detail='Actually not called', force_disable_repr=True
             )
 
-        called_params = Helper.build_called_params_string(self.actual.call_args)
+        called_params = build_called_params_string(self.actual.call_args)
         return Explanation(
             self.actual, self.is_negative, 'be called with', expected_args,
             other=called_params, force_disable_repr=True

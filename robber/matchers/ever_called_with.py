@@ -2,7 +2,7 @@ from mock import call
 
 from robber import expect
 from robber.explanation import Explanation
-from robber.helper import Helper
+from robber.helper import build_expected_params_string
 from robber.matchers.base import Base
 
 
@@ -20,7 +20,7 @@ class EverCalledWith(Base):
 
     @property
     def explanation(self):
-        expected_args = Helper.build_expected_params_string(
+        expected_args = build_expected_params_string(
             expected=self.expected, args=self.args, kwargs=self.kwargs
         )
         return Explanation(

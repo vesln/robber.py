@@ -2,7 +2,7 @@ from mock import call
 
 from robber import expect
 from robber.explanation import Explanation
-from robber.helper import Helper
+from robber.helper import build_expected_params_string, build_called_params_string
 from robber.matchers.base import Base
 
 
@@ -21,7 +21,7 @@ class CalledOnceWith(Base):
 
     @property
     def explanation(self):
-        expected_args = Helper.build_expected_params_string(
+        expected_args = build_expected_params_string(
             expected=self.expected, args=self.args, kwargs=self.kwargs
         )
 
@@ -31,7 +31,7 @@ class CalledOnceWith(Base):
                 more_detail='Actually not called', force_disable_repr=True
             )
 
-        called_args = Helper.build_called_params_string(self.actual.call_args)
+        called_args = build_called_params_string(self.actual.call_args)
         additional_info = 'Actually called {call_count} times with Z'.format(call_count=self.actual.call_count)
 
         return Explanation(
