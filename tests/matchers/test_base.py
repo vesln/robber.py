@@ -25,7 +25,7 @@ class TestBase(unittest.TestCase):
         try:
             matcher.match()
         except BadExpectation as failure:
-            expect(failure.message).to.eq(colored('Failure message', 'red'))
+            expect(failure.message).to.eq('Failure message')
         else:
             raise BadExpectation('it should raise an exception')
 
