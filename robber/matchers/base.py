@@ -29,6 +29,7 @@ class Base:
             return expect(self.actual)
 
         message = self.message or self.explanation.message
+        # raise BadExpectation(colored(message, 'red'))
         raise BadExpectation(colored(message, 'red'))
 
     @property
