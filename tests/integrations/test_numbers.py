@@ -55,6 +55,7 @@ class TestWithinIntegrations(TestCase):
 
 
 class TestChangeIntegrations(TestCase):
+    @must_fail
     def test_change_by_success(self):
         expect(lambda x: x + 1).to.change(0).by(1)
 

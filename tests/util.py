@@ -28,6 +28,9 @@ def reset():
 
 
 def must_fail(fn):
+    """
+    This checks if every expectation in a test fails.
+    """
     def test_decorated(self, *args, **kwargs):
         Base.match = new_match
         fn(self, *args, **kwargs)

@@ -1,5 +1,3 @@
-from termcolor import colored
-
 from robber.bad_expectation import BadExpectation
 from robber.expect import expect
 

@@ -1,7 +1,5 @@
 import unittest
 
-from termcolor import colored
-
 from robber import expect, BadExpectation
 from robber.matchers.base import Base
 from tests.fixtures import TestWillMatch, TestWontMatch

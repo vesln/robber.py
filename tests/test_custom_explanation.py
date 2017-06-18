@@ -1,7 +1,5 @@
 from unittest import TestCase
 
-from termcolor import colored
-
 from robber import expect, BadExpectation, CustomExplanation
 
 
