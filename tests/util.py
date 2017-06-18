@@ -31,6 +31,7 @@ def must_fail(fn):
     """
     This checks if every expectation in a test fails.
     """
+
     def test_decorated(self, *args, **kwargs):
         Base.match = new_match
         fn(self, *args, **kwargs)
@@ -43,5 +44,7 @@ def must_fail(fn):
             raise BadExpectation(message)
 
         reset()
+
+    test_decorated.__name__ = fn.__name__
 
     return test_decorated
