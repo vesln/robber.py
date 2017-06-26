@@ -5,6 +5,13 @@ from robber.explanation import Explanation
 from robber.helper import unicode_to_str
 from robber.matchers.base import Base
 
+try:
+    from collections import OrderedDict
+except ImportError:
+    ordered_dict_available = False
+else:
+    ordered_dict_available = True
+
 
 class Equal(Base):
     """
@@ -20,14 +27,20 @@ class Equal(Base):
 
     @property
     def explanation(self):
+        more_detail = None
+
         if type(self.actual) is dict and type(self.expected) is dict:
             more_detail = self.dict_diffs
+
         elif type(self.actual) is list and type(self.expected) is list:
             more_detail = self.list_diffs
+
         elif type(self.actual) is str and type(self.expected) is str:
             more_detail = self.str_diffs
-        else:
-            more_detail = None
+
+        elif ordered_dict_available:
+            if type(self.actual) in (OrderedDict, dict) and type(self.expected) in (OrderedDict, dict):
+                more_detail = self.dict_diffs
 
         return Explanation(self.actual, self.is_negative, 'equal', self.expected, more_detail=more_detail)
 
@@ -66,6 +79,12 @@ class Equal(Base):
     def standardize_args(self):
         self.actual = unicode_to_str(self.actual)
         self.expected = unicode_to_str(self.expected)
+
+        if ordered_dict_available:
+            if type(self.actual) is OrderedDict:
+                self.actual = dict(self.actual)
+            if type(self.expected) is OrderedDict:
+                self.expected = dict(self.expected)
 
 
 expect.register('eq', Equal)

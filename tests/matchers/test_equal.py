@@ -144,3 +144,18 @@ class TestStandardizeArgs(TestCase):
         equal.matches()
         self.assertEqual(equal.actual, str_dict)
         self.assertEqual(equal.expected, str_dict)
+
+    def test_if_ordered_dict_is_converted_to_dict(self):
+        try:
+            from collections import OrderedDict
+        except ImportError:
+            pass
+        else:
+            d = {'a': '1', 'b': '2', 'c': '3'}
+            od = OrderedDict(d)
+
+            equal = Equal(od, od)
+            equal.matches()
+
+            self.assertEqual(equal.actual, d)
+            self.assertEqual(equal.expected, d)
