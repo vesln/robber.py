@@ -14,23 +14,35 @@ class Contain(Base):
         expected_list.insert(0, self.expected)
 
         if not self.is_negative:
-            excluded_args = set(expected_list).difference(self.actual)
-            try:
-                self.expected_arg = excluded_args.pop()
-            except KeyError:
-                return True
-            else:
-                return False
+            included, self.expected_arg = self._contain(self.actual, expected_list)
+            return included
 
         else:
+            excluded, self.expected_arg = self._exclude(self.actual, expected_list)
             # As this is the negative case, we have to flip the return value.
-            included_args = set(expected_list).intersection(self.actual)
-            try:
-                self.expected_arg = included_args.pop()
-            except KeyError:
-                return False
-            else:
-                return True
+            return not excluded
+
+    @staticmethod
+    def _contain(source_list, target_list):
+        # checks if source_list includes target_list and returns the first excluded element if yes
+        excluded_elements = set(target_list).difference(source_list)
+        try:
+            first_excluded_element = excluded_elements.pop()
+        except KeyError:
+            return True, None
+        else:
+            return False, first_excluded_element
+
+    @staticmethod
+    def _exclude(source_list, target_list):
+        # checks if source_list excludes target_list and returns the first included element if yes
+        included_elements = set(target_list).intersection(source_list)
+        try:
+            first_included_element = included_elements.pop()
+        except KeyError:
+            return True, None
+        else:
+            return False, first_included_element
 
     @property
     def explanation(self):
