@@ -123,3 +123,7 @@ But it happened
 
     def test_register(self):
         expect(expect.matcher('change')) == Change
+
+    def test_success_message(self):
+        change = Change(lambda x: x + 2, 1).by(2)
+        expect(change).to.eq(True)

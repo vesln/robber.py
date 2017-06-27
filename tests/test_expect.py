@@ -41,9 +41,8 @@ class TestExpectation(unittest.TestCase):
         expect(expect).to.have.chain('have')
 
     def test_chaining(self):
-        expect(expect)\
-            .to.have.chain('to')\
-            .to.have.chain('be')
+        expectation = expect(object)
+        expect(expectation.to).to.equal(expectation.to.be)
 
     def test_multiple_not_to_success(self):
         expect(1).eq(1)
