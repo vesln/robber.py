@@ -14,20 +14,23 @@ class Contain(Base):
         expected_list.insert(0, self.expected)
 
         if not self.is_negative:
-            for expected in expected_list:
-                if expected not in self.actual:
-                    self.expected_arg = expected
-                    return False
+            excluded_args = set(expected_list).difference(self.actual)
+            try:
+                self.expected_arg = excluded_args.pop()
+            except KeyError:
+                return True
+            else:
+                return False
 
-            return True
         else:
             # As this is the negative case, we have to flip the return value.
-            for expected in expected_list:
-                if expected in self.actual:
-                    self.expected_arg = expected
-                    return True
-
-            return False
+            included_args = set(expected_list).intersection(self.actual)
+            try:
+                self.expected_arg = included_args.pop()
+            except KeyError:
+                return False
+            else:
+                return True
 
     @property
     def explanation(self):
