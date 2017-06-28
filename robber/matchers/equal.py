@@ -27,18 +27,15 @@ class Equal(Base):
 
     @property
     def explanation(self):
+        types = [dict, list, str]
+        diffs = ['dict_diffs', 'list_diffs', 'str_diffs']
         more_detail = None
 
-        if type(self.actual) is dict and type(self.expected) is dict:
-            more_detail = self.dict_diffs
+        for t, d in zip(types, diffs):
+            if type(self.actual) is t and type(self.expected) is t:
+                more_detail = getattr(self, d)
 
-        elif type(self.actual) is list and type(self.expected) is list:
-            more_detail = self.list_diffs
-
-        elif type(self.actual) is str and type(self.expected) is str:
-            more_detail = self.str_diffs
-
-        elif ordered_dict_available:
+        if ordered_dict_available:
             if type(self.actual) in (OrderedDict, dict) and type(self.expected) in (OrderedDict, dict):
                 more_detail = self.dict_diffs
 
