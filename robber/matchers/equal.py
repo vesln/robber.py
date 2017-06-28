@@ -39,14 +39,17 @@ class Equal(Base):
                 val_a = self.actual[k]
                 val_b = self.expected[k]
                 if not val_a == val_b:
-                    return "A['{key}'] = {val_a} while B['{key}'] = {val_b}".format(key=k, val_a=val_a, val_b=val_b)
+                    return """Diffs:
+A['{key}'] = {val_a}
+B['{key}'] = {val_b}
+""".format(key=k, val_a=val_a, val_b=val_b)
             except KeyError:
                 return "A has key '{k}' while B does not".format(k=k)
 
     @property
     def list_diffs(self):
         if len(self.actual) != len(self.expected):
-            return 'A and B does not have the same length'
+            return 'A and B do not have the same length'
 
         for m in self.actual:
             if m not in self.expected:

@@ -36,7 +36,10 @@ class TestDictDiff:
         d1 = {'a': 1, 'b': 2}
         d2 = {'a': 1, 'b': 3}
         equal = Equal(d1, d2)
-        expect(equal.dict_diffs).to.eq("A['b'] = 2 while B['b'] = 3")
+        expect(equal.dict_diffs).to.eq("""Diffs:
+A['b'] = 2
+B['b'] = 3
+""")
 
 
 class TestListDiff:
@@ -44,7 +47,7 @@ class TestListDiff:
         l1 = [1]
         d2 = [1, 2]
         equal = Equal(l1, d2)
-        expect(equal.list_diffs).to.eq('A and B does not have the same length')
+        expect(equal.list_diffs).to.eq('A and B do not have the same length')
 
     def test_list_diffs_with_different_member(self):
         l1 = [1, 2]
