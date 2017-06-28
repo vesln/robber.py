@@ -12,8 +12,13 @@ class CalledWith(Base):
     """
 
     def matches(self):
+        if self.expected:
+            call_args = call(self.expected, *self.args, **self.kwargs)
+        else:
+            call_args = call(*self.args, **self.kwargs)
+
         try:
-            return self.actual.called and self.actual.call_args == call(self.expected, *self.args, **self.kwargs)
+            return self.actual.called and self.actual.call_args == call_args
         except AttributeError:
             raise TypeError('{actual} is not a mock'.format(actual=self.actual))
 

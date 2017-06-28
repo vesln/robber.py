@@ -17,6 +17,11 @@ class TestCalledWithIntegrations(TestCase):
         mock(1, 2, 3, a=4, b=5)
         expect(mock).to.be.called_with(1, 2, 3, a=4, b=5)
 
+    def test_called_with_only_kwargs_success(self):
+        mock = Mock()
+        mock(a=4, b=5)
+        expect(mock).to.be.called_with(a=4, b=5)
+
     @must_fail
     def test_not_called(self):
         mock = Mock()
@@ -33,6 +38,12 @@ class TestCalledWithIntegrations(TestCase):
         mock = Mock()
         mock(1, 2, 3)
         expect(mock).to.be.called_with(1, 2, 3, a=4, b=5)
+
+    @must_fail
+    def test_called_with_only_kwargs_failure(self):
+        mock = Mock()
+        mock(a=1, b=2)
+        expect(mock).to.be.called_with(a=4, b=5)
 
     def test_called_not_a_mock(self):
         self.assertRaises(TypeError, expect('a').to.be.called_with, 1)

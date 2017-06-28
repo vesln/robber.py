@@ -12,12 +12,18 @@ class CalledOnceWith(Base):
     """
 
     def matches(self):
+        if self.expected:
+            call_args = call(self.expected, *self.args, **self.kwargs)
+        else:
+            call_args = call(*self.args, **self.kwargs)
+
         try:
             called_once = self.actual.call_count == 1
-            called_with = self.actual.call_args == call(self.expected, *self.args, **self.kwargs)
-            return called_once and called_with
+            called_with = self.actual.call_args == call_args
         except AttributeError:
             raise TypeError('{actual} is not a mock'.format(actual=self.actual))
+        else:
+            return called_once and called_with
 
     @property
     def explanation(self):

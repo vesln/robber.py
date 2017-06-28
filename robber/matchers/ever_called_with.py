@@ -13,8 +13,13 @@ class EverCalledWith(Base):
     """
 
     def matches(self):
+        if self.expected:
+            call_args = call(self.expected, *self.args, **self.kwargs)
+        else:
+            call_args = call(*self.args, **self.kwargs)
+
         try:
-            return call(self.expected, *self.args, **self.kwargs) in self.actual.call_args_list
+            return call_args in self.actual.call_args_list
         except AttributeError:
             raise TypeError('{actual} is not a mock'.format(actual=self.actual))
 
