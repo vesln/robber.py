@@ -1,43 +1,31 @@
-from mock import call
-
 from robber import expect
 from robber.explanation import Explanation
-from robber.helper import Helper
 from robber.matchers.base import Base
+from robber.matchers.mock_mixin import MockMixin
 
 
-class CalledWith(Base):
+class CalledWith(Base, MockMixin):
     """
     expect(mock).to.be.called_with(*args, **kwargs)
     """
 
     def matches(self):
-        if self.expected:
-            call_args = call(self.expected, *self.args, **self.kwargs)
-        else:
-            call_args = call(*self.args, **self.kwargs)
-
         try:
-            return self.actual.called and self.actual.call_args == call_args
+            return self.actual.called and self.actual.call_args == self.call_args
         except AttributeError:
             raise TypeError('{actual} is not a mock'.format(actual=self.actual))
 
     @property
     def explanation(self):
-        expected_args = Helper.build_expected_params_string(
-            expected=self.expected, args=self.args, kwargs=self.kwargs
-        )
-
         if not self.actual.called:
             return Explanation(
-                self.actual, self.is_negative, 'be called with', expected_args,
+                self.actual, self.is_negative, 'be called with', self.expected_args_str,
                 more_detail='Actually not called', force_disable_repr=True
             )
 
-        called_params = Helper.build_called_params_string(self.actual.call_args)
         return Explanation(
-            self.actual, self.is_negative, 'be called with', expected_args,
-            other=called_params, force_disable_repr=True
+            self.actual, self.is_negative, 'be called with', self.expected_args_str,
+            other=self.call_args_str, force_disable_repr=True
         )
 
 
