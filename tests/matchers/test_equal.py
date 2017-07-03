@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from unittest import TestCase
 
 from mock import patch
@@ -114,3 +116,31 @@ Expected A not to equal B
         equal = Equal(l1, l2)
 
         expect('Some diffs' in equal.explanation.message).to.eq(True)
+
+
+class TestStandardizeArgs(TestCase):
+    def test_if_unicode_string_is_converted_to_str(self):
+        equal = Equal(u'Mèo', u'Mèo')
+        equal.matches()
+        self.assertEqual(equal.actual, 'Mèo')
+        self.assertEqual(equal.expected, 'Mèo')
+
+    def test_if_unicode_list_is_converted_to_str_list(self):
+        equal = Equal([u'Mèo', u'Chó'], [u'Mèo', u'Chó'])
+        equal.matches()
+        self.assertEqual(equal.actual, ['Mèo', 'Chó'])
+        self.assertEqual(equal.expected, ['Mèo', 'Chó'])
+
+    def test_if_unicode_dict_is_converted_to_str_dict(self):
+        u_dict = {
+            'cat': u'Mèo',
+            'dog': u'Chó',
+        }
+        str_dict = {
+            'cat': 'Mèo',
+            'dog': 'Chó',
+        }
+        equal = Equal(u_dict, u_dict)
+        equal.matches()
+        self.assertEqual(equal.actual, str_dict)
+        self.assertEqual(equal.expected, str_dict)
