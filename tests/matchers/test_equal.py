@@ -2,8 +2,7 @@
 
 from unittest import TestCase
 
-from mock import patch
-from mock.mock import PropertyMock
+from mock import patch, PropertyMock
 
 from robber import expect
 from robber.matchers.equal import Equal

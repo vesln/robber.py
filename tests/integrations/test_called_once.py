@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from mock.mock import Mock
+from mock import Mock
 
 from robber import expect
 from tests import must_fail
