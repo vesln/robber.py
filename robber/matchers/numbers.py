@@ -62,7 +62,7 @@ class Change(Base):
         message = self.message or self.explanation.message
 
         if (self.changed == amount) == (not self.is_negative):
-            return expect(self.obj)
+            return True
 
         raise BadExpectation(message)
 

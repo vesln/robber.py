@@ -35,3 +35,7 @@ class TestBase(unittest.TestCase):
 
         expect(negated_base.negative_message).to.eq(' not')
         expect(positive_base.negative_message).to.eq('')
+
+    def test_match(self):
+        matcher = TestWillMatch('actual', 'expected')
+        expect(matcher.match()).to.eq(True)
