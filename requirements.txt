@@ -1,2 +1,6 @@
-mock==2.0.0
-termcolor==1.1.0
+coverage
+flake8
+mock
+nose
+termcolor
+tox
