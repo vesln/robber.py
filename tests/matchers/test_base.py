@@ -1,7 +1,5 @@
 import unittest
 
-from termcolor import colored
-
 from robber import expect, BadExpectation
 from robber.matchers.base import Base
 from tests.fixtures import TestWillMatch, TestWontMatch
@@ -25,7 +23,7 @@ class TestBase(unittest.TestCase):
         try:
             matcher.match()
         except BadExpectation as failure:
-            expect(failure.message).to.eq(colored('Failure message', 'red'))
+            expect(failure.message).to.eq('Failure message')
         else:
             raise BadExpectation('it should raise an exception')
 
@@ -35,3 +33,7 @@ class TestBase(unittest.TestCase):
 
         expect(negated_base.negative_message).to.eq(' not')
         expect(positive_base.negative_message).to.eq('')
+
+    def test_match(self):
+        matcher = TestWillMatch('actual', 'expected')
+        expect(matcher.match()).to.eq(True)

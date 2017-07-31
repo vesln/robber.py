@@ -18,6 +18,17 @@ class TestCalledOnceWithIntegrations(TestCase):
         mock(1, 2, 3)
         expect(mock).to.be.called_once_with(1, 2, 3, a=4, b=5)
 
+    def test_called_once_with_only_kwargs_success(self):
+        mock = Mock()
+        mock(a=4, b=5)
+        expect(mock).to.be.called_once_with(a=4, b=5)
+
+    @must_fail
+    def test_called_once_with_only_kwargs_failure(self):
+        mock = Mock()
+        mock(a=1, b=2)
+        expect(mock).to.be.called_once_with(a=4, b=5)
+
     @must_fail
     def test_not_called(self):
         mock = Mock()
