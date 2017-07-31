@@ -206,8 +206,8 @@ expect(2).to.be.within(0, 2)
 
 Asserts that the target contains an element, or a key:
 ```python
-expect([1,2,3]).to.contain(2)
-expect({'foo': 'bar'}).to.contain('foo')
+expect([1,2,3]).to.contain(1, 2, 3)
+expect({'foo': 'bar', 'foo1': 'bar1'}).to.contain('foo', 'foo1')
 ```
 
 #### exclude

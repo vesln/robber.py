@@ -1,3 +1,6 @@
+from termcolor import colored
+
+
 class BadExpectation(Exception):
     """
     Raised when an assertion fails.
@@ -8,4 +11,4 @@ class BadExpectation(Exception):
         self.message = message
 
     def __str__(self):
-        return self.message
+        return colored(self.message, 'red')

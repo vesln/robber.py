@@ -1,7 +1,5 @@
 from unittest import TestCase
 
-from termcolor import colored
-
 from robber import expect, BadExpectation, CustomExplanation
 
 
@@ -11,6 +9,6 @@ class TestCustomExplanation(TestCase):
             with CustomExplanation('Something went wrong'):
                 expect(1).to.eq(2)
         except BadExpectation as e:
-            expect(e.message) == colored('Something went wrong', 'red')
+            expect(e.message) == 'Something went wrong'
         else:
-            raise BadExpectation(colored('must fail with custom message', 'red'))
+            raise BadExpectation('must fail with custom message')

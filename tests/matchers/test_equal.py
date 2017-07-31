@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import sys
 from unittest import TestCase
 
 from mock import patch, PropertyMock
@@ -37,7 +38,10 @@ class TestDictDiff:
         d1 = {'a': 1, 'b': 2}
         d2 = {'a': 1, 'b': 3}
         equal = Equal(d1, d2)
-        expect(equal.dict_diffs).to.eq("A['b'] = 2 while B['b'] = 3")
+        expect(equal.dict_diffs).to.eq("""Diffs:
+A['b'] = 2
+B['b'] = 3
+""")
 
 
 class TestListDiff:
@@ -45,7 +49,7 @@ class TestListDiff:
         l1 = [1]
         d2 = [1, 2]
         equal = Equal(l1, d2)
-        expect(equal.list_diffs).to.eq('A and B does not have the same length')
+        expect(equal.list_diffs).to.eq('A and B do not have the same length')
 
     def test_list_diffs_with_different_member(self):
         l1 = [1, 2]
@@ -143,3 +147,55 @@ class TestStandardizeArgs(TestCase):
         equal.matches()
         self.assertEqual(equal.actual, str_dict)
         self.assertEqual(equal.expected, str_dict)
+
+
+class TestUnicodeStringToStr(TestCase):
+    def test_unicode_string_to_str(self):
+        self.assertEqual(Equal._unicode_string_to_str(u'Mèo'), u'Mèo'.encode('utf-8'))
+
+
+class TestUnicodeListToStrList(TestCase):
+    @patch('robber.matchers.equal.Equal.unicode_to_str')
+    def test_unicode_list_to_str_list(self, mock_unicode_to_str):
+        Equal._unicode_list_to_str_list([u'Mèo', u'Chó'])
+        mock_unicode_to_str.assert_any_call(u'Mèo')
+        mock_unicode_to_str.assert_any_call(u'Chó')
+
+
+class TestUnicodeDictToStrDict(TestCase):
+    @patch('robber.matchers.equal.Equal.unicode_to_str')
+    def test_unicode_dict_to_str_dict(self, mock_unicode_to_str):
+        u_dict = {
+            'cat': u'Mèo',
+            'dog': u'Chó',
+        }
+
+        Equal._unicode_dict_to_str_dict(u_dict)
+
+        mock_unicode_to_str.assert_any_call(u'Mèo')
+        mock_unicode_to_str.assert_any_call(u'Chó')
+
+
+class TestUnicodeToStr(TestCase):
+    @patch('robber.matchers.equal.Equal._unicode_string_to_str')
+    def test_with_unicode_string(self, mock_unicode_string_to_str):
+        Equal.unicode_to_str(u'Mèo')
+        # python <= 2.7
+        if sys.version_info[0] < 3:
+            mock_unicode_string_to_str.assert_called_with(u'Mèo')
+        else:
+            mock_unicode_string_to_str.assert_not_called()
+
+    @patch('robber.matchers.equal.Equal._unicode_list_to_str_list')
+    def test_with_unicode_list(self, mock_unicode_list_to_str_list):
+        Equal.unicode_to_str([u'Mèo', u'Chó'])
+        mock_unicode_list_to_str_list.assert_called_with([u'Mèo', u'Chó'])
+
+    @patch('robber.matchers.equal.Equal._unicode_dict_to_str_dict')
+    def test_with_unicode_dict(self, mock_unicode_dict_to_str_dict):
+        u_dict = {
+            'cat': u'Mèo',
+            'dog': u'Chó',
+        }
+        Equal.unicode_to_str(u_dict)
+        mock_unicode_dict_to_str_dict.assert_called_with(u_dict)

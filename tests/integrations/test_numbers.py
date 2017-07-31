@@ -1,5 +1,7 @@
 from unittest import TestCase
 
+from robber.bad_expectation import BadExpectation
+
 from robber import expect
 from tests import must_fail
 
@@ -53,16 +55,26 @@ class TestWithinIntegrations(TestCase):
 
 
 class TestChangeIntegrations(TestCase):
+    @must_fail
     def test_change_by_success(self):
         expect(lambda x: x + 1).to.change(0).by(1)
 
-    @must_fail
+    # New must_fail does not work with custom chains like this, we have to wrap it manually
     def test_change_by_failure(self):
-        expect(lambda x: x + 1).to.change(0).by(2)
+        try:
+            expect(lambda x: x + 1).to.change(0).by(2)
+        except BadExpectation:
+            pass
+        else:
+            raise BadExpectation('it must fail')
 
     def test_not_change_by_success(self):
         expect(lambda x: x + 1).not_to.change(0).by(2)
 
-    @must_fail
     def test_not_change_by_failure(self):
-        expect(lambda x: x + 1).not_to.change(0).by(1)
+        try:
+            expect(lambda x: x + 1).not_to.change(0).by(1)
+        except BadExpectation:
+            pass
+        else:
+            raise BadExpectation('it must fail')
