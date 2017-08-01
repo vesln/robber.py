@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='robber',
-    version='1.0.1',
+    version='1.1.1',
     description='BDD / TDD assertion library for Python',
     author='Tao Liang',
     author_email='tao@synapse-ai.com',
