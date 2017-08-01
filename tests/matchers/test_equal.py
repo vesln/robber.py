@@ -6,7 +6,7 @@ from unittest import TestCase
 from mock import patch, PropertyMock
 
 from robber import expect
-from robber.matchers.equal import Equal
+from robber.matchers.equal import Equal, ordered_dict_available
 
 
 class TestEqual:
@@ -148,6 +148,21 @@ class TestStandardizeArgs(TestCase):
         self.assertEqual(equal.actual, str_dict)
         self.assertEqual(equal.expected, str_dict)
 
+    def test_if_ordered_dict_is_converted_to_dict(self):
+        try:
+            from collections import OrderedDict
+        except ImportError:
+            pass
+        else:
+            d = {'a': '1', 'b': '2', 'c': '3'}
+            od = OrderedDict(d)
+
+            equal = Equal(od, od)
+            equal.matches()
+
+            self.assertEqual(equal.actual, d)
+            self.assertEqual(equal.expected, d)
+
 
 class TestUnicodeStringToStr(TestCase):
     def test_unicode_string_to_str(self):
@@ -199,3 +214,11 @@ class TestUnicodeToStr(TestCase):
         }
         Equal.unicode_to_str(u_dict)
         mock_unicode_dict_to_str_dict.assert_called_with(u_dict)
+
+
+class TestOrderedDictImporting(TestCase):
+    def test_ordered_dict_importing(self):
+        if sys.version_info < (2, 7):
+            expect(ordered_dict_available).to.be.eq(False)
+        else:
+            expect(ordered_dict_available).to.be.eq(True)
