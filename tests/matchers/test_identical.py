@@ -1,32 +1,29 @@
-import unittest
 from robber import expect
-from robber.matchers.identical import Identical, NotIdentical
+from robber.matchers.identical import Identical
+
 
 class TestIdentical:
     def test_matches(self):
-        expect(Identical(1, 1).matches()) == True
-        expect(Identical({0: 1}, {0: 1}).matches()) == False
+        expect(Identical(1, 1).matches()).to.eq(True)
+        expect(Identical({0: 1}, {0: 1}).matches()).to.eq(False)
 
-    def test_failure_message(self):
+    def test_explanation_message(self):
         identical = Identical('actual', 'expected')
-        message = identical.failure_message()
-        expect(message) == 'Expected "actual" to be "expected"'
+        message = identical.explanation.message
+        expect(message) == """
+A = actual
+B = expected
+Expected A to be B
+"""
+
+    def test_negative_explanation_message(self):
+        identical = Identical('actual', 'actual', is_negative=True)
+        message = identical.explanation.message
+        expect(message) == """
+A = actual
+B = actual
+Expected A not to be B
+"""
 
     def test_register(self):
         expect(expect.matcher('equal')) == Identical
-
-class TestNotIdentical:
-    def test_matches(self):
-        expect(NotIdentical({0: 1}, {0: 1}).matches()) == True
-        expect(NotIdentical(1, 1).matches()) == False
-
-        expect(NotIdentical({0: 1}, {0: 1}).matches()) == True
-        expect(NotIdentical(1, 1).matches()) == False
-
-    def test_failure_message(self):
-        identical = NotIdentical('actual', 'expected')
-        message = identical.failure_message()
-        expect(message) == 'Expected "actual" not to be "expected"'
-
-    def test_register(self):
-        expect(expect.matcher('not_equal')) == NotIdentical

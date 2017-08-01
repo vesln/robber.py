@@ -23,6 +23,11 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Software Development :: Testing'
     ],
-    install_requires=['mock'],
-    tests_require=['nose'],
+    install_requires=[
+        'mock',
+        'termcolor'
+    ],
+    tests_require=[
+        'nose'
+    ],
 )

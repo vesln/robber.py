@@ -1,11 +1,8 @@
 [![Build Status](https://secure.travis-ci.org/taoenator/robber.py.png)](http://travis-ci.org/taoenator/robber.py)
 [![Coverage Status](https://coveralls.io/repos/github/taoenator/robber.py/badge.svg?branch=master)](https://coveralls.io/github/taoenator/robber.py?branch=master)
-
+[![Code Climate](https://codeclimate.com/github/vesln/robber.py/badges/gpa.svg)](https://codeclimate.com/github/vesln/robber.py)
 
 # robber.py - BDD / TDD assertion library for Python.
-## Supported python versions
-- `robber.py` now supports python 2.6, 2.7, 3.4, 3.5 and python 3.6
-
 ## Synopsis
 
 In order to use `robber`, you need to import `expect`
@@ -33,13 +30,12 @@ Also:
 expect(1) == 1
 ```
 
-#### ne/not_eq/!=
+#### ne/!=
 
 Asserts that actual is not equal (!=) to expected:
 
 ```python
 expect(1).to.ne(2)
-expect(1).to.not_eq(2)
 expect(1).to != 2
 expect(1) != 2
 ```
@@ -50,14 +46,6 @@ Asserts that the target is identical (is) to the expected:
 
 ```python
 expect(1).to.equal(1)
-```
-
-#### not_equal
-
-Asserts that the target is not identical (is) to the expected:
-
-```python
-expect({ 'test': 'robber' }).to.not_equal({ 'test': 'robber' })
 ```
 
 #### true
@@ -90,14 +78,6 @@ Asserts that the target can be matched by a regular expression:
 
 ```python
 expect('foo').to.match(r'foo')
-```
-
-#### not_match
-
-Asserts that the target can not be matched by a regular expression:
-
-```python
-expect('bar').to.not_match(r'foo')
 ```
 
 #### respond_to
@@ -140,15 +120,6 @@ Asserts that the target is empty:
 ```python
 expect([]).to.be.empty()
 expect('').to.be.empty()
-```
-
-#### not_empty
-
-Asserts that the target is nonempty:
-
-```python
-expect([1, 2, 3]).to.be.not_empty()
-expect('foo').to.be.not_empty()
 ```
 
 #### string
@@ -235,25 +206,86 @@ expect(2).to.be.within(0, 2)
 
 Asserts that the target contains an element, or a key:
 ```python
-expect([1,2,3]).to.contain(2)
-expect({'foo': 'bar'}).to.contain('foo')
+expect([1,2,3]).to.contain(1, 2, 3)
+expect({'foo': 'bar', 'foo1': 'bar1'}).to.contain('foo', 'foo1')
 ```
 
-#### not_contain/exclude
+#### exclude
 
 Asserts that the target does not contain an element, or a key:
+
 ```python
-expect([1,2,3]).to.not_contain(4)
 expect({'foo': 'bar'}).to.exclude('baz')
 ```
 
 #### throw
 
-Asserts that the target throws an exception
+Asserts that the target throws an exception (or its subclass)
 
-``` python
+```python
 expect(lambda: raise_exception(...)).to.throw(Exception)
+expect(lambda: raise_exception(...)).to.throw(ParentException)
 expect(any_callable).to.throw(Exception)
+expect(any_callable).to.throw(ParentException)
+```
+
+#### throw_exactly
+
+Asserts that the target throws exactly an exception (not its subclass)
+
+```python
+expect(lambda: raise_exception(...)).to.throw_exactly(Exception)
+expect(any_callable).to.throw_exactly(Exception)
+```
+
+#### called
+
+Asserts that a mock has been called
+
+```python
+expect(mock).to.be.called()
+```
+
+#### called_once
+
+Asserts that a mock has been called exactly one time
+
+```python
+expect(mock).to.be.called_once()
+```
+
+#### callable
+
+Asserts that a object is callable 
+
+```python
+expect(object).to.be.callable()
+```
+
+#### called_with
+
+Asserts that a mock has been called with params 
+
+```python
+expect(mock).to.be.called_with(*args, **kwargs)
+```
+
+#### called_once_with
+
+Asserts that a mock has been called once with params 
+
+```python
+expect(mock).to.be.called_once_with(*args, **kwargs)
+```
+
+#### ever_called_with
+
+Asserts that a mock has ever been called with params. 
+The call is not necessary to be to latest one (the same as assert.any_call).
+
+```python
+expect(mock).to.have.been.ever_called_with(*args, **kwargs)
+expect(mock).to.have.any_call(*args, **kwargs)
 ```
 
 ### Language chains
@@ -261,17 +293,21 @@ expect(any_callable).to.throw(Exception)
 In order to write more readable assertions, there are a few
 built-in language chains that you can use:
 
+#### Positive chains
 - to
 - be
+- been
 - a
 - an
 - have
 
+#### Negative chains
+- not_to
+
 For example, the following two lines are functionally equivalent:
 
-```
+```python
 expect(1.0).to.be.a.float()
-
 expect(1.0).float()
 ```
 
@@ -283,7 +319,7 @@ evaluations of the same expression, you can chain multiple expectations.
 For example, the following two lines are functionally equivalent.
 The first example evaluates the expression '1 + 1' only once:
 
-```
+```python
 expect(1 + 1).to.be.an.integer().to.be.within(1, 3)
 
 expect(1 + 1).to.be.an.integer()
@@ -293,8 +329,8 @@ expect(1 + 1).to.be within(1, 3)
 ### Custom assertions
 
 Writing custom assertion is as easy as extending a base
-matcher class and adding two methods - matches for matching
-and failure_message for the error notice:
+matcher class and adding the method `matches` for matching
+and the property `explanation` for the error notice:
 
 ```python
 class Chain(Base):
@@ -302,9 +338,10 @@ class Chain(Base):
         expectation = self.actual(None)
         chain = getattr(expectation, self.expected)
         return expectation is chain
-
-    def failure_message(self):
-        return 'Expected "%s" to have chain "%s"' % (self.actual, self.expected)
+    
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'have chain', self.expected)
 
 expect.register('chain', Chain)
 ```
@@ -317,31 +354,31 @@ expect(obj).to.have.chain('be')
 
 ### Custom error messages
 
-If you want to have custom failure messages, for
+If you want to have custom explanations, for
 assertion or group of assertions, you can simply do:
 
 ```python
-from robber import failure_message
+from robber import CustomExplanation
 
-with failure_message('Something went wrong'):
+with CustomExplanation('Something went wrong'):
     expect(1).to.eq(2)
 ```
 
 ## Installation
 
-```
+```bash
 $ pip install robber
 ```
 
 ## Requirements
 
-- Python 2.6, 2.7 or 3.5
+- Python 2.6, 2.7, 3.5 or 3.6
 - pip
 - nose (for testing)
 
 ## Tests
 
-```
+```bash
 $ nosetests tests/
 ```
 

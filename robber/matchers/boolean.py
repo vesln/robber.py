@@ -1,28 +1,21 @@
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
-class TrueMatcher(Base):
+class Boolean(Base):
     """
     expect(true).to.be.true()
+    expect(true).to.be.false()
     """
 
     def matches(self):
-        return self.actual == True
+        return self.actual is True
 
-    def failure_message(self):
-        return 'Expected %s to be True' % self.actual
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be True', negative_action='be False')
 
-class FalseMatcher(Base):
-    """
-    expect(false).to.be.false()
-    """
 
-    def matches(self):
-        return self.actual != True
-
-    def failure_message(self):
-        return 'Expected %s to be False' % self.actual
-
-expect.register('true', TrueMatcher)
-expect.register('false', FalseMatcher)
+expect.register('true', Boolean)
+expect.register('false', Boolean, is_negative=True)

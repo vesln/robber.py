@@ -1,4 +1,5 @@
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
@@ -7,34 +8,28 @@ class Length(Base):
     expect('str').to.have.length(3)
     expect([1, 2, 3]).to.have.length(3)
     """
+
     def matches(self):
         return len(self.actual) == self.expected
 
-    def failure_message(self):
-        return 'Expected "%s" to have a length of %d' % (self.actual, self.expected)
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'have length of', self.expected)
+
 
 class Empty(Base):
     """
     expect('').to.be.empty()
     expect([]).to.be.empty()
     """
+
     def matches(self):
         return len(self.actual) == 0
 
-    def failure_message(self):
-        return 'Expected "%s" to be empty' % self.actual
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be empty')
 
-class NotEmpty(Base):
-    """
-    expect('foo').to.be.not_empty()
-    expect([1, 2, 3]).to.be.not_empty()
-    """
-    def matches(self):
-        return len(self.actual) > 0
-
-    def failure_message(self):
-        return 'Expected "%s" to be nonempty' % self.actual
 
 expect.register('length', Length)
 expect.register('empty', Empty)
-expect.register('not_empty', NotEmpty)

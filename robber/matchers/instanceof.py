@@ -1,8 +1,9 @@
 from robber import expect
+from robber.explanation import Explanation
 from robber.matchers.base import Base
 
 
-class Instanceof(Base):
+class InstanceOf(Base):
     """
     expect(obj).to.be.an.instanceof(Klass)
     """
@@ -10,7 +11,9 @@ class Instanceof(Base):
     def matches(self):
         return isinstance(self.actual, self.expected)
 
-    def failure_message(self):
-        return 'Expected "%s" to be an instance of "%s"' % (self.actual, self.expected)
+    @property
+    def explanation(self):
+        return Explanation(self.actual, self.is_negative, 'be an instance of', self.expected)
 
-expect.register('instanceof', Instanceof)
+
+expect.register('instanceof', InstanceOf)
