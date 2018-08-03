@@ -12,22 +12,26 @@ class MockMixin:
 
     @property
     def expected_args_str(self):
-        if not self.expected:
+        if not self.expected and not self.kwargs:
             return 'no arguments'
 
-        expected_args_str = str(self.expected)
+        expected_args = []
+
+        if self.expected:
+            expected_args = [str(self.expected)]
+
         if self.args:
             # Remove the parenthesis
             match = re.search('\((.*)\)', str(self.args))
-            args_str = match.group(1)
-            expected_args_str = ', '.join((expected_args_str, args_str))
+            expected_args.append(match.group(1))
 
         if self.kwargs:
             # Convert {'a':  1, 'b': 2} to 'a=1, b=2'
             kwargs_str = ', '.join(['{0}={1!r}'.format(k, v) for k, v in self.kwargs.items()])
-            expected_args_str = ', '.join((expected_args_str, kwargs_str))
 
-        return expected_args_str
+            expected_args.append(kwargs_str)
+
+        return ', '.join(expected_args)
 
     @property
     def call_args_str(self):

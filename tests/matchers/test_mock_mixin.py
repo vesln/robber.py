@@ -52,6 +52,11 @@ class TestExpectedArgs(TestCase):
         dummy_matcher = DummyMockMatcher(Mock(), 1, False, 2, 'a')
         expect(dummy_matcher.expected_args_str).to.eq("1, 2, 'a'")
 
+    def test_with_only_kwargs(self):
+        dummy_matcher = DummyMockMatcher(Mock(), a='a')
+
+        expect(dummy_matcher.expected_args_str).to.eq("a='a'")
+
     def test_with_expected_and_kwargs(self):
         dummy_matcher = DummyMockMatcher(Mock(), 1, False, a='a', one=1)
         split_expected_args = dummy_matcher.expected_args_str.split(', ')
