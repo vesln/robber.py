@@ -1,6 +1,6 @@
 import unittest
 from robber import expect, BadExpectation
-from robber.matchers.numbers import Above, Below, Within, Change
+from robber.matchers.numbers import Above, Below, Within, Change, AboveEqual, BelowEqual
 
 
 class TestAbove(unittest.TestCase):
@@ -127,3 +127,59 @@ But it happened
     def test_success_message(self):
         change = Change(lambda x: x + 2, 1).by(2)
         expect(change).to.eq(True)
+
+
+class TestAboveOrEqual(unittest.TestCase):
+    def test_matches(self):
+        expect(AboveEqual(2, 1).matches()).to.eq(True)
+        expect(AboveEqual(1, 1).matches()).to.eq(True)
+        expect(AboveEqual(1, 2).matches()).to.eq(False)
+
+    def test_explanation_message(self):
+        above = AboveEqual(1, 2)
+        message = above.explanation.message
+        expect(message) == """
+A = 1
+B = 2
+Expected A to be above of or equal to B
+"""
+
+    def test_negative_explanation_message(self):
+        above = AboveEqual(2, 1, is_negative=True)
+        message = above.explanation.message
+        expect(message) == """
+A = 2
+B = 1
+Expected A not to be above of or equal to B
+"""
+
+    def test_register(self):
+        expect(expect.matcher('above_or_equal')) == AboveEqual
+
+
+class TestBelowEqual(unittest.TestCase):
+    def test_matches(self):
+        expect(BelowEqual(1, 2).matches()).to.eq(True)
+        expect(BelowEqual(1, 1).matches()).to.eq(True)
+        expect(BelowEqual(2, 1).matches()).to.eq(False)
+
+    def test_explanation_message(self):
+        below = BelowEqual(2, 1)
+        message = below.explanation.message
+        expect(message) == """
+A = 2
+B = 1
+Expected A to be below of or equal to B
+"""
+
+    def test_negative_explanation_message(self):
+        below = BelowEqual(1, 2, is_negative=True)
+        message = below.explanation.message
+        expect(message) == """
+A = 1
+B = 2
+Expected A not to be below of or equal to B
+"""
+
+    def test_register(self):
+        expect(expect.matcher('below_or_equal')) == BelowEqual

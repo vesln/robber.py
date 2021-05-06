@@ -194,6 +194,22 @@ Asserts that the target is below expected:
 expect(1).to.be.below(2)
 ```
 
+#### above or equal
+
+Asserts that the target is above or equal expected:
+
+```python
+expect(2).to.be.above_or_equal(1)
+```
+
+#### below or equal
+
+Asserts that the target is below or equal expected:
+
+```python
+expect(1).to.be.below_or_equal(2)
+```
+
 #### within
 
 Asserts that the target is within expected:
