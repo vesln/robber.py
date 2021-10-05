@@ -9,8 +9,8 @@ class TestBase(unittest.TestCase):
     def test_it_stores_actual_and_expected(self):
         base = Base('actual', 'expected')
 
-        expect(base.actual) == 'actual'
-        expect(base.expected) == 'expected'
+        expect(base.actual).to.eq('actual')
+        expect(base.expected).to.eq('expected')
 
     def test_it_calls_matches(self):
         matcher = TestWillMatch('actual', 'expected')
@@ -36,4 +36,4 @@ class TestBase(unittest.TestCase):
 
     def test_match(self):
         matcher = TestWillMatch('actual', 'expected')
-        expect(matcher.match()).to.eq(True)
+        expect(matcher.match()).to.eq('actual')

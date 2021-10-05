@@ -44,6 +44,9 @@ class TestExpectation(unittest.TestCase):
         expectation = expect(object)
         expect(expectation.to).to.equal(expectation.to.be)
 
+    def test_chaining_readme(self):
+        expect(1 + 1).to.be.an.integer().to.be.within(1, 3)
+
     def test_multiple_not_to_success(self):
         expect(1).eq(1)
         expect(1).not_to.not_to.eq(1)

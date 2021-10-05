@@ -24,6 +24,9 @@ class expect:
         self.not_to_flag = False
         self.__setup_chaining()
 
+    def __repr__(self):
+        return str(isinstance(self, expect))
+
     @classmethod
     def fail_with(cls, message):
         cls.message = message
